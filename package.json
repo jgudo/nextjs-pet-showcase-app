@@ -1,5 +1,6 @@
 {
-  "name": "with-mongodb-mongoose",
+  "name": "pet-sharing-app-nextjs",
+  "author": "Julius Guevarra <juliusguevarra101@gmail.com>",
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
@@ -7,11 +8,26 @@
     "start": "next start"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^3.2.0",
+    "express-session": "^1.17.1",
     "mongoose": "^5.9.13",
     "next": "latest",
+    "next-connect": "^0.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "swr": "0.2.2"
+    "swr": "^0.4.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express-session": "^1.17.3",
+    "@types/node": "^14.14.28",
+    "@types/passport": "^1.0.6",
+    "@types/passport-local": "^1.0.33",
+    "@types/react": "^17.0.2",
+    "typescript": "^4.1.5"
+  }
 }

@@ -1,15 +1,21 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+import fetcher from '@/lib/fetcher'
 import Link from 'next/link'
-import dbConnect from '../../utils/dbConnect'
-import Pet from '../../models/Pet'
+import { useRouter } from 'next/router'
+import { FC, useState } from 'react'
+import useSWR from 'swr'
 
 /* Allows you to view pet card info and delete pet card*/
-const PetPage = ({ pet }) => {
-  const router = useRouter()
-  const [message, setMessage] = useState('')
+const PetPage: FC = () => {
+  const router = useRouter();
+  const [message, setMessage] = useState('');
+  const { id } = router.query
+  const { data: pet, error } = useSWR(id ? `/api/pets/${id}` : null, fetcher);
+
+  if (error) return <h1>Failed to load</h1>
+  if (!pet) return <h1>Loading...</h1>
+
   const handleDelete = async () => {
-    const petID = router.query.id
+    const petID = router.query._id
 
     try {
       await fetch(`/api/pets/${petID}`, {
@@ -63,13 +69,4 @@ const PetPage = ({ pet }) => {
   )
 }
 
-export async function getServerSideProps({ params }) {
-  await dbConnect()
-
-  const pet = await Pet.findById(params.id).lean()
-  pet._id = pet._id.toString()
-
-  return { props: { pet } }
-}
-
-export default PetPage
+export default PetPage;

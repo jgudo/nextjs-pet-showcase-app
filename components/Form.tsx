@@ -1,14 +1,14 @@
-import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { mutate } from 'swr'
+import { IPet } from '../types/types'
 
 const Form = ({ formId, petForm, forNewPet = true }) => {
   const router = useRouter()
-  const contentType = 'application/json'
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<IPet>({
     name: petForm.name,
     owner_name: petForm.owner_name,
     species: petForm.species,
@@ -25,18 +25,18 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
     const { id } = router.query
 
     try {
-      const res = await fetch(`/api/pets/${id}`, {
+      const res: Response = await fetch(`/api/pets/${id}`, {
         method: 'PUT',
         headers: {
-          Accept: contentType,
-          'Content-Type': contentType,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(form),
       })
 
       // Throw error with status code in case Fetch API req failed
       if (!res.ok) {
-        throw new Error(res.status)
+        throw new Error(String(res.status))
       }
 
       const { data } = await res.json()
@@ -54,15 +54,15 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
       const res = await fetch('/api/pets', {
         method: 'POST',
         headers: {
-          Accept: contentType,
-          'Content-Type': contentType,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(form),
       })
 
       // Throw error with status code in case Fetch API req failed
       if (!res.ok) {
-        throw new Error(res.status)
+        throw new Error(String(res.status))
       }
 
       router.push('/')
@@ -95,7 +95,7 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
 
   /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
-    let err = {}
+    let err: Partial<IPet> = {}
     if (!form.name) err.name = 'Name is required'
     if (!form.owner_name) err.owner_name = 'Owner is required'
     if (!form.species) err.species = 'Species is required'
@@ -109,7 +109,7 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
         <label htmlFor="name">Name</label>
         <input
           type="text"
-          maxLength="20"
+          maxLength={20}
           name="name"
           value={form.name}
           onChange={handleChange}
@@ -119,7 +119,7 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
         <label htmlFor="owner_name">Owner</label>
         <input
           type="text"
-          maxLength="20"
+          maxLength={20}
           name="owner_name"
           value={form.owner_name}
           onChange={handleChange}
@@ -129,7 +129,7 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
         <label htmlFor="species">Species</label>
         <input
           type="text"
-          maxLength="30"
+          maxLength={30}
           name="species"
           value={form.species}
           onChange={handleChange}
@@ -155,7 +155,7 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
         <label htmlFor="diet">Diet</label>
         <textarea
           name="diet"
-          maxLength="60"
+          maxLength={60}
           value={form.diet}
           onChange={handleChange}
         />
@@ -172,7 +172,7 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
         <label htmlFor="likes">Likes</label>
         <textarea
           name="likes"
-          maxLength="60"
+          maxLength={60}
           value={form.likes}
           onChange={handleChange}
         />
@@ -180,7 +180,7 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
         <label htmlFor="dislikes">Dislikes</label>
         <textarea
           name="dislikes"
-          maxLength="60"
+          maxLength={60}
           value={form.dislikes}
           onChange={handleChange}
         />

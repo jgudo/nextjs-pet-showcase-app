@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import * as mongoose from 'mongoose'
 
 async function dbConnect() {
   // check if we have a connection to the database or if it's currently

@@ -1,11 +1,7 @@
+import fetcher from '@/lib/fetcher'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import Form from '../../components/Form'
-
-const fetcher = (url) =>
-  fetch(url)
-    .then((res) => res.json())
-    .then((json) => json.data)
 
 const EditPet = () => {
   const router = useRouter()
