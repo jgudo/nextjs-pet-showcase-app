@@ -1,30 +1,30 @@
-import onNoMatch from '@/lib/onNoMatch';
-import middlewares from '@/middlewares/index';
+import middlewares, { ErrorHandler, errorMiddleware, onNoMatch } from '@/middlewares/index';
 import passport from "@/middlewares/passport";
 import { NextApiRequestExt } from '@/types/types';
 import { NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
-const handler = nextConnect<NextApiRequestExt, NextApiResponse>({ onNoMatch });
+const handlerOptions = { onNoMatch, onError: errorMiddleware };
+const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
 
 handler
     .use(middlewares)
     .post((req, res, next) => {
         passport.authenticate('local-register', (err, user, info) => {
             if (err) {
-                return next(err);
+                return next(new ErrorHandler(500, err?.message || undefined));
             }
 
             if (user) {
-                req.logIn(user, (err) => { // <-- Log user in
+                req.logIn(user, (err: any) => { // <-- Log user in
                     if (err) {
-                        return next(err);
+                        return next(new ErrorHandler(500));
                     }
 
                     return res.json({ success: true, data: user.toJSON() });
                 });
             } else {
-                res.status(400).send({ success: false, error: info });
+                next(new ErrorHandler(400, info?.message || 'Unable to process request.'))
             }
         })(req, res, next)
     })

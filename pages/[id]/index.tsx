@@ -15,7 +15,7 @@ const PetPage: FC = () => {
   if (!pet) return <h1>Loading...</h1>
 
   const handleDelete = async () => {
-    const petID = router.query._id
+    const petID = router.query.id
 
     try {
       await fetch(`/api/pets/${petID}`, {
@@ -34,7 +34,7 @@ const PetPage: FC = () => {
         <h5 className="pet-name">{pet.name}</h5>
         <div className="main-content">
           <p className="pet-name">{pet.name}</p>
-          <p className="owner">Owner: {pet.owner_name}</p>
+          <p className="owner">Owner: {pet.owner?.name}</p>
 
           {/* Extra Pet Info: Likes and Dislikes */}
           <div className="likes info">

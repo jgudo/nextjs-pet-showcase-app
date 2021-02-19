@@ -8,9 +8,8 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
 
-  const [form, setForm] = useState<IPet>({
+  const [form, setForm] = useState<Omit<IPet, 'owner'>>({
     name: petForm.name,
-    owner_name: petForm.owner_name,
     species: petForm.species,
     age: petForm.age,
     poddy_trained: petForm.poddy_trained,
@@ -97,7 +96,6 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
   const formValidate = () => {
     let err: Partial<IPet> = {}
     if (!form.name) err.name = 'Name is required'
-    if (!form.owner_name) err.owner_name = 'Owner is required'
     if (!form.species) err.species = 'Species is required'
     if (!form.image_url) err.image_url = 'Image URL is required'
     return err
@@ -115,17 +113,6 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
           onChange={handleChange}
           required
         />
-
-        <label htmlFor="owner_name">Owner</label>
-        <input
-          type="text"
-          maxLength={20}
-          name="owner_name"
-          value={form.owner_name}
-          onChange={handleChange}
-          required
-        />
-
         <label htmlFor="species">Species</label>
         <input
           type="text"

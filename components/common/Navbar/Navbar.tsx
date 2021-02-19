@@ -27,7 +27,7 @@ const Navbar = () => {
                         credentials: 'include'
                     });
                     mutate(null);
-                    // window.location.replace('/login');
+                    window.location.replace('/login');
                 }}>
                     Logout
                 </button>

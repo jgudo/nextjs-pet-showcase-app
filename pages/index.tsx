@@ -1,4 +1,5 @@
 import fetcher from '@/lib/fetcher';
+import { IPet } from '@/types/types';
 import Link from 'next/link';
 import { FC } from 'react';
 import useSWR from 'swr';
@@ -9,17 +10,17 @@ const Index: FC = () => {
   if (error) return <h1>Failed to load</h1>
   if (!pets) return <h1>Loading...</h1>
 
-  return (
+  return pets.length !== 0 && (
     <>
       {/* Create a card for each pet */}
-      {pets.map((pet) => (
+      {pets.map((pet: IPet) => (
         <div key={pet._id}>
           <div className="card">
             <img src={pet.image_url} />
             <h5 className="pet-name">{pet.name}</h5>
             <div className="main-content">
               <p className="pet-name">{pet.name}</p>
-              <p className="owner">Owner: {pet.owner_name}</p>
+              <p className="owner">Owner: {pet.owner?.name}</p>
 
               {/* Extra Pet Info: Likes and Dislikes */}
               <div className="likes info">

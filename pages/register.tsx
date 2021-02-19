@@ -1,5 +1,7 @@
+import fetcher from '@/lib/fetcher';
 import Router from 'next/router';
 import { useState } from "react";
+import useSWR from 'swr';
 
 const Register = () => {
     const [field, setField] = useState({
@@ -7,6 +9,9 @@ const Register = () => {
         password: '',
         name: ''
     });
+    const { data: user } = useSWR('api/user', fetcher);
+
+    if (user) Router.push('/');
 
     const onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = e.target.value;

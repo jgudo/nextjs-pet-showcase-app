@@ -1,22 +1,41 @@
-import onNoMatch from '@/lib/onNoMatch';
-import passport from "@/middlewares/passport";
+import middlewares, { ErrorHandler, errorMiddleware, onNoMatch, passport } from '@/middlewares';
 import { NextApiRequestExt } from '@/types/types';
 import { NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
-const handler = nextConnect<NextApiRequestExt, NextApiResponse>({ onNoMatch });
+const handlerOptions = { onNoMatch, onError: errorMiddleware };
+const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
 
 handler
-    .post(
-        passport.authenticate('local-login'),
-        (req, res) => {
-            res.json({ success: true, data: req.user.toJSON() })
-        }
-    )
-    .delete((req, res) => {
-        console.log(req)
-        req.logOut();
-        res.status(204).end();
+    .use(middlewares)
+    .post((req, res, next) => {
+        passport.authenticate('local-login', (err, user, info) => {
+            if (err) {
+                return next(new ErrorHandler(500));
+            }
+
+            if (user) {
+                req.logIn(user, (err: any) => { // <-- Log user in
+                    if (err) {
+                        return next(new ErrorHandler(500));
+                    }
+
+                    res.json({ success: true, data: user.toJSON() });
+                });
+            } else {
+                next(new ErrorHandler(401, info.message));
+            }
+        })(req, res, next);
+    })
+    .delete((req, res, next) => {
+        // req.logOut(); not logging out so I have to destroy session explicitly :( 
+        req.session.destroy((err: any) => {
+            if (err) {
+                return next(new ErrorHandler(500));
+            }
+
+            res.status(204).json({ success: true, data: null });
+        });
     })
 
 export default handler;

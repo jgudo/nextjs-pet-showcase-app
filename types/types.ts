@@ -1,10 +1,10 @@
-import { TUserDocument } from "@/models/User";
 import { NextApiRequest } from "next";
+import { SessionData } from "next-session";
 
 export interface IPet {
     _id?: string;
     name: string;
-    owner_name: string;
+    owner: IUser;
     species: string;
     age: number;
     poddy_trained: boolean;
@@ -16,13 +16,9 @@ export interface IPet {
 
 export interface IUser {
     _id?: string;
+    name: string;
     email: string;
     password: string;
 }
 
-export interface NextApiRequestExt extends NextApiRequest {
-    user: TUserDocument;
-    logOut(): void;
-    logIn(user: any, errorCallback: (err: any) => any): void;
-    isAuthenticated(): boolean;
-}
+export type NextApiRequestExt = NextApiRequest & SessionData

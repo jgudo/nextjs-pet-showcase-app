@@ -1,10 +1,10 @@
-import onNoMatch from '@/lib/onNoMatch';
-import middlewares from '@/middlewares/index';
+import middlewares, { errorMiddleware, onNoMatch } from '@/middlewares/index';
 import { NextApiRequestExt } from '@/types/types';
 import { NextApiResponse } from 'next';
 import nextConnect from "next-connect";
 
-const handler = nextConnect<NextApiRequestExt, NextApiResponse>({ onNoMatch });
+const handlerOptions = { onNoMatch, onError: errorMiddleware }
+const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
 
 handler
     .use(middlewares)

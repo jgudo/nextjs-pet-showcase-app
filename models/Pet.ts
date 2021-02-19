@@ -10,10 +10,10 @@ const PetSchema = new Schema({
     required: [true, 'Please provide a name for this pet.'],
     maxlength: [20, 'Name cannot be more than 60 characters'],
   },
-  owner_name: {
-    type: String,
-    required: [true, "Please provide the pet owner's name"],
-    maxlength: [20, "Owner's Name cannot be more than 60 characters"],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, "Please provide the pet owner"],
   },
   species: {
 

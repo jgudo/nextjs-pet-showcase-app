@@ -14,5 +14,7 @@ middlewares
     .use(passport.session());
 
 export { default as ensureAuth } from './ensureAuth';
+export { default as errorMiddleware, ErrorHandler } from './errorMiddleware';
+export { default as onNoMatch } from './onNoMatchRoute';
 export { middlewares as default, passport, session };
 

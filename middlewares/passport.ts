@@ -36,6 +36,7 @@ passport.use(
                     done(null, false, { message: 'Email or password is incorrect' });
                 }
             } catch (err) {
+                console.log('ERRRR-----', err);
                 return done(err);
             }
         },

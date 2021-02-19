@@ -1,5 +1,4 @@
-import onNoMatch from '@/lib/onNoMatch';
-import middlewares, { ensureAuth } from '@/middlewares/index';
+import middlewares, { ensureAuth, ErrorHandler, onNoMatch } from '@/middlewares/index';
 import { Pet } from '@/models/index';
 import { NextApiRequestExt } from '@/types/types';
 import { NextApiResponse } from 'next';
@@ -10,9 +9,9 @@ const handler = nextConnect<NextApiRequestExt, NextApiResponse>({ onNoMatch });
 handler
   .use(middlewares)
   .get(async (req, res) => {
-    console.log('USER------', req.user)
     try {
-      const pet = await Pet.findById(req.query.id)
+      const pet = await Pet.findById(req.query.id).populate('owner');
+
       if (!pet) {
         return res.status(400).json({ success: false })
       }
@@ -29,10 +28,13 @@ handler
         const pet = await Pet.findByIdAndUpdate(req.query.id, req.body, {
           new: true,
           runValidators: true,
-        })
+        });
+
         if (!pet) {
           return res.status(400).json({ success: false })
         }
+
+        await pet.populate({ path: 'owner' }).execPopulate();
         res.status(200).json({ success: true, data: pet })
       } catch (error) {
         res.status(400).json({ success: false })
@@ -40,15 +42,17 @@ handler
     })
   .delete(
     ensureAuth,
-    async (req, res) => {
+    async (req, res, next) => {
       try {
-        const deletedPet = await Pet.deleteOne({ _id: req.query.id })
+        const deletedPet = await Pet.deleteOne({ _id: req.query.id });
+
         if (!deletedPet) {
-          return res.status(400).json({ success: false })
+          return next(new ErrorHandler(400, 'Unable to process your request'))
         }
+
         res.status(200).json({ success: true, data: {} })
       } catch (error) {
-        res.status(400).json({ success: false })
+        next(new ErrorHandler(400, 'Unable to process your request'))
       }
     })
 
