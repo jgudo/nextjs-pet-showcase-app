@@ -1,0 +1,28 @@
+.button--block {
+    width: 100%;
+    display: block;
+}
+
+.button--lg {
+    padding: 20px 15px;
+    border-radius: 30px;
+    font-size: 15px;
+}
+
+.button--fb {
+    background: var(--facebook-bg);
+
+    &:hover {
+        background: var(--facebook-bg-hovered);
+    }
+}
+
+.button--google {
+    background: var(--google-bg);
+    border: 1px solid #e1e1e1;
+    color: var(--text-color);
+    
+    &:hover {
+        background: var(--google-bg-hovered);
+    } 
+}

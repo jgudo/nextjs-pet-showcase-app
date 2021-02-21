@@ -1,0 +1,151 @@
+// STYLING FOR LOGIN AND SIGNUP PAGES
+
+.auth_login {
+    background: url('/pet_bg.jpg');
+    // background-size: 124%;
+    background-size: cover;
+    // background-position: -304px;
+}
+
+.auth_signup {
+    background: url('/pet_cat_bg.jpg');
+    background-size: cover;
+}
+
+.auth {
+    width: 100%;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0, .3);
+    }
+}
+
+.auth_wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 20px;
+    display: flex;
+    z-index: 2;
+}
+
+.auth_formWrapper {
+    width: 100%;
+    height: 100%;
+} 
+
+.auth_form {
+    width: 70%;
+    height: 100%;
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth_brand {
+    width: 100%;
+    padding: 50px;
+    
+    img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    h1 {
+        color: #fff;
+    }
+}
+
+.auth_form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form_title {
+    margin-bottom: 10px;
+}
+
+.form_subtitle {
+    color: #a1a1a1;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.auth_button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.social-button {
+    button {
+        margin: 10px 0;
+    }
+}
+
+.social-divider {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #a1a1a1;
+    font-size: 14px;
+    margin: 20px 0;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        width: 45%;
+        height: 1px;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        background: #f1f1f1;
+    }
+
+    &:before {
+        left: 0;
+    }
+
+    &:after {
+        right: 0;
+    }
+}
+
+.tagline {
+    font-weight: 300;
+    font-size: 38px;
+
+    .strike {
+        text-decoration: line-through;
+        opacity: .7;
+    }
+
+    .bold {
+        font-weight: 700;
+    }
+}
+
+.auth-error-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: red;
+    padding: 10px;
+    width: 100%;
+    background: rgb(250, 213, 213);
+    text-align: center;
+}

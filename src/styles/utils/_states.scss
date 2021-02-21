@@ -1,0 +1,16 @@
+.input--error {
+    border-bottom: 1px solid var(--error);
+    // color: var(--error);
+}
+
+.label--error {
+    color: var(--error);
+    font-size: 12px;
+}
+
+.msg--error {
+    color: var(--error);
+    background: rgb(255, 226, 226);
+    padding: 5px 0;
+    text-align: center;
+}

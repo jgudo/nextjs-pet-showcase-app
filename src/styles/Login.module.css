@@ -1,0 +1,63 @@
+.login {
+    width: 100%;
+    height: 100vh;
+    background: url('/pet_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: 124%;
+    background-position: -304px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 20px;
+    display: flex;
+}
+
+.login_formWrapper {
+    width: 100%;
+    height: 100%;
+} 
+
+.login_form {
+    width: 70%;
+    height: 100%;
+    background: #fff;
+    border-radius: 20px;
+    padding: 50px;
+}
+
+.login_brand {
+    width: 100%;
+}
+
+.login_brand img {
+    width: 100px;
+    height: 100px;
+}
+
+.login_form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form_title {
+    margin-bottom: 10px;
+}
+
+.form_subtitle {
+    color: #a1a1a1;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.login_button {
+    display: flex;
+    justify-content: flex-end;
+}
