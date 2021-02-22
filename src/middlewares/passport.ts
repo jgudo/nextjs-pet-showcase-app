@@ -33,7 +33,7 @@ passport.use(
                 if (user && (await bcrypt.compare(password, user.password))) {
                     done(null, user);
                 } else {
-                    done(null, false, { message: 'Email or password is incorrect' });
+                    done(null, false, { message: 'Incorrect credentials.' });
                 }
             } catch (err) {
                 console.log('ERRRR-----', err);

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { FC } from 'react';
 import Navbar from '../Navbar';
-import styles from './Layout.module.css';
+import styles from './Layout.module.scss';
 
 const Layout: FC = ({ children }) => {
     return (

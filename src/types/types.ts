@@ -5,6 +5,11 @@ export interface IPet {
     _id?: string;
     name: string;
     owner: IUser;
+    country: {
+        value: string;
+        label: string;
+    }
+    breed?: string;
     species: string;
     age: number;
     poddy_trained: boolean;

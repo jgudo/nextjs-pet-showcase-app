@@ -29,7 +29,7 @@ const Login = () => {
 
     if (user) Router.push('/');
 
-    const onSubmit = async (field: IFormState) => {
+    const onSubmit = async (field: IFormState, { resetForm }) => {
         try {
             setLoading(true);
             const req = await fetch('/api/auth', {
@@ -38,12 +38,15 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json' }
             });
 
+            setLoading(false);
+
             if (!req.ok) {
                 const { message } = await req.json();
                 return setError(message);
             }
 
-            setLoading(false);
+            setError(null);
+            resetForm();
             window.location.href = '/';
         } catch (err) {
             console.log(err);
@@ -104,13 +107,13 @@ const Login = () => {
                         <span className="social-divider">OR</span>
                         <div className="social-button">
                             <button
-                                className="button--lg button--block button--google"
+                                className="button--block button--google button--social"
                             >
                                 <GoogleIcon />
                                 Continue with Google
                             </button>
                             <button
-                                className="button--lg button--block button--fb"
+                                className="button--block button--fb button--social"
                             >
                                 <FacebookIcon />
                                 Continue with Facebook

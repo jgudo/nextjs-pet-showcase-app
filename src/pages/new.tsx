@@ -1,11 +1,11 @@
-import fetcher from '@/lib/fetcher';
+import { PetForm } from '@/components/shared';
+import { useCurrentUser } from '@/hooks/useUser';
 import Router from 'next/router';
-import useSWR from 'swr';
-import Form from '../components/Form';
 
 const petForm = {
   name: '',
   species: '',
+  breed: '',
   age: 0,
   poddy_trained: false,
   diet: [],
@@ -15,15 +15,27 @@ const petForm = {
 }
 
 const NewPet = () => {
-  const { data: user, mutate } = useSWR('api/user', fetcher);
+  const [user] = useCurrentUser();
 
-  if (!user) Router.push('/login');
+  if (!user && typeof window !== 'undefined') Router.push('/login');
 
   return (
-    <Form
-      formId="add-pet-form"
-      petForm={petForm}
-    />
+    <div className="content">
+      <h1>Submit your Pet</h1>
+      <br />
+      <PetForm
+        formId="add-pet-form"
+        petForm={petForm}
+      />
+      <style jsx>
+        {`
+          .content {
+            padding: 0 80px;
+            margin-top: 100px;
+          }
+        `}
+      </style>
+    </div>
   )
 }
 

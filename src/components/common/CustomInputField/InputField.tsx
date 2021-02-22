@@ -11,17 +11,18 @@ const InputField: FC<IProps> = ({
   label,
   ...props
 }) => (
-  <>
+  <div className="input-fieldset">
     {touched[field.name] && errors[field.name] ? (
       <span className="label--error">{errors[field.name]}</span>
     ) : (
-        <label className="label">{label}</label>
+        <label className="label" htmlFor={field.name}>{label}</label>
       )}
     <input
       type="text"
+      id={field.name}
       className={touched[field.name] && errors[field.name] && 'input--error'} {...field} {...props}
     />
-  </>
+  </div>
 );
 
 

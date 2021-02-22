@@ -7,8 +7,10 @@
     left: 0;
     z-index: 100;
     display: flex;
+    padding: 0 40px;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 2px 5px 20px rgba(0,0,0, .05);
 }
 
 .navbar__menu {
@@ -30,6 +32,7 @@
 }
 
 .navbar__logo {
-    width: 100px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
 }

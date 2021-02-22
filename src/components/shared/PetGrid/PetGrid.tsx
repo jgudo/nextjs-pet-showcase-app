@@ -1,7 +1,7 @@
 import { IPet } from "@/types/types";
 import { FC } from "react";
 import PetCard from "../PetCard";
-import styles from './PetGrid.module.css';
+import styles from './PetGrid.module.scss';
 
 const PetGrid: FC<{ pets: IPet[] }> = ({ pets }) => (
     <div className={styles.grid}>

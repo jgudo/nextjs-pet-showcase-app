@@ -21,6 +21,9 @@ const PetSchema = new Schema({
     required: [true, 'Please specify the species of your pet.'],
     maxlength: [30, 'Species specified cannot be more than 40 characters'],
   },
+  breed: {
+    type: String
+  },
   age: {
     type: Number,
   },
@@ -28,17 +31,17 @@ const PetSchema = new Schema({
     type: Boolean,
   },
   diet: {
-    type: Array,
+    type: [String],
   },
   image_url: {
     required: [true, 'Please provide an image url for this pet.'],
     type: String,
   },
   likes: {
-    type: Array,
+    type: [String],
   },
   dislikes: {
-    type: Array,
+    type: [String],
   },
 })
 

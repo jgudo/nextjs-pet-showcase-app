@@ -1,4 +1,5 @@
-import { PetGrid, Sidebar } from '@/components/shared';
+import { Sidebar } from '@/components/common';
+import { PetGrid } from '@/components/shared';
 import fetcher from '@/lib/fetcher';
 import { FC } from 'react';
 import useSWR from 'swr';
@@ -17,6 +18,8 @@ const Index: FC = () => {
         {`
         .content {
           display: flex;
+          margin: 80px 0;
+          padding: 20px 50px;
         }
       `}
       </style>

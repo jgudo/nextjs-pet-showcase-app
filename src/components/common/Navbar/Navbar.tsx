@@ -1,13 +1,14 @@
+import { NavUserPill } from '@/components/shared';
 import { useCurrentUser } from '@/hooks/useUser';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import styles from './Navbar.module.css';
+import styles from './Navbar.module.scss';
 
 const Navbar: FC = () => {
     const hiddenTo = ['/login', '/signup'];
     const router = useRouter();
-    const [user] = useCurrentUser();
+    const [user, { mutate }] = useCurrentUser();
 
     return hiddenTo.includes(router.pathname) ? null : (
         <nav className={styles.navbar}>
@@ -16,21 +17,18 @@ const Navbar: FC = () => {
                     <img
                         className={styles.navbar__logo}
                         id="title"
-                        src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Pet_logo_with_flowers.png"
+                        src="/logo.png"
                         alt="pet care logo"
                     />
                 </li>
                 <li className={styles.navbar__menu_item}>
                     <Link href="/"><a>Explore</a></Link>
                 </li>
-                <li className={styles.navbar__menu_item}>
-                    <Link href="/new"><a>Add Pet</a></Link>
-                </li>
             </ul>
             <ul className={styles.navbar__menu}>
                 {user ? (
                     <li className={styles.navbar__menu_item}>
-                        <h5>{user.name}</h5>
+                        <NavUserPill user={user} mutate={mutate} />
                     </li>
                 ) : (
                         <>
@@ -38,21 +36,10 @@ const Navbar: FC = () => {
                                 <Link href="/login"><a>Login</a></Link>
                             </li>
                             <li className={styles.navbar__menu_item}>
-                                <Link href="/signup"><a>Sign Up</a></Link>
+                                <Link href="/signup"><a className="button--link button--accent">Sign Up</a></Link>
                             </li>
                         </>
                     )}
-                <li className={styles.navbar__menu_item}>
-                    <button onClick={async () => {
-                        await fetch('/api/auth', {
-                            method: 'DELETE',
-                            credentials: 'include'
-                        });
-                        window.location.replace('/login');
-                    }}>
-                        Logout
-                </button>
-                </li>
             </ul>
         </nav >
     );

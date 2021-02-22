@@ -1,12 +1,16 @@
+import Link from "next/link";
+import { FiArrowLeft } from "react-icons/fi";
+
 const PageNotFound = () => (
-    <div>
+    <div className="container-404">
+        <h1>Ooops. You seemed lost.</h1>
+        <p>The page you're trying to load doesn't exist.</p>
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <h1>Page not found.</h1>
+        <Link href="/">
+            <a className="button--link button--icon">
+                <FiArrowLeft /> &nbsp; Back to Home
+            </a>
+        </Link>
     </div>
 );
 

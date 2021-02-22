@@ -3,10 +3,29 @@
     display: block;
 }
 
+.button--icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .button--lg {
     padding: 20px 15px;
     border-radius: 30px;
     font-size: 15px;
+}
+
+.button--social {
+    padding: 15px;
+    border-radius: 25px;
+
+    svg {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 15px;
+        margin: auto;
+    }
 }
 
 .button--fb {
@@ -25,4 +44,39 @@
     &:hover {
         background: var(--google-bg-hovered);
     } 
+}
+
+.button--link {
+    @extend button;
+    display: inline-flex;
+    background: var(--primary);
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+        background: var(--primary-hover);
+        color: #fff;
+    }
+}
+
+.button--accent {
+    @extend .button--link;
+    color: var(--text-color);
+    background: var(--accent);
+
+    &:hover {
+        background: var(--accent-hover);
+        color: var(--text-color);
+    }
+}
+
+.button--accent-1 {
+    @extend .button--link;
+    color: var(--text-color);
+    background: var(--accent-1);
+
+    &:hover {
+        background: var(--accent-1-hover);
+        color: var(--text-color);
+    }
 }

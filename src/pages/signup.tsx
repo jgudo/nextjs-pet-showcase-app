@@ -118,13 +118,13 @@ const SignUp = () => {
                         <span className="social-divider">OR</span>
                         <div className="social-button">
                             <button
-                                className="button--lg button--block button--google"
+                                className="button--social button--block button--google"
                             >
                                 <GoogleIcon />
                                 Sign Up with Google
                             </button>
                             <button
-                                className="button--lg button--block button--fb"
+                                className="button--social button--block button--fb"
                             >
                                 <FacebookIcon />
                                 Sign Up with Facebook

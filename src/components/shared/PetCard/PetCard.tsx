@@ -1,7 +1,8 @@
 import { IPet } from "@/types/types";
 import Link from 'next/link';
 import { FC } from "react";
-import styles from './PetCard.module.css';
+import { FiEdit3, FiEye } from "react-icons/fi";
+import styles from './PetCard.module.scss';
 
 interface IProps {
     pet: IPet
@@ -14,34 +15,27 @@ const PetCard: FC<IProps> = ({ pet }) => {
                 <div className={styles.card_front}>
                     <img className={styles.card_image} src={pet.image_url} />
                 </div>
-                <div className={styles.card_back}>
-                    <p className="pet-name">{pet.name}</p>
-                    <p className="owner">Owner: {pet.owner?.name}</p>
+                <div className={styles.card_back} style={{ background: `url(${pet.image_url})` }}>
+                    <div className={styles.card_back_content}>
+                        <div className={styles.card_info}>
+                            <span className={styles.label}>Owner</span>
+                            <p className={styles.value}>{pet.owner?.name}</p>
 
-                    {/* Extra Pet Info: Likes and Dislikes */}
-                    <div className="likes info">
-                        <p className="label">Likes</p>
-                        <ul>
-                            {pet.likes.map((data, index) => (
-                                <li key={index}>{data} </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="dislikes info">
-                        <p className="label">Dislikes</p>
-                        <ul>
-                            {pet.dislikes.map((data, index) => (
-                                <li key={index}>{data} </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="btn-container">
-                        <Link href="/pets/[id]/edit" as={`/pet/${pet._id}/edit`}>
-                            <button className="btn edit">Edit</button>
-                        </Link>
-                        <Link href="/pet/[id]" as={`/pet/${pet._id}`}>
-                            <button className="btn view">View</button>
-                        </Link>
+                            <span className={styles.label}>Age</span>
+                            <p className={styles.value}>{pet.age > 1 ? 'years' : '< 1 year'} old</p>
+                        </div>
+                        <div className={styles.card_actions}>
+                            <Link href="/pet/[id]/edit" as={`/pet/${pet._id}/edit`}>
+                                <a className="button--link button--accent">
+                                    <FiEdit3 /> &nbsp; Edit
+                                </a>
+                            </Link>
+                            <Link href="/pet/[id]" as={`/pet/${pet._id}`}>
+                                <a className="button--link button--icon button--accent-1">
+                                    <FiEye /> &nbsp; View
+                                </a>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
