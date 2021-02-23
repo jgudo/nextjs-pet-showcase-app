@@ -2,10 +2,12 @@ import { CustomInputField, CustomMultiSelect } from '@/components/common';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
+import { FiInfo } from 'react-icons/fi';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 import { mutate } from 'swr';
 import * as Yup from 'yup';
+import PetImageSelector from '../PetImageSelector';
 import styles from './PetForm.module.scss';
 
 interface IFormState {
@@ -31,10 +33,13 @@ const PetFormSchema = Yup.object().shape({
   dislikes: Yup.array(Yup.string())
 });
 
+const toObjectArray = (arr: any[]) => arr.map(val => ({ value: val, label: val }));
+
 const PetForm = ({ formId, petForm, forNewPet = true }) => {
   const router = useRouter();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
+  const [imageFiles, setImageFiles] = useState([]);
   const options = useMemo(() => countryList().getData(), []);
 
   const initFormikValues = {
@@ -100,12 +105,16 @@ const PetForm = ({ formId, petForm, forNewPet = true }) => {
     }
   }
   const handleSubmit = (values: IFormState) => {
-    console.log(values)
     forNewPet ? postData(values) : putData(values)
   }
 
   return (
     <div>
+      <p className="text-subtle text-sm info">
+        <FiInfo /> &nbsp;
+        Labels with <strong style={{ color: 'var(--primary)' }}>*</strong> are required.
+      </p>
+      <br /><br />
       <Formik
         validationSchema={PetFormSchema}
         initialValues={initFormikValues}
@@ -114,6 +123,12 @@ const PetForm = ({ formId, petForm, forNewPet = true }) => {
       >
         {() => (
           <Form id={formId} className={styles.form}>
+            <div className={styles.images}>
+              <PetImageSelector
+                setImageFiles={setImageFiles}
+                imageFiles={imageFiles}
+              />
+            </div>
             <div className={styles.form_fields}>
               <div className={styles.flex_field}>
                 <Field name="name" component={CustomInputField} label="* Pet Name" />
@@ -123,13 +138,15 @@ const PetForm = ({ formId, petForm, forNewPet = true }) => {
                 <Field name="species" component={CustomInputField} label="* Species" />
                 <Field type="number" name="age" component={CustomInputField} label="Age" />
               </div>
-              <div className={styles.flex_field}>
+              <div className={`${styles.flex_field} ${styles.checkbox_container}`}>
                 {/* --- CUSTOM CHECKBOX */}
-                <label className={styles.checkbox}>
-                  Poddy Trained
+                <div className={styles.checkbox_wrapper}>
+                  <label className={styles.checkbox}>
+                    Poddy Trained
                   <Field type="checkbox" id="poddy_trained" name="poddy_trained" />
-                  <span className={styles.checkmark}></span>
-                </label>
+                    <span className={styles.checkmark}></span>
+                  </label>
+                </div>
                 <Field>
                   {({ form, meta }) => (
                     <div className="input-fieldset">
@@ -152,36 +169,33 @@ const PetForm = ({ formId, petForm, forNewPet = true }) => {
                 </Field>
               </div>
               <CustomMultiSelect
+                defaultValues={toObjectArray(petForm.likes)}
                 name="likes"
-                options={petForm.likes}
                 iid="likes"
+                options={toObjectArray(petForm.likes)}
                 placeholder=""
                 label="Likes"
               />
               <CustomMultiSelect
+                defaultValues={toObjectArray(petForm.dislikes)}
                 name="dislikes"
-                options={petForm.dislikes}
+                options={toObjectArray(petForm.dislikes)}
                 iid="dislikes"
                 placeholder=""
                 label="Dislikes"
               />
               <CustomMultiSelect
+                defaultValues={toObjectArray(petForm.diet)}
                 name="Diet"
                 iid="diet"
-                options={petForm.diet}
+                options={toObjectArray(petForm.diet)}
                 placeholder=""
-                defaultValues={petForm.diet}
                 label="Diet"
               />
               <div>
                 <button type="submit" className="btn">
                   Submit
               </button>
-              </div>
-            </div>
-            <div className={styles.images}>
-              <div className={styles.placeholder}>
-
               </div>
             </div>
             {/* 

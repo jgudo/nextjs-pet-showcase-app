@@ -1,0 +1,122 @@
+.wrapper {
+    width: 100%;
+    height: 300px;
+    background: #f1f1f1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 2px dashed #cacaca;
+    position: relative;
+}
+
+.button_manual {
+    background: #e1e1e1;
+    border: 1px solid #cacaca;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+
+    &:hover {
+        cursor: pointer;
+        background: #d7d7d7;
+    }
+}
+
+.choose_container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    object-fit: cover;
+}
+
+.image_grid {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    // grid-gap: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(50%, 1fr));
+    overflow: hidden;
+}
+
+.image_grid_item {
+    position: relative;
+    border: 1px dashed #e1e1e1;
+    height: 100%;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0, .3);
+        display: none;
+    }
+
+    &:hover {
+        &:after {
+            display: block;
+        }
+
+        .button_remove {
+            display: flex;
+        }
+    }
+
+}
+
+.grid_image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.button_action {
+    position: absolute;
+    background: #fff;
+    color: #797878;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #a1a1a1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.button_star {
+    top: 5px;
+    left: 5px;
+
+    &:hover {
+        background: var(--accent);
+        color: var(--text-color);
+    }
+}
+
+.button_remove {
+    top: 5px;
+    right: 5px;
+    display: none;
+
+    &:hover {
+        background: rgb(233, 44, 44);
+        color: #fff;
+    }
+}

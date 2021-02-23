@@ -31,10 +31,15 @@ handler
         if (!pet) next(new ErrorHandler(404));
 
         if (pet.owner.toString() === req.user._id.toString()) {
-          const updatedPet = await Pet.findByIdAndUpdate(req.query.id, req.body, {
-            new: true,
-            runValidators: true,
-          });
+          const updatedPet = await Pet
+            .findByIdAndUpdate(req.query.id, {
+              $set: req.body
+            },
+              {
+                new: true,
+                runValidators: true,
+              }
+            );
 
           await updatedPet.populate({ path: 'owner' }).execPopulate();
           res.status(200).json({ success: true, data: updatedPet })

@@ -1,0 +1,20 @@
+.text-subtle {
+    color: #757474;
+}
+
+.text-xs {
+    font-size: 12px;
+}
+.text-sm {
+    font-size: 14px;
+}
+
+.info {
+    display: inline-block;
+    background: transparentize($primary, .9);
+    padding: 5px;
+}
+
+.block {
+    display: block;
+}

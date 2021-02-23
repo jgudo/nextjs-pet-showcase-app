@@ -43,6 +43,10 @@ const CustomMultiSelect: FC<IProps> = (props) => {
                     input: (provided: any) => ({
                         ...provided,
                         background: 'transparent'
+                    }),
+                    multiValueLabel: (provided: any) => ({
+                        ...provided,
+                        fontWeight: 700
                     })
                 }}
             />

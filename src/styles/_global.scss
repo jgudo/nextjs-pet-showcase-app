@@ -1,4 +1,4 @@
-:root {
+:root { // DEFINE VARIABLES SO JS CAN ALSO USE THEM
     --primary: #3895D3;
     --primary-hover: #227bb6;
     --accent: #f3c234;
@@ -14,6 +14,21 @@
     --google-bg-hovered: #f1f1f1;
     --error: #f84a4a;
 }
+
+$primary: #3895D3;
+$primary-hover: #227bb6;
+$accent: #f3c234;
+$accent-hover: #e6b218;
+$accent-1: #1adad3;
+$accent-1-hover: #0fbeb9;
+$text-color: #1a1a1a;
+$nav_link: #1b1e20;
+$nav_link-inactive: #8e969c;
+$facebook-bg: #039be5;
+$facebook-bg-hovered: #0180c0;
+$google-bg: #fff;
+$google-bg-hovered: #f1f1f1;
+$error: #f84a4a;
 
 * {
   font-family: 'Gilroy', sans-serif;

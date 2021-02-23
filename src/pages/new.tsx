@@ -1,5 +1,6 @@
 import { PetForm } from '@/components/shared';
 import { useCurrentUser } from '@/hooks/useUser';
+import Head from 'next/head';
 import Router from 'next/router';
 
 const petForm = {
@@ -21,8 +22,10 @@ const NewPet = () => {
 
   return (
     <div className="content">
+      <Head>
+        <title>Submit your Pet | PawShow</title>
+      </Head>
       <h1>Submit your Pet</h1>
-      <br />
       <PetForm
         formId="add-pet-form"
         petForm={petForm}

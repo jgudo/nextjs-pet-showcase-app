@@ -1,0 +1,32 @@
+.file-drop {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  
+.file-drop > .file-drop-target {
+    /* basic styles */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+}
+
+.file-drop > .file-drop-target.file-drop-dragging-over-frame {
+    border: 2px dashed $primary;
+    box-shadow: none;
+    z-index: 50;
+    opacity: 1;
+}
+
+.file-drop > .file-drop-target.file-drop-dragging-over-target {
+    /* turn stuff orange when we are dragging over the target */
+}
