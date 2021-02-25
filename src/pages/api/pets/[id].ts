@@ -1,11 +1,19 @@
+import { deleteImage, uploadImage } from '@/lib/cloudinary';
 import middlewares, { ensureAuth, ErrorHandler, errorMiddleware, onNoMatch } from '@/middlewares/index';
 import { Pet } from '@/models/index';
 import { NextApiRequestExt } from '@/types/types';
+import { IncomingForm } from 'formidable';
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
 const handlerOptions = { onNoMatch, onError: errorMiddleware };
 const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
+
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
 
 handler
   .use(middlewares)
@@ -16,7 +24,11 @@ handler
       if (!pet) {
         return res.status(400).json({ success: false })
       }
-      return res.status(200).json({ success: true, data: pet })
+
+      // append  the isOwnPet property
+      const result = { ...pet.toObject(), isOwnPet: pet.owner._id.toString() === req.user?._id.toString() };
+
+      return res.status(200).json({ success: true, data: result });
     } catch (error) {
       console.log(error)
       return res.status(400).json({ success: false })
@@ -25,31 +37,56 @@ handler
   .put(
     ensureAuth,
     async (req, res, next) => {
-      try {
-        const pet = await Pet.findById(req.query.id);
+      const promise = new Promise((resolve, reject) => {
+        const form = new IncomingForm();
+        form.multiples = true;
 
-        if (!pet) next(new ErrorHandler(404));
+        form.parse(req, (err, fields, files) => {
+          if (err) reject(err);
+          const { jsonProp, ...rest } = fields;
+          const parsedFields = { ...rest, ...JSON.parse(jsonProp as string) }
 
-        if (pet.owner.toString() === req.user._id.toString()) {
-          const updatedPet = await Pet
-            .findByIdAndUpdate(req.query.id, {
-              $set: req.body
-            },
-              {
-                new: true,
-                runValidators: true,
-              }
-            );
+          resolve({ fields: parsedFields, files });
+        })
+      })
 
-          await updatedPet.populate({ path: 'owner' }).execPopulate();
-          res.status(200).json({ success: true, data: updatedPet })
-        } else {
-          next(new ErrorHandler(401));
+      return promise.then(async ({ fields, files }) => {
+        try {
+          const pet = await Pet.findById(req.query.id);
+
+          if (!pet) next(new ErrorHandler(404));
+
+          if (pet.owner.toString() === req.user._id.toString()) {
+            const imageSrc = files.image ? await uploadImage(files.image, 'thumbnail') : fields.image; // single 
+            const imagesArraySrc = files.imageFiles ? await uploadImage(files.imageFiles, 'images') : fields.images; // multiple
+
+            const updatedPet = await Pet
+              .findByIdAndUpdate(req.query.id, {
+                $set: {
+                  ...fields,
+                  image: imageSrc,
+                  images: imagesArraySrc,
+                }
+              },
+                {
+                  new: true,
+                  runValidators: true,
+                }
+              );
+
+            console.log(updatedPet)
+
+            await updatedPet.populate({ path: 'owner' }).execPopulate();
+            res.status(200).json({ success: true, data: updatedPet })
+          } else {
+            next(new ErrorHandler(401));
+          }
+        } catch (error) {
+          next(new ErrorHandler(400));
         }
-      } catch (error) {
-        next(new ErrorHandler(400));
-      }
-    })
+      })
+    }
+  )
   .delete(
     ensureAuth,
     async (req, res, next) => {
@@ -59,7 +96,10 @@ handler
         if (!pet) return next(new ErrorHandler(404, 'Pet not found'));
 
         if (pet.owner.toString() === req.user._id.toString()) {
-          console.log('OWNER')
+          const imageIDs = [pet.image, ...pet.images].map(img => img.public_id); // array of image public_ids
+
+          await deleteImage(imageIDs) // delete images
+
           const deletedPet = await Pet.deleteOne({ _id: req.query.id });
 
           if (!deletedPet) {

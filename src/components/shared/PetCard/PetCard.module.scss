@@ -97,3 +97,17 @@
     font-size: 16px;
     color: #fff;
 }
+
+.country_badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: 72px 72px !important;
+    background-repeat: no-repeat !important;
+    background-position: center -16px !important;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    z-index: 5;
+    box-shadow: 0 5px 10px rgba(0,0,0, .2);
+}   

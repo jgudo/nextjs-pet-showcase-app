@@ -25,6 +25,13 @@ const PetSchema = new Schema({
     value: String,
     label: String
   },
+  image: {
+    type: Object,
+    required: [true, 'Pet image is required.']
+  },
+  images: {
+    type: [Object]
+  },
   breed: {
     type: String
   },
@@ -37,16 +44,28 @@ const PetSchema = new Schema({
   diet: {
     type: [String],
   },
-  image_url: {
-    required: [true, 'Please provide an image url for this pet.'],
-    type: String,
-  },
   likes: {
     type: [String],
   },
   dislikes: {
     type: [String],
   },
+}, {
+  timestamps: true,
+  toJSON: {
+    virtuals: true,
+  },
+  toObject: {
+    getters: true,
+    virtuals: true,
+  }
+})
+
+PetSchema.pre('save', function (this: IPetDocument, next) {
+  if (this.images === null) this.images = [];
+  if (this.image === null) this.image = {};
+
+  next();
 })
 
 export default models.Pet as Model<IPetDocument> || model<IPetDocument>('Pet', PetSchema)

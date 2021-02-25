@@ -10,6 +10,7 @@ const petForm = {
   age: 0,
   poddy_trained: false,
   diet: [],
+  images: [],
   image_url: '',
   likes: [],
   dislikes: [],
@@ -25,10 +26,10 @@ const NewPet = () => {
       <Head>
         <title>Submit your Pet | PawShow</title>
       </Head>
-      <h1>Submit your Pet</h1>
       <PetForm
         formId="add-pet-form"
         petForm={petForm}
+        title="Submit your pet"
       />
       <style jsx>
         {`

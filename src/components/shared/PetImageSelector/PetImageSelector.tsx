@@ -1,15 +1,9 @@
+import { IImageFile } from "@/types/types";
 import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
 import { FileDrop } from "react-file-drop";
 import { FaStar } from "react-icons/fa";
 import { FiStar, FiX } from "react-icons/fi";
 import styles from './PetImageSelector.module.scss';
-
-interface IImageFile {
-    file: File;
-    url: string;
-    id: string;
-    isThumbnail: boolean;
-}
 
 interface IProps {
     imageFiles: IImageFile[];
@@ -25,6 +19,8 @@ const parseFiles = (files: FileList) => {
             file,
             url: imageUrl,
             isThumbnail: false,
+            type: 'local',
+            raw: null,
             id: randomString // to be used for deleting specific item from array
         }
     });
@@ -38,7 +34,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, setImageFiles }) => {
 
     useEffect(() => {
         if (imageFiles.length > 1 && imageFiles.every(image => !image.isThumbnail)) {
-            setError('Select an image as thumbnail ✰');
+            setError('Select an image as thumbnail ★');
         } else {
             setError('');
         }
@@ -147,7 +143,9 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, setImageFiles }) => {
                                         onClick={() => handleSetThumbnail(image.id)}
                                         style={{
                                             background: `${image.isThumbnail ? '#f3c234' : '#f1f1f1'}`,
-                                            color: `${image.isThumbnail ? '#000' : '797878'}`
+                                            color: `${image.isThumbnail ? '#000' : '797878'}`,
+                                            width: `${image.isThumbnail ? '30px' : '25px'}`,
+                                            height: `${image.isThumbnail ? '30px' : '25px'}`,
                                         }}
                                         title="Set as Thumbnail"
                                         type="button"

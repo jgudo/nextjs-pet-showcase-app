@@ -1,11 +1,19 @@
+import { uploadImage } from '@/lib/cloudinary';
 import middlewares, { ensureAuth, ErrorHandler, errorMiddleware, onNoMatch } from '@/middlewares';
 import { Pet } from '@/models/index';
-import { NextApiRequestExt } from '@/types/types';
+import { IUser, NextApiRequestExt } from '@/types/types';
+import { IncomingForm } from 'formidable';
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
 const handlerOptions = { onNoMatch, onError: errorMiddleware }
 const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
 
 handler
   .use(middlewares)
@@ -13,7 +21,12 @@ handler
     try {
       const pets = await Pet.find({}).populate('owner');
 
-      res.status(200).json({ success: true, data: pets });
+      const result = pets.map(pet => ({
+        ...pet.toObject(),
+        isOwnPet: pet.owner._id.toString() === req.user?._id.toString()
+      }));
+
+      res.status(200).json({ success: true, data: result });
     } catch (error) {
       res.status(400).json({ success: false });
     }
@@ -21,17 +34,42 @@ handler
   .post(
     ensureAuth,
     async (req, res, next) => {
-      try {
-        const pet = new Pet({ ...req.body, owner: req.user._id });
-        await pet.save();
+      const promise = new Promise((resolve, reject) => {
+        const form = new IncomingForm();
+        form.multiples = true;
 
-        await pet.populate('owner').execPopulate();
-        res.status(201).json({ success: true, data: pet });
-      } catch (error) {
-        console.log(error)
-        next(new ErrorHandler(400));
-      }
-    })
+        form.parse(req, (err, fields, files) => {
+          if (err) reject(err);
+          const { jsonProp, ...rest } = fields;
+          const parsedFields = { ...rest, ...JSON.parse(jsonProp as string) }
+          resolve({ fields: parsedFields, files });
+        })
+      })
+
+      return promise.then(async ({ fields, files }) => {
+        try {
+          const userID = (req.user as IUser)._id;
+          const imageSrc = await uploadImage(files.image, 'thumbnail'); // single 
+          const imagesArraySrc = await uploadImage(files.imageFiles, 'images'); // multiple
+          const pet = new Pet({
+            ...fields,
+            owner: userID,
+            image: imageSrc,
+            images: imagesArraySrc
+          });
+          await pet.save();
+
+          await pet.populate('owner').execPopulate();
+
+          const result = { ...pet.toObject(), isOwnPet: pet.owner._id.toString() === userID.toString() };
+          res.status(201).json({ success: true, data: result });
+        } catch (error) {
+          console.log(error)
+          next(new ErrorHandler(400));
+        }
+      })
+    }
+  )
 
 export default handler;
 

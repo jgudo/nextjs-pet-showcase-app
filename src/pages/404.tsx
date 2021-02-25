@@ -11,6 +11,14 @@ const PageNotFound = () => (
                 <FiArrowLeft /> &nbsp; Back to Home
             </a>
         </Link>
+        <style jsx>
+            {`
+            .container-404 {
+                padding: 50px;
+                margin-top: 80px;
+            }
+            `}
+        </style>
     </div>
 );
 

@@ -58,7 +58,7 @@ display: flex;
     left: 0;
     height: 25px;
     width: 25px;
-    border: 2px var(--accent-hover) dashed;
+    border: 2px #cacaca dashed;
     transition: all 0.5s ease-in-out;
 
     &:after {
@@ -92,6 +92,7 @@ display: flex;
 
 .checkbox > input:checked ~ .checkmark {
     background-color: var(--accent);
+    border: 2px var(--accent-hover) dashed;
     transition: all 0.5s ease-in-out;
     border-radius: 50%;
 }

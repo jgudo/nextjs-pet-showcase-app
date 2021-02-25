@@ -15,8 +15,11 @@ export interface IPet {
     poddy_trained: boolean;
     diet: string[];
     image_url: string;
+    image: Record<string, any>;
+    images: Record<string, any>[];
     likes: string[];
     dislikes: string[];
+    isOwnPet?: boolean;
 }
 
 export interface IUser {
@@ -31,6 +34,15 @@ export interface IError {
     statusCode: number;
     message: string;
     errors: any[];
+}
+
+export interface IImageFile {
+    file: File;
+    url: string;
+    id: string;
+    type: string,
+    raw?: any; // the uploaded image that came from db to be used when setting thumbnail
+    isThumbnail: boolean;
 }
 
 export type NextApiRequestExt = NextApiRequest & SessionData

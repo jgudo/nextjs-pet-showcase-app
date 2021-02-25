@@ -36,6 +36,7 @@ const UserSchema = new Schema({
         virtuals: true,
         transform: function (doc, ret, opt) {
             delete ret.password;
+            delete ret.__v;
             return ret;
         }
     },
@@ -44,6 +45,7 @@ const UserSchema = new Schema({
         virtuals: true,
         transform: function (doc, ret, opt) {
             delete ret.password;
+            delete ret.__v;
             return ret;
         }
     }

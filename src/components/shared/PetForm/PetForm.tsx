@@ -1,7 +1,9 @@
 import { CustomInputField, CustomMultiSelect } from '@/components/common';
+import { addPet, updatePet } from '@/lib/api';
+import { IImageFile, IPet } from '@/types/types';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
@@ -16,9 +18,15 @@ interface IFormState {
   age: number;
   poddy_trained?: boolean;
   diet?: string[];
-  image_url: string;
   likes?: string[];
   dislikes?: string[];
+}
+
+interface IProps {
+  title: string;
+  petForm: IPet;
+  forNewPet: boolean;
+  formId: string;
 }
 
 const PetFormSchema = Yup.object().shape({
@@ -26,20 +34,32 @@ const PetFormSchema = Yup.object().shape({
   species: Yup.string().required('Species is required.'),
   age: Yup.number(),
   breed: Yup.string(),
+  image: Yup.object(),
+  images: Yup.array(Yup.object()),
   poddy_trained: Yup.boolean(),
   diet: Yup.array(Yup.string()),
-  image_url: Yup.string().required('Image url is required.'),
   likes: Yup.array(Yup.string()),
   dislikes: Yup.array(Yup.string())
 });
 
 const toObjectArray = (arr: any[]) => arr.map(val => ({ value: val, label: val }));
 
-const PetForm = ({ formId, petForm, forNewPet = true }) => {
+const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
   const router = useRouter();
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState('');
-  const [imageFiles, setImageFiles] = useState([]);
+  const [error, setError] = useState('');
+  const [imageFiles, setImageFiles] = useState<IImageFile[]>(() => {
+    // concat image and images array and map necessary properties
+    const initFiles = petForm.image ? [petForm.image, ...petForm.images] : petForm.images;
+    return initFiles.map((img: any) => ({
+      type: 'upload',
+      file: null,
+      url: img?.url,
+      isThumbnail: false,
+      id: img?.public_id,
+      raw: img
+    }))
+  });
   const options = useMemo(() => countryList().getData(), []);
 
   const initFormikValues = {
@@ -48,73 +68,93 @@ const PetForm = ({ formId, petForm, forNewPet = true }) => {
     breed: petForm.breed,
     country: petForm.country || { value: 'PH', label: 'Philippines' },
     age: petForm.age,
+    image: petForm.image,
+    images: petForm.images,
     poddy_trained: petForm.poddy_trained,
     diet: petForm.diet,
-    image_url: petForm.image_url,
     likes: petForm.likes,
     dislikes: petForm.dislikes,
   }
 
-  const putData = async (form) => {
-    const { id } = router.query
+  const handleSubmit = async (values: IFormState) => {
+    const formData = new FormData();
+
+    //validate if a thumbnail exists
+    if ((!imageFiles.some(img => img.isThumbnail) && imageFiles.length > 1)) {
+      return;
+    }
+
+    if (imageFiles.length === 0) return setError('Pet image is required.');
+
+    const jsonProp: any = {};
+    // Append props of type 'object' to jsonProp so that the server can only parse 
+    // this property one time without having to manually parse individual prop
+
+    for (const [key, value] of Object.entries(values)) {
+      if (typeof value === 'object') { // arrays are also of type object
+        jsonProp[key] = value;
+      } else {
+        // append only non-object props 
+        formData.append(key, value);
+      }
+    }
+
+    // append files to formData
+    imageFiles
+      .forEach((img) => {
+        if (img.isThumbnail || imageFiles.length === 1) { // if the image is thumbnail
+          if (img.file) { // if file exists - Let's upload it 
+            formData.append('image', img.file);
+          } else {
+            // make sure no duplicate of thumbnail in images array
+            const filtered = imageFiles
+              .filter(image => image.id !== img.id)
+              .map(image => image.raw);
+            //overwrite the image and images prop on jsonProp 
+            jsonProp.images = filtered;
+            jsonProp.image = img.raw;
+          }
+        } else {
+          // the image will be appended on imageFiles [] to be uploaded
+          // make sure we're appending a file and not 'null'
+          img.file && formData.append('imageFiles', img.file);
+        }
+      });
+
+    // append the stringified jsonProp to formData
+    formData.append('jsonProp', JSON.stringify(jsonProp));
 
     try {
-      const res: Response = await fetch(`/api/pets/${id}`, {
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      })
+      setError('');
 
-      // Throw error with status code in case Fetch API req failed
-      if (!res.ok) {
-        throw new Error(String(res.status))
+      if (forNewPet) {
+        await addPet(formData);
+
+        router.push('/');
+      } else {
+        const { id } = router.query;
+        const data = await updatePet(id as string, formData);
+        mutate(`/api/pets/${id}`, data, false); // Update the local data without a revalidation
+
+        console.log(data);
+        alert('Success');
       }
-
-      const { data } = await res.json()
-
-      mutate(`/api/pets/${id}`, data, false) // Update the local data without a revalidation
-      router.push('/')
-    } catch (error) {
-      setMessage('Failed to update pet')
+    } catch (e) {
+      setError(e);
     }
-  }
-
-  /* The POST method adds a new entry in the mongodb database. */
-  const postData = async (form) => {
-    try {
-      const res = await fetch('/api/pets', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      })
-
-      // Throw error with status code in case Fetch API req failed
-      if (!res.ok) {
-        throw new Error(String(res.status))
-      }
-
-      router.push('/')
-    } catch (error) {
-      setMessage('Failed to add pet')
-    }
-  }
-  const handleSubmit = (values: IFormState) => {
-    forNewPet ? postData(values) : putData(values)
   }
 
   return (
     <div>
-      <p className="text-subtle text-sm info">
+      <div>
+        {error && <span className="msg--error">{error}</span>}
+        <h1>{title}</h1>
+      </div>
+      <p className="text-subtle">
         <FiInfo /> &nbsp;
         Labels with <strong style={{ color: 'var(--primary)' }}>*</strong> are required.
       </p>
-      <br /><br />
+      <br /><br /><br />
       <Formik
         validationSchema={PetFormSchema}
         initialValues={initFormikValues}

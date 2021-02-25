@@ -46,6 +46,7 @@ const errorMiddleware = (err: any, req: NextApiRequest, res: NextApiResponse) =>
         return res.status(422).json(errorResponseJSON(422, err?.message || 'Unable to process your request.'));
     }
 
+    console.log(err)
     res.status(statusCode).json(errorResponseJSON(statusCode, message));
 }
 

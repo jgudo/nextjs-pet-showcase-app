@@ -3,6 +3,7 @@ import { useCurrentUser } from '@/hooks/useUser';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
+import SearchBar from '../SearchBar';
 import styles from './Navbar.module.scss';
 
 const Navbar: FC = () => {
@@ -14,18 +15,23 @@ const Navbar: FC = () => {
         <nav className={styles.navbar}>
             <ul className={styles.navbar__menu}>
                 <li className={styles.navbar__menu_item}>
-                    <img
-                        className={styles.navbar__logo}
-                        id="title"
-                        src="/logo.png"
-                        alt="pet care logo"
-                    />
+                    <Link href="/">
+                        <img
+                            className={styles.navbar__logo}
+                            id="title"
+                            src="/logo.png"
+                            alt="pet care logo"
+                        />
+                    </Link>
                 </li>
-                <li className={styles.navbar__menu_item}>
-                    <Link href="/"><a>Explore</a></Link>
+                <li>
+                    <SearchBar />
                 </li>
             </ul>
             <ul className={styles.navbar__menu}>
+                <li className={styles.navbar__menu_item}>
+                    <Link href="/"><a>Explore</a></Link>
+                </li>
                 {user ? (
                     <li className={styles.navbar__menu_item}>
                         <NavUserPill user={user} mutate={mutate} />

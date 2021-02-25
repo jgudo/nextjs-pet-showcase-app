@@ -18,7 +18,17 @@ const EditPet = () => {
         formId="edit-pet-form"
         petForm={pet}
         forNewPet={false}
+        title="Edit pet details"
       />
+
+      <style jsx>
+        {`
+          .edit-pet {
+            padding: 50px;
+            margin-top: 80px;
+          }
+        `}
+      </style>
     </div>
   )
 }
