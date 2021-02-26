@@ -13,12 +13,11 @@ const EditPet = () => {
 
   return (
     <div className="edit-pet">
-      <h1>Edit Pet Details</h1>
       <PetForm
         formId="edit-pet-form"
         petForm={pet}
         forNewPet={false}
-        title="Edit pet details"
+        title="Edit Pet details"
       />
 
       <style jsx>

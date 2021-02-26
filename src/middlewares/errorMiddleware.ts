@@ -14,7 +14,7 @@ const errorResponseJSON = (
     statusCode: number,
     message: string,
     status: string = 'error',
-    errors: any[] = null
+    errors: any[] = []
 ) => ({
     status,
     statusCode,

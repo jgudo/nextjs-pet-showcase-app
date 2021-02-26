@@ -1,12 +1,11 @@
 import { CustomInputField } from "@/components/common";
 import FacebookIcon from "@/components/common/Icons/FacebookIcon";
 import GoogleIcon from "@/components/common/Icons/GoogleIcon";
-import fetcher from "@/lib/fetcher";
+import { useCurrentUser } from "@/hooks/useUser";
 import { Field, Form, Formik } from "formik";
 import Link from "next/link";
 import Router from "next/router";
 import { useState } from "react";
-import useSWR from "swr";
 import * as Yup from 'yup';
 
 interface IFormState {
@@ -25,7 +24,7 @@ const SignInSchema = Yup.object().shape({
 const Login = () => {
     const [error, setError] = useState('');
     const [isLoading, setLoading] = useState(false);
-    const { data: user } = useSWR('api/user', fetcher);
+    const { user } = useCurrentUser();
 
     if (user) Router.push('/');
 

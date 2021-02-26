@@ -11,13 +11,12 @@ const petForm = {
   poddy_trained: false,
   diet: [],
   images: [],
-  image_url: '',
   likes: [],
   dislikes: [],
 }
 
 const NewPet = () => {
-  const [user] = useCurrentUser();
+  const { user } = useCurrentUser();
 
   if (!user && typeof window !== 'undefined') Router.push('/login');
 
@@ -30,6 +29,7 @@ const NewPet = () => {
         formId="add-pet-form"
         petForm={petForm}
         title="Submit your pet"
+        forNewPet={true}
       />
       <style jsx>
         {`

@@ -12,7 +12,7 @@ handler
     .get(async (req, res) => {
         const user = await User.findById(req.query.uid);
 
-        return res.json({ success: true, data: user.toJSON() });
+        return res.json({ user: user.toJSON() });
     })
 
 export default handler;

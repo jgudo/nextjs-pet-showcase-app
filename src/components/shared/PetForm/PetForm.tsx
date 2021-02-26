@@ -1,12 +1,10 @@
-import { CustomInputField, CustomMultiSelect } from '@/components/common';
+import { CountryDropDown, CustomInputField, CustomMultiSelect } from '@/components/common';
 import { addPet, updatePet } from '@/lib/api';
 import { IImageFile, IPet } from '@/types/types';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
-import Select from 'react-select';
-import countryList from 'react-select-country-list';
 import { mutate } from 'swr';
 import * as Yup from 'yup';
 import PetImageSelector from '../PetImageSelector';
@@ -24,7 +22,7 @@ interface IFormState {
 
 interface IProps {
   title: string;
-  petForm: IPet;
+  petForm: Partial<IPet>;
   forNewPet: boolean;
   formId: string;
 }
@@ -60,7 +58,6 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
       raw: img
     }))
   });
-  const options = useMemo(() => countryList().getData(), []);
 
   const initFormikValues = {
     name: petForm.name,
@@ -191,18 +188,10 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                   {({ form, meta }) => (
                     <div className="input-fieldset">
                       <label className="label" htmlFor="country">Country</label>
-                      <div className={styles.select_country}>
-                        <img src={`https://www.countryflags.io/${form.values.country?.value}/flat/64.png`} />
-                        <Select
-                          options={options}
-                          name="country"
-                          id="country"
-                          value={form.values.country}
-                          onChange={(val) => {
-                            form.setValues(((vals: IFormState) => ({ ...vals, country: val })))
-                          }}
-                        />
-                      </div>
+                      <CountryDropDown
+                        selected={form.values.country}
+                        onChange={(val) => form.setValues(((vals: IFormState) => ({ ...vals, country: val })))}
+                      />
                     </div>
                   )
                   }

@@ -9,7 +9,7 @@ import styles from './Navbar.module.scss';
 const Navbar: FC = () => {
     const hiddenTo = ['/login', '/signup'];
     const router = useRouter();
-    const [user, { mutate }] = useCurrentUser();
+    const { user, mutate } = useCurrentUser();
 
     return hiddenTo.includes(router.pathname) ? null : (
         <nav className={styles.navbar}>

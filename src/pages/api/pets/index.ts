@@ -17,14 +17,23 @@ export const config = {
 
 handler
   .use(middlewares)
-  .get(async (req, res) => {
+  .get(async (req, res, next) => {
     try {
-      const pets = await Pet.find({}).populate('owner');
+      const { country } = req.query;
+      const query: any = {};
+
+      if (country) query['country.value'] = country;
+
+      const pets = await Pet.find(query).populate('owner');
 
       const result = pets.map(pet => ({
         ...pet.toObject(),
         isOwnPet: pet.owner._id.toString() === req.user?._id.toString()
       }));
+
+      if (result.length === 0) {
+        return next(new ErrorHandler(404, 'No pet found.'));
+      }
 
       res.status(200).json({ success: true, data: result });
     } catch (error) {

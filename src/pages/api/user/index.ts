@@ -11,7 +11,7 @@ handler
     .get((req, res) => {
         if (!req.user) return res.json({ success: false, data: null });
 
-        return res.json({ success: true, data: req.user.toJSON() });
+        return res.json({ user: req.user.toJSON() });
     })
 
 export default handler;

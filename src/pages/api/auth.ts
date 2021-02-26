@@ -20,7 +20,7 @@ handler
                         return next(new ErrorHandler(500));
                     }
 
-                    res.json({ success: true, data: user.toJSON() });
+                    res.json({ user: user.toJSON() });
                 });
             } else {
                 next(new ErrorHandler(401, info.message));
@@ -34,7 +34,7 @@ handler
                 return next(new ErrorHandler(500));
             }
 
-            res.status(204).json({ success: true, data: null });
+            res.status(204).json({ user: null });
         });
     })
 

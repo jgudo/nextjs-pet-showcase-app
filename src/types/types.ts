@@ -5,7 +5,7 @@ export interface IPet {
     _id?: string;
     name: string;
     owner: IUser;
-    country: {
+    country?: {
         value: string;
         label: string;
     }

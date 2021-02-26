@@ -21,7 +21,7 @@ handler
                         return next(new ErrorHandler(500));
                     }
 
-                    return res.json({ success: true, data: user.toJSON() });
+                    return res.json({ user: user.toJSON() });
                 });
             } else {
                 next(new ErrorHandler(400, info?.message || 'Unable to process request.'))
