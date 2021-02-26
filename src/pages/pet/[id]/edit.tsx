@@ -15,7 +15,7 @@ const EditPet = () => {
     <div className="edit-pet">
       <PetForm
         formId="edit-pet-form"
-        petForm={pet}
+        petForm={pet.data}
         forNewPet={false}
         title="Edit Pet details"
       />

@@ -5,6 +5,7 @@ import { Field, Form, Formik } from 'formik';
 import Link from 'next/link';
 import Router from 'next/router';
 import { useState } from "react";
+import { AiOutlineLoading } from 'react-icons/ai';
 import * as Yup from "yup";
 
 interface IFormState {
@@ -109,7 +110,11 @@ const SignUp = () => {
                                         component={CustomInputField}
                                     />
                                     <div className="auth_button">
-                                        <button disabled={isLoading} type="submit">Continue</button>
+                                        <button disabled={isLoading} type="submit">
+                                            {isLoading && <AiOutlineLoading className="spin" />}
+                                            &nbsp;
+                                            Continue
+                                        </button>
                                     </div>
                                 </Form>
                             )}

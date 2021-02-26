@@ -7,6 +7,7 @@ import styles from './PetImageSelector.module.scss';
 
 interface IProps {
     imageFiles: IImageFile[];
+    isSubmitting: boolean;
     setImageFiles: Dispatch<SetStateAction<IImageFile[]>>;
 }
 
@@ -28,7 +29,7 @@ const parseFiles = (files: FileList) => {
     return parsed;
 }
 
-const PetImageSelector: FC<IProps> = ({ imageFiles, setImageFiles }) => {
+const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles }) => {
     const imageContainerRef = useRef<HTMLDivElement | null>(null);
     const [error, setError] = useState('');
 
@@ -89,6 +90,8 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, setImageFiles }) => {
     }
 
     const handleDrop = (files: FileList, event: React.DragEvent<HTMLDivElement>) => {
+        if (isSubmitting) return;
+
         try {
             validateFiles(files);
 
@@ -129,6 +132,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, setImageFiles }) => {
                                 id="images"
                                 hidden
                                 multiple
+                                disabled={isSubmitting}
                                 onChange={handleManualSelect}
                                 type="file"
                             />
@@ -140,6 +144,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, setImageFiles }) => {
                                 <div className={styles.image_grid_item} key={image.id}>
                                     <button
                                         className={`${styles.button_action} ${styles.button_star}`}
+                                        disabled={isSubmitting}
                                         onClick={() => handleSetThumbnail(image.id)}
                                         style={{
                                             background: `${image.isThumbnail ? '#f3c234' : '#f1f1f1'}`,
@@ -154,6 +159,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, setImageFiles }) => {
                                     </button>
                                     <button
                                         className={`${styles.button_action} ${styles.button_remove}`}
+                                        disabled={isSubmitting}
                                         onClick={() => handleRemoveSelected(image.id)}
                                         title="Remove"
                                         type="button"
@@ -175,11 +181,12 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, setImageFiles }) => {
                         Choose More Images ({4 - imageFiles.length})
                     </label>
                     <input
-                        type="file"
+                        disabled={isSubmitting}
                         hidden
                         id="images"
-                        multiple
                         onChange={handleManualSelect}
+                        multiple
+                        type="file"
                     />
                 </div>
             )}

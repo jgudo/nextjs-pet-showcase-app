@@ -29,35 +29,35 @@ const PetPage: FC = () => {
   return (
     <div className="view">
       <div className="images">
-        <img src={pet.image_url || pet.image.url} />
+        <img src={pet.data.image?.url} />
       </div>
       <div className="details">
         <div className="details-wrapper">
           <span className="text-subtle text-xs">Name</span>
-          <h1 className="pet-name">{pet.name}</h1>
+          <h1 className="pet-name">{pet.data.name}</h1>
         </div>
         <div className="details-wrapper">
           <span className="text-subtle text-xs">From</span>
-          {pet.country && (
+          {pet.data.country && (
             <div className="country">
               <img
-                alt={pet.country.label}
+                alt={pet.data.country.label}
                 className="country-badge"
-                src={`https://www.countryflags.io/${pet.country?.value}/flat/64.png`}
+                src={`https://www.countryflags.io/${pet.data.country?.value}/flat/64.png`}
               />
             &nbsp;
-              <h4>{pet.country.label}</h4>
+              <h4>{pet.data.country.label}</h4>
             </div>
           )}
         </div>
         <div className="details-wrapper">
           <span className="text-subtle text-xs">Owner</span>
-          <h4>{pet.owner?.name}</h4>
+          <h4>{pet.data.owner?.name}</h4>
         </div>
         <div className="details-wrapper">
           <span className="text-subtle text-xs">Likes</span>
           <ul>
-            {pet.likes.map((data, index) => (
+            {pet.data.likes.map((data, index) => (
               <li key={index}>{data} </li>
             ))}
           </ul>
@@ -65,14 +65,14 @@ const PetPage: FC = () => {
         <div className="details-wrapper">
           <span className="text-subtle text-xs">Dislikes</span>
           <ul>
-            {pet.dislikes.map((data, index) => (
+            {pet.data.dislikes.map((data, index) => (
               <li key={index}>{data} </li>
             ))}
           </ul>
         </div>
-        {pet.isOwnPet && (
+        {pet.data.isOwnPet && (
           <div className="btn-container">
-            <Link href="/pet/[id]/edit" as={`/pet/${pet._id}/edit`}>
+            <Link href="/pet/[id]/edit" as={`/pet/${pet.data._id}/edit`}>
               <button className="btn edit">Edit</button>
             </Link>
             <button className="btn delete" onClick={handleDelete}>

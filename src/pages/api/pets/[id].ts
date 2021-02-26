@@ -96,7 +96,9 @@ handler
         if (!pet) return next(new ErrorHandler(404, 'Pet not found'));
 
         if (pet.owner.toString() === req.user._id.toString()) {
-          const imageIDs = [pet.image, ...pet.images].map(img => img.public_id); // array of image public_ids
+          const imageIDs = [pet.image, ...pet.images]  // array of image public_ids
+            .filter(img => img?.public_id)
+            .map(img => img.public_id);
 
           await deleteImage(imageIDs) // delete images
 

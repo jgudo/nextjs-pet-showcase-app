@@ -7,8 +7,8 @@ cloudinaryV2.config({
 });
 
 export const uploadImage = (file: File | File[], folder: string) => {
-    return new Promise(async (resolve, reject) => {
-        if (file) {
+    if (file) {
+        return new Promise(async (resolve, reject) => {
             const opts = {
                 folder,
                 resource_type: 'auto',
@@ -34,10 +34,8 @@ export const uploadImage = (file: File | File[], folder: string) => {
                     reject(err);
                 }
             }
-        } else {
-            Array.isArray(file) ? resolve([]) : resolve({});
-        }
-    });
+        });
+    }
 }
 
 export const deleteImage = (publicID: string | string[]) => {

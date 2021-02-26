@@ -59,7 +59,8 @@ handler
         try {
           const userID = (req.user as IUser)._id;
           const imageSrc = await uploadImage(files.image, 'thumbnail'); // single 
-          const imagesArraySrc = await uploadImage(files.imageFiles, 'images'); // multiple
+          const imagesArraySrc = files.imageFiles ? await uploadImage(files.imageFiles, 'images') : []; // multiple
+
           const pet = new Pet({
             ...fields,
             owner: userID,
@@ -67,14 +68,13 @@ handler
             images: imagesArraySrc
           });
           await pet.save();
-
           await pet.populate('owner').execPopulate();
 
           const result = { ...pet.toObject(), isOwnPet: pet.owner._id.toString() === userID.toString() };
           res.status(201).json({ success: true, data: result });
         } catch (error) {
           console.log(error)
-          next(new ErrorHandler(400));
+          next(new ErrorHandler(500));
         }
       })
     }

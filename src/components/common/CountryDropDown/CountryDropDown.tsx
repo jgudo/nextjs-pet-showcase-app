@@ -26,15 +26,17 @@ interface IProps {
     selected?: { value: string; label: string; };
     defaultValue?: any;
     placeholder?: string;
+    [prop: string]: any;
 }
 
 const CountryDropDown: FC<IProps> = (props) => {
-    const { onChange, selected, defaultValue, placeholder } = props;
+    const { onChange, selected, defaultValue, placeholder, ...rest } = props;
     const options = useMemo(() => [{ label: 'None', value: "" }, ...countryList().getData()], []);
 
     return (
         <div className={styles.select_country}>
             <Select
+                {...rest}
                 defaultValue={defaultValue}
                 options={options}
                 name="country"

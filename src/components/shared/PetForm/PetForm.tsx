@@ -4,7 +4,8 @@ import { IImageFile, IPet } from '@/types/types';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
-import { FiInfo } from 'react-icons/fi';
+import { AiOutlineLoading } from 'react-icons/ai';
+import { FiCheck, FiInfo } from 'react-icons/fi';
 import { mutate } from 'swr';
 import * as Yup from 'yup';
 import PetImageSelector from '../PetImageSelector';
@@ -133,7 +134,6 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
         const data = await updatePet(id as string, formData);
         mutate(`/api/pets/${id}`, data, false); // Update the local data without a revalidation
 
-        console.log(data);
         alert('Success');
       }
     } catch (e) {
@@ -158,29 +158,30 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
         validateOnChange
         onSubmit={handleSubmit}
       >
-        {() => (
+        {({ isSubmitting }) => (
           <Form id={formId} className={styles.form}>
             <div className={styles.images}>
               <PetImageSelector
                 setImageFiles={setImageFiles}
                 imageFiles={imageFiles}
+                isSubmitting={isSubmitting}
               />
             </div>
             <div className={styles.form_fields}>
               <div className={styles.flex_field}>
-                <Field name="name" component={CustomInputField} label="* Pet Name" />
-                <Field name="breed" component={CustomInputField} label="Breed" />
+                <Field disabled={isSubmitting} name="name" component={CustomInputField} label="* Pet Name" />
+                <Field disabled={isSubmitting} name="breed" component={CustomInputField} label="Breed" />
               </div>
               <div className={styles.flex_field}>
-                <Field name="species" component={CustomInputField} label="* Species" />
-                <Field type="number" name="age" component={CustomInputField} label="Age" />
+                <Field disabled={isSubmitting} name="species" component={CustomInputField} label="* Species" />
+                <Field disabled={isSubmitting} type="number" name="age" component={CustomInputField} label="Age" />
               </div>
               <div className={`${styles.flex_field} ${styles.checkbox_container}`}>
                 {/* --- CUSTOM CHECKBOX */}
                 <div className={styles.checkbox_wrapper}>
                   <label className={styles.checkbox}>
                     Poddy Trained
-                  <Field type="checkbox" id="poddy_trained" name="poddy_trained" />
+                  <Field disabled={isSubmitting} type="checkbox" id="poddy_trained" name="poddy_trained" />
                     <span className={styles.checkmark}></span>
                   </label>
                 </div>
@@ -190,6 +191,8 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                       <label className="label" htmlFor="country">Country</label>
                       <CountryDropDown
                         selected={form.values.country}
+                        defaultValue={form.values.country}
+                        disabled={isSubmitting}
                         onChange={(val) => form.setValues(((vals: IFormState) => ({ ...vals, country: val })))}
                       />
                     </div>
@@ -202,6 +205,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                 name="likes"
                 iid="likes"
                 options={toObjectArray(petForm.likes)}
+                disabled={isSubmitting}
                 placeholder=""
                 label="Likes"
               />
@@ -210,6 +214,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                 name="dislikes"
                 options={toObjectArray(petForm.dislikes)}
                 iid="dislikes"
+                disabled={isSubmitting}
                 placeholder=""
                 label="Dislikes"
               />
@@ -217,26 +222,23 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                 defaultValues={toObjectArray(petForm.diet)}
                 name="Diet"
                 iid="diet"
+                disabled={isSubmitting}
                 options={toObjectArray(petForm.diet)}
                 placeholder=""
                 label="Diet"
               />
               <div>
-                <button type="submit" className="btn">
-                  Submit
-              </button>
+                <button
+                  className="btn button--icon"
+                  disabled={isSubmitting}
+                  type="submit"
+                >
+                  {isSubmitting ? <AiOutlineLoading className="spin" /> : <FiCheck />}
+                  &nbsp;
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                </button>
               </div>
             </div>
-            {/* 
-            <label htmlFor="image_url">Image URL</label>
-            <input
-              type="url"
-              name="image_url"
-              value={form.image_url}
-              onChange={handleChange}
-              required
-            />
-            /> */}
           </Form>
         )}
       </Formik>
