@@ -2,13 +2,10 @@
     width: 100%;
 }
 
-.search_text {
-    margin-bottom: 20px;
-}
-
 .grid {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    // grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, 250px);
     grid-gap: 20px;
 }

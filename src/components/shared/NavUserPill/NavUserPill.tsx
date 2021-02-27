@@ -1,6 +1,8 @@
 import { IUser } from "@/types/types";
+import { useRouter } from "next/router";
 import { FC, useEffect, useRef, useState } from "react";
-import { FiChevronDown, FiLogOut } from 'react-icons/fi';
+import { AiOutlineLoading } from "react-icons/ai";
+import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
 import { mutateInterface } from "swr/dist/types";
 import styles from './NavUserPill.module.scss';
 
@@ -12,6 +14,8 @@ interface IProps {
 const NavUserPill: FC<IProps> = ({ user, mutate }) => {
     const [isOpen, setOpen] = useState(false);
     const isOpenRef = useRef(isOpen);
+    const router = useRouter();
+    const [isLoggingOut, setLogginOut] = useState(false);
 
     useEffect(() => {
         isOpenRef.current = isOpen;
@@ -34,6 +38,18 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
         }
     }
 
+    const handleLogOut = async () => {
+        setLogginOut(true);
+        await fetch('/api/auth', {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+        mutate('/api/user');
+        setLogginOut(false);
+
+        window.location.replace('/login');
+    }
+
     return (
         <div className={styles.navbar__user} onClick={() => setOpen(true)}>
             <img src="https://i.pravatar.cc/150" alt="Avatar" />
@@ -42,16 +58,23 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
             <FiChevronDown />
             {isOpen && (
                 <div className={styles.navbar__user_dropdown}>
-                    <button className="button--block button--icon" onClick={async () => {
-                        await fetch('/api/auth', {
-                            method: 'DELETE',
-                            credentials: 'include'
-                        });
-                        mutate('/api/user');
-                        window.location.replace('/login');
-                    }}>
-                        <FiLogOut /> &nbsp; Logout
-                </button>
+                    <button
+                        className={styles.menu_button}
+                        disabled={isLoggingOut}
+                        onClick={() => router.push('/owner/me')}
+                    >
+                        <FiUser />
+                        <span>My Profile</span>
+                    </button>
+                    <button
+                        className={styles.menu_button}
+                        disabled={isLoggingOut}
+                        onClick={handleLogOut}
+                    >
+                        {isLoggingOut ? <AiOutlineLoading className="spin" /> : <FiLogOut />}
+                        &nbsp;
+                        <span>{isLoggingOut ? 'Logging Out...' : 'Logout'}</span>
+                    </button>
                 </div>
             )}
         </div>

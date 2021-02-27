@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Option } from "react-select/src/filters";
 import useSWR from "swr";
 
-interface IFilterState {
+export interface IFilterState {
     filters: {
         species: string[];
         countries: Option[];

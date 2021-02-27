@@ -198,8 +198,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                         onChange={(val) => form.setValues(((vals: IFormState) => ({ ...vals, country: val })))}
                       />
                     </div>
-                  )
-                  }
+                  )}
                 </Field>
               </div>
               <CustomMultiSelect

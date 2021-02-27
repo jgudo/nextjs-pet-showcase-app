@@ -41,7 +41,7 @@ const CountryDropDown: FC<IProps> = (props) => {
         ...rest
     } = props;
     const def = { label: 'All Country', value: "" };
-    const options = useMemo(() => [countryList().getData()], []);
+    const options = useMemo(() => [...countryList().getData()], []);
 
     return (
         <div className={styles.select_country}>

@@ -1,0 +1,20 @@
+.container {
+    min-width: 300px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: var(--primary);
+    border-radius: 15px;
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 18px 30px -20px rgba(0,0,0,.4);
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}

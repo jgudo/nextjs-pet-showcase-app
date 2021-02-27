@@ -27,9 +27,23 @@
         position: absolute;
         right: 0;
         top: 45px;
-        padding: 10px;
         background: #fff;
         border-radius: 10px;
         box-shadow: 2px 15px 20px rgba(0,0,0, .2);
+        overflow: hidden;
+    }
+}
+
+.menu_button {
+    background: none;
+    display: block;
+    width: 100%;
+    color: var(--text-color);
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+
+    &:hover {
+        color: #fff;
     }
 }
