@@ -19,10 +19,12 @@ handler
   .use(middlewares)
   .get(async (req, res, next) => {
     try {
-      const { country } = req.query;
+      const { country, species, text } = req.query;
       const query: any = {};
 
-      if (country) query['country.value'] = country;
+      if (country) query['country.value'] = { $regex: country, $options: 'i' };
+      if (species) query.species = { $regex: species, $options: 'i' };
+      if (text) query.name = { $regex: text, $options: 'i' };
 
       const pets = await Pet.find(query).populate('owner');
 
@@ -67,6 +69,7 @@ handler
             image: imageSrc,
             images: imagesArraySrc
           });
+
           await pet.save();
           await pet.populate('owner').execPopulate();
 
@@ -81,4 +84,3 @@ handler
   )
 
 export default handler;
-

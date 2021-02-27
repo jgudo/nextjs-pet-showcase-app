@@ -16,7 +16,7 @@ const PetSchema = new Schema({
     required: [true, "Please provide the pet owner"],
   },
   species: {
-
+    lowercase: true,
     type: String,
     required: [true, 'Please specify the species of your pet.'],
     maxlength: [30, 'Species specified cannot be more than 40 characters'],

@@ -1,6 +1,7 @@
 import { FC, useMemo } from "react";
 import Select, { components } from 'react-select';
 import countryList from 'react-select-country-list';
+import { Option } from "react-select/src/filters";
 import { SelectComponentsProps } from "react-select/src/Select";
 import styles from './CountryDropDown.module.scss';
 
@@ -22,23 +23,32 @@ const Control: FC<SelectComponentsProps> = ({ children, ...props }) => {
 };
 
 interface IProps {
-    onChange: (val: { value: string; label: string; }) => void;
-    selected?: { value: string; label: string; };
+    onChange: (val: Option) => void;
+    selected?: Option;
     defaultValue?: any;
     placeholder?: string;
+    defaultOptions?: any[];
     [prop: string]: any;
 }
 
 const CountryDropDown: FC<IProps> = (props) => {
-    const { onChange, selected, defaultValue, placeholder, ...rest } = props;
-    const options = useMemo(() => [{ label: 'None', value: "" }, ...countryList().getData()], []);
+    const {
+        onChange,
+        selected,
+        defaultValue,
+        placeholder,
+        defaultOptions,
+        ...rest
+    } = props;
+    const def = { label: 'All Country', value: "" };
+    const options = useMemo(() => [countryList().getData()], []);
 
     return (
         <div className={styles.select_country}>
             <Select
                 {...rest}
-                defaultValue={defaultValue}
-                options={options}
+                defaultValue={defaultValue || def}
+                options={defaultOptions ? [def, ...defaultOptions] : [def, ...options]}
                 name="country"
                 countryCode={selected?.value}
                 components={{ Control }}

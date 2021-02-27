@@ -1,0 +1,14 @@
+.select_species {
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 40px;
+        margin-right: 10px;
+        flex-shrink: 0;
+    }
+
+    & > div {
+        width: 100%;
+    }
+}

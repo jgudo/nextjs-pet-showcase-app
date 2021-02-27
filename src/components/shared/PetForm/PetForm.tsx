@@ -45,7 +45,7 @@ const toObjectArray = (arr: any[]) => arr.map(val => ({ value: val, label: val }
 
 const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
   const router = useRouter();
-  const [errors, setErrors] = useState({});
+  const [isSuccess, setSuccess] = useState(false);
   const [error, setError] = useState('');
   const [imageFiles, setImageFiles] = useState<IImageFile[]>(() => {
     // concat image and images array and map necessary properties
@@ -124,6 +124,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
 
     try {
       setError('');
+      setSuccess(false);
 
       if (forNewPet) {
         await addPet(formData);
@@ -132,10 +133,11 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
       } else {
         const { id } = router.query;
         const data = await updatePet(id as string, formData);
-        mutate(`/api/pets/${id}`, data, false); // Update the local data without a revalidation
 
-        alert('Success');
+        mutate(`/api/pets/${id}`, { data }, false); // Update the local data without a revalidation
       }
+
+      setSuccess(true);
     } catch (e) {
       setError(e);
     }
@@ -228,6 +230,11 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                 label="Diet"
               />
               <div>
+                {isSuccess && !forNewPet && (
+                  <span className="msg--success mb-4">
+                    <FiCheck /> Pet details updated successfully!
+                  </span>
+                )}
                 <button
                   className="btn button--icon"
                   disabled={isSubmitting}

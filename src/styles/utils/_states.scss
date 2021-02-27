@@ -8,9 +8,19 @@
     font-size: 12px;
 }
 
+%msg {
+    padding: 5px 0;
+    display: block;
+}
+
 .msg--error {
+    @extend %msg;
     color: var(--error);
     background: rgb(255, 226, 226);
-    padding: 5px 0;
     text-align: center;
+}
+
+.msg--success {
+    @extend %msg;
+    color: var(--success);
 }

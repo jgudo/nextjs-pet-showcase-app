@@ -1,7 +1,18 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import fetcher from "@/lib/fetcher";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { Option } from "react-select/src/filters";
+import useSWR from "swr";
 
 interface IFilterState {
-    country: { value: string; label: string; }
+    filters: {
+        species: string[];
+        countries: Option[];
+    },
+    selected: {
+        country: Option;
+        species: string;
+        text: string;
+    }
 }
 
 interface IFilterContext {
@@ -10,16 +21,40 @@ interface IFilterContext {
 }
 
 const initState = {
-    country: null
+    filters: {
+        species: [],
+        countries: []
+    },
+    selected: {
+        country: null,
+        species: '',
+        text: ''
+    }
 }
 
 const FilterContext = createContext<IFilterContext | undefined>(undefined);
 
 const FilterProvider = ({ children }) => {
     const [filter, setFilter] = useState<IFilterState>(initState);
+    const { data: filters } = useSWR('/api/filters', fetcher);
+
+    useEffect(() => {
+        if (filters) {
+            setFilter({
+                ...filter,
+                filters: { ...filters.data }
+            })
+        }
+    }, [filters]);
 
     const changeFilter = (field: string, value: any) => {
-        setFilter({ ...filter, [field]: value });
+        setFilter({
+            ...filter,
+            selected: {
+                ...filter.selected,
+                [field]: value
+            }
+        });
     };
 
     const value = useMemo(() => ({ filter, changeFilter }), [filter]);

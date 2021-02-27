@@ -9,8 +9,14 @@ import PetCard from "../PetCard";
 import styles from './PetGrid.module.scss';
 
 const PetGrid: FC = () => {
-    const { filter } = useFilter();
-    const query = `/api/pets?country=${filter.country?.value || ""}`;
+    const { filter: { selected } } = useFilter();
+    let search = '';
+
+    if (selected.country) search += `country=${selected.country?.value || ""}`;
+    if (selected.species) search += `&species=${selected.species}`;
+    if (selected.text) search += `&text=${selected.text}`;
+
+    const query = `/api/pets?${search}`;
     const { data: pets, error } = useSWR(query, fetcher);
 
     if (error) {
@@ -20,10 +26,15 @@ const PetGrid: FC = () => {
     if (!pets) return <h1>Loading...</h1>
 
     return (
-        <div className={styles.grid}>
-            {pets.data.map((pet: IPet) => (
-                <PetCard key={pet._id} pet={pet} />
-            ))}
+        <div className={styles.container}>
+            {selected.text && (
+                <h2 className={styles.search_text}>Search result for: {selected.text}</h2>
+            )}
+            <div className={styles.grid}>
+                {pets.data.map((pet: IPet) => (
+                    <PetCard key={pet._id} pet={pet} />
+                ))}
+            </div>
         </div>
     );
 }
