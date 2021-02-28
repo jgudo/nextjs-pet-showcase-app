@@ -26,7 +26,10 @@ handler
       }
 
       // append  the isOwnPet property
-      const result = { ...pet.toObject(), isOwnPet: pet.owner._id.toString() === req.user?._id.toString() };
+      const result = {
+        ...pet.toObject(),
+        isOwnPet: pet.owner._id.toString() === req.user?._id.toString()
+      };
 
       return res.status(200).json({ success: true, data: result });
     } catch (error) {
@@ -77,7 +80,10 @@ handler
             console.log(updatedPet)
 
             await updatedPet.populate({ path: 'owner' }).execPopulate();
-            res.status(200).json({ success: true, data: updatedPet })
+
+            // append isOwnPet property
+            const result = { ...updatedPet.toJSON(), isOwnPet: true };
+            res.status(200).json({ success: true, data: result });
           } else {
             next(new ErrorHandler(401));
           }

@@ -17,4 +17,6 @@
     border-radius: 50%;
     background-size: cover !important;
     background-repeat: no-repeat !important;
+    border: 4px solid var(--primary);
+    box-shadow: 0 0 0 5px var(--accent);
 }
