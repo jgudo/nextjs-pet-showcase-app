@@ -21,7 +21,11 @@ const Owner = () => {
                 <ProfileCard user={user} />
             </div>
             <div className="grid-container">
-                {!error && <h1 className="title">My Pets</h1>}
+                {!error && (
+                    <h1 className="title">
+                        {user.isOwnProfile ? 'My Pets' : `${user.name}'s Pets`}
+                    </h1>
+                )}
                 {error
                     ? <SomethingWentWrong />
                     : !pets

@@ -3,7 +3,6 @@ import middlewares, { ensureAuth, ErrorHandler, errorMiddleware, onNoMatch } fro
 import { Pet } from '@/models/index';
 import { IUser, NextApiRequestExt } from '@/types/types';
 import { IncomingForm } from 'formidable';
-import { Types } from 'mongoose';
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
@@ -28,7 +27,7 @@ handler
       if (species) query.species = { $regex: species, $options: 'i' };
       if (text) query.name = { $regex: text, $options: 'i' };
       if (owner) {
-        query.owner = (owner === 'me' ? req.user._id : Types.ObjectId(owner as string));
+        query.owner = (owner === 'me' ? req.user._id : owner);
       }
 
       const pets = await Pet.find(query).populate('owner');
