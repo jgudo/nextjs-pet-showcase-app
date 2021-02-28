@@ -2,6 +2,8 @@ import fetcher from '@/lib/fetcher'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC, useState } from 'react'
+import { AiOutlineDelete } from 'react-icons/ai'
+import { FiEdit3 } from 'react-icons/fi'
 import useSWR from 'swr'
 
 const PetPage: FC = () => {
@@ -73,9 +75,16 @@ const PetPage: FC = () => {
         {pet.data.isOwnPet && (
           <div className="btn-container">
             <Link href="/pet/[id]/edit" as={`/pet/${pet.data._id}/edit`}>
-              <button className="btn edit">Edit</button>
+              <button className="btn button--icon">
+                <FiEdit3 />
+                &nbsp;
+                Edit
+              </button>
             </Link>
-            <button className="btn delete" onClick={handleDelete}>
+            &nbsp;
+            <button className="btn button--danger button--icon" onClick={handleDelete}>
+              <AiOutlineDelete />
+              &nbsp;
               Delete
             </button>
           </div>
@@ -88,6 +97,7 @@ const PetPage: FC = () => {
             padding: 30px 50px;
             margin-top: 80px;
             display: flex;
+            align-items: flex-start;
           }
 
           .images {
@@ -109,6 +119,7 @@ const PetPage: FC = () => {
           }
 
           .details {
+            height: 100%;
             flex-basis: 60%;
             padding: 50px;
             border-radius: 20px;
@@ -129,6 +140,10 @@ const PetPage: FC = () => {
           .country-badge {
             width: 40px;
           }   
+
+          .btn-container {
+            display: flex;
+          }
         `}
       </style>
     </div>

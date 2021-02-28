@@ -15,6 +15,14 @@
     font-size: 15px;
 }
 
+.button--danger {
+    background: $error;
+    
+    &:hover {
+        background: darken($error, .5);
+    }
+}
+
 .button--social {
     padding: 15px;
     border-radius: 25px;

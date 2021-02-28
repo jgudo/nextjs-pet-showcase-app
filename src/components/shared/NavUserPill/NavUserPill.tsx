@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import { FC, useEffect, useRef, useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { FiChevronDown, FiLogOut, FiUser } from 'react-icons/fi';
-import { mutateInterface } from "swr/dist/types";
+import { mutateCallback } from "swr/dist/types";
 import styles from './NavUserPill.module.scss';
 
 interface IProps {
     user: IUser;
-    mutate: mutateInterface;
+    mutate: mutateCallback;
 }
 
 const NavUserPill: FC<IProps> = ({ user, mutate }) => {
