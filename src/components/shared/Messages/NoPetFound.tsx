@@ -7,12 +7,12 @@ const NoPetFound: FC<{ appliedFilters: IFilterState['selected'] }> = ({ appliedF
     return (
         <div className="container">
             <h1>No Pet Found.</h1>
-            <span className="text-subtle">
+            <p className="text-subtle">
                 Make sure to apply necessary filter or use specific keyword.
-            </span>
+            </p>
             <br />
             <br />
-            {country?.value || species || text && (
+            {(country?.value || species || text) && (
                 <div>
                     Filters you used:
                     {country?.value && (

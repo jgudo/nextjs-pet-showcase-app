@@ -20,6 +20,7 @@ handler
                         return next(new ErrorHandler(500));
                     }
 
+                    console.log(user)
                     res.json({ user: user.toJSON() });
                 });
             } else {

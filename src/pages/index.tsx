@@ -24,7 +24,7 @@ const Index: FC = () => {
     <div className="content">
       <Sidebar />
       <div className="grid-container">
-        {selected.text && !error && (
+        {(selected.text && !error && pets) && (
           <h2 className="search-text">
             Search result for: <span className="text-primary">{selected.text}</span>
           </h2>

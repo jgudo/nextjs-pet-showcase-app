@@ -68,10 +68,17 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
     }
 
     const validateFiles = (files: FileList | []) => {
+        const regex = /(\.jpg|\.jpeg|\.png)$/i;
         if (!files) return;
+
         if ((files.length + imageFiles.length) > 4) {
-            if (!error) setError('Maximum of 4 images allowed.');
-            throw new Error('Maximum of 4 photos allowed.');
+            throw new Error('Maximum of 4 photos only allowed.');
+        } else if (Array.from(files).some(file => !regex.exec(file.name))) {
+            throw new Error('File type of jpg,png,jpeg only allowed.');
+        } else if (Array.from(files).some(file => (file.size / 1024 / 1024) > 3)) {
+            throw new Error('Max file size per image exceeded 3mb.');
+        } else {
+            setError('');
         }
     }
 
@@ -85,7 +92,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
             setError('');
             setImageFiles(state => [...state, ...parsed]);
         } catch (err) {
-            console.info(err);
+            setError(err?.message || 'File validation error.');
         }
     }
 
@@ -100,7 +107,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
             setError('');
             setImageFiles(state => [...state, ...parsed]);
         } catch (err) {
-            console.info(err);
+            setError(err?.message || 'File validation error.');
         }
     }
 
@@ -132,6 +139,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
                                 id="images"
                                 hidden
                                 multiple
+                                accept="image/*"
                                 disabled={isSubmitting}
                                 onChange={handleManualSelect}
                                 type="file"
@@ -184,6 +192,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
                         disabled={isSubmitting}
                         hidden
                         id="images"
+                        accept="image/*"
                         onChange={handleManualSelect}
                         multiple
                         type="file"

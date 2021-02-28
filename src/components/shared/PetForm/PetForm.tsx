@@ -139,6 +139,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
 
       setSuccess(true);
     } catch (e) {
+      console.log(e);
       setError(e);
     }
   }

@@ -19,8 +19,20 @@
     color: $primary;
 }
 
+.text-accent {
+    color: $accent;
+}
+
 .text-bold {
     font-weight: 700;
+}
+
+.link {
+    text-decoration: underline;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .block {

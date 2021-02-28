@@ -28,6 +28,7 @@ const errorMiddleware = (err: any, req: NextApiRequest, res: NextApiResponse) =>
     if (err.name === 'ValidationError') { // For mongoose validation error handler
         const errors = Object.values(err.errors).map((el: any) => ({ message: el.message, path: el.path }));
 
+        console.log('FROM MIDDLEWARE MONGOOSE ------------------------', err)
         return res.status(400).json(errorResponseJSON(400, 'Validation Error', 'validation-error', errors));
     }
     if (err.statusCode === 400) { // BadRequestError
@@ -46,7 +47,7 @@ const errorMiddleware = (err: any, req: NextApiRequest, res: NextApiResponse) =>
         return res.status(422).json(errorResponseJSON(422, err?.message || 'Unable to process your request.'));
     }
 
-    console.log(err)
+    console.log('FROM MIDDLEWARE ------------------------', err)
     res.status(statusCode).json(errorResponseJSON(statusCode, message));
 }
 

@@ -7,19 +7,20 @@ export const updatePet = (id: string, form: FormData) => {
                     Accept: 'application/json',
                 },
                 body: form,
+                credentials: 'include'
             })
 
             // Throw error with status code in case Fetch API req failed
             if (!res.ok) {
-                throw new Error(String(res.status))
+                const { message } = await res.json();
+                throw new Error(message);
             }
 
             const { data } = await res.json();
 
             resolve(data);
         } catch (error) {
-            console.error(error);
-            reject('Failed to update pet');
+            reject(error?.message || 'Failed to update pet');
         }
     })
 }
@@ -31,20 +32,21 @@ export const addPet = (form: FormData) => {
                 method: 'POST',
                 body: form,
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    'Accept': 'application/json',
+                },
+                credentials: 'include'
             })
 
             // Throw error with status code in case Fetch API req failed
             if (!res.ok) {
-                throw new Error(String(res.status))
+                const { message } = await res.json();
+                throw new Error(message);
             }
 
             const { data } = await res.json();
             resolve(data);
         } catch (error) {
-            console.error(error)
-            reject('Failed to new pet');
+            reject(error?.message || 'Failed to add new pet');
         }
     });
 }

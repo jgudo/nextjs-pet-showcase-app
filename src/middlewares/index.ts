@@ -1,13 +1,18 @@
 import dbConnect from '@/utils/dbConnect';
 import nextConnect from 'next-connect';
+import { ErrorHandler } from './errorMiddleware';
 import passport from './passport';
 import session from './session';
 
 const middlewares = nextConnect();
 middlewares
-    .use((req, res, next) => {
-        dbConnect();
-        next();
+    .use(async (req, res, next) => {
+        try {
+            await dbConnect();
+            next();
+        } catch (err) {
+            next(new ErrorHandler(500, 'Unable to connect to database'));
+        }
     })
     .use(session)
     .use(passport.initialize())
