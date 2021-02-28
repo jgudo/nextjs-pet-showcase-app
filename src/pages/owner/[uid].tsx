@@ -15,6 +15,14 @@ const Owner = () => {
     if (userError) return <PageNotFound />
     if (!user) return <h1>Loading...</h1>
 
+    const renderErrorPage = () => {
+        if (error.statusCode === 404) {
+            return <h1>{user.name} has no pet.</h1>
+        } else {
+            return <SomethingWentWrong />
+        }
+    }
+
     return (
         <div className="container">
             <div className="card-container">
@@ -27,7 +35,7 @@ const Owner = () => {
                     </h1>
                 )}
                 {error
-                    ? <SomethingWentWrong />
+                    ? renderErrorPage()
                     : !pets
                         ? <h1>Loading...</h1>
                         : <PetGrid pets={pets.data} />

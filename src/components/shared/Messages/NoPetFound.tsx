@@ -12,24 +12,26 @@ const NoPetFound: FC<{ appliedFilters: IFilterState['selected'] }> = ({ appliedF
             </span>
             <br />
             <br />
-            Filters you used:
-            <div>
-                {country?.value && (
-                    <p className="text-subtle">
-                        Country: <span className="text-primary text-bold">{country.label}</span>
-                    </p>
-                )}
-                {species && (
-                    <p className="text-subtle">
-                        Species: <span className="text-primary text-bold">{species}</span>
-                    </p>
-                )}
-                {text && (
-                    <p className="text-subtle">
-                        Keyword: <span className="text-primary text-bold">{text}</span>
-                    </p>
-                )}
-            </div>
+            {country?.value || species || text && (
+                <div>
+                    Filters you used:
+                    {country?.value && (
+                        <p className="text-subtle">
+                            Country: <span className="text-primary text-bold">{country.label}</span>
+                        </p>
+                    )}
+                    {species && (
+                        <p className="text-subtle">
+                            Species: <span className="text-primary text-bold">{species}</span>
+                        </p>
+                    )}
+                    {text && (
+                        <p className="text-subtle">
+                            Keyword: <span className="text-primary text-bold">{text}</span>
+                        </p>
+                    )}
+                </div>
+            )}
             <style jsx>
                 {`
                     .container {
