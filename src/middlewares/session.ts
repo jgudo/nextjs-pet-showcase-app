@@ -12,11 +12,11 @@ const sessionMiddleware = (req: any, res: any, next: any) => {
     return session({
         secret: process.env.SESSION_SECRET,
         resave: false,
-        saveUninitialized: true,
+        saveUninitialized: false,
         store: mongoStore,
         cookie: {
             expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-            secure: process.env.NODE_ENV === "production",
+            secure: false, // HELP! setting true in production is not setting cookie
             sameSite: 'strict',
             httpOnly: process.env.NODE_ENV === "production"
         }
