@@ -96,7 +96,7 @@ const ProfileCard: FC<IProps> = ({ user }) => {
                     <h2>{user.name}</h2>
                 )}
             <p className="text-xs">{user.email}</p>
-            {isEditMode ? (
+            {isEditMode && (
                 <div>
                     <button
                         disabled={isLoading}
@@ -112,9 +112,10 @@ const ProfileCard: FC<IProps> = ({ user }) => {
                         Save Changes
                     </button>
                 </div>
-            ) : (
-                    <button onClick={handleEditToggle}>Edit Details</button>
-                )}
+            )}
+            {!isEditMode && user.isOwnProfile && (
+                <button onClick={handleEditToggle}>Edit Details</button>
+            )}
         </div>
     )
 };
