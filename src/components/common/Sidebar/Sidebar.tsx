@@ -11,7 +11,7 @@ const capitalize = (str: string) => str[0].toUpperCase().concat(str.slice(1));
 const labelize = (str: string) => ({ label: capitalize(str), value: str.toLowerCase() });
 
 const Sidebar = () => {
-    const { filter, changeFilter } = useFilter();
+    const { filter, changeFilter, resetFilter } = useFilter();
     const router = useRouter();
 
     const handleCountryChange = (val: Option) => {
@@ -43,7 +43,12 @@ const Sidebar = () => {
                 onChange={handleSpeciesChange}
                 defaultValue={filter.selected.species ? labelize(filter.selected.species) : null}
                 options={filter.filters.species.map(item => labelize(item))}
+                selected={filter.selected.species ? labelize(filter.selected.species) : null}
             />
+            <br />
+            {Object.values(filter.selected).some(val => Boolean(val)) && (
+                <span className="link text-primary" onClick={resetFilter}>Reset Filters</span>
+            )}
         </aside>
     );
 };

@@ -61,7 +61,7 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
                     <button
                         className={styles.menu_button}
                         disabled={isLoggingOut}
-                        onClick={() => router.push('/owner/me')}
+                        onClick={() => router.prefetch('/owner/me')}
                     >
                         <FiUser />
                         <span>My Profile</span>

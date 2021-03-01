@@ -27,7 +27,6 @@ const SearchBar = () => {
     const handleClear = () => {
         changeFilter('text', '');
         setText('');
-
     }
 
     return (

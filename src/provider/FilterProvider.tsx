@@ -18,6 +18,7 @@ export interface IFilterState {
 interface IFilterContext {
     filter: IFilterState;
     changeFilter: (field: string, value: any) => void;
+    resetFilter: () => void;
 }
 
 const initState = {
@@ -57,7 +58,11 @@ const FilterProvider = ({ children }) => {
         });
     };
 
-    const value = useMemo(() => ({ filter, changeFilter }), [filter]);
+    const resetFilter = () => {
+        setFilter({ ...filter, selected: initState.selected });
+    }
+
+    const value = useMemo(() => ({ filter, changeFilter, resetFilter }), [filter]);
 
     return (
         <FilterContext.Provider value={value}>
@@ -75,6 +80,6 @@ export const useFilter = () => {
         throw new Error(`useFilter must be used within a FilterProvider`)
     }
 
-    const { filter, changeFilter } = context;
-    return { filter, changeFilter };
+    const { filter, changeFilter, resetFilter } = context;
+    return { filter, changeFilter, resetFilter };
 }

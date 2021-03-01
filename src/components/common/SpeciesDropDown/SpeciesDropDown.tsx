@@ -9,6 +9,7 @@ interface IProps {
     placeholder?: string;
     defaultOptions?: any[];
     [prop: string]: any;
+    selected: Omit<Option, 'data'>;
 }
 
 const SpeciesDropDown: FC<IProps> = (props) => {
@@ -17,6 +18,7 @@ const SpeciesDropDown: FC<IProps> = (props) => {
         defaultValue,
         placeholder,
         options,
+        selected,
         ...rest
     } = props;
     const def = { label: 'All Species', value: "" }
@@ -29,6 +31,7 @@ const SpeciesDropDown: FC<IProps> = (props) => {
                 options={[def, ...options]}
                 name="species"
                 id="species"
+                value={selected || def}
                 placeholder={placeholder || "Select Species"}
                 onChange={onChange}
             />

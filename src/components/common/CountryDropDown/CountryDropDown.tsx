@@ -55,6 +55,7 @@ const CountryDropDown: FC<IProps> = (props) => {
                 id="country"
                 placeholder={placeholder || "Select Country"}
                 onChange={onChange}
+                value={selected || def}
             />
         </div>
     );

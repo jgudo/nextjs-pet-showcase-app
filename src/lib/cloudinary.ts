@@ -1,4 +1,4 @@
-import { v2 as cloudinaryV2 } from 'cloudinary';
+import { AdminApiOptions, v2 as cloudinaryV2 } from 'cloudinary';
 
 cloudinaryV2.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -9,10 +9,11 @@ cloudinaryV2.config({
 export const uploadImage = (file: File | File[], folder: string) => {
     if (file) {
         return new Promise(async (resolve, reject) => {
-            const opts = {
+            const opts: AdminApiOptions = {
                 folder,
                 resource_type: 'auto',
-                overwrite: true
+                overwrite: true,
+                quality: 'auto'
             };
 
             if (Array.isArray(file)) {

@@ -7,13 +7,13 @@ import useSWR from 'swr';
 
 const Index: FC = () => {
   const { filter: { selected } } = useFilter();
-  let search = '';
+  const searchParam = new URLSearchParams();
 
-  if (selected.country) search += `country=${selected.country?.value || ""}`;
-  if (selected.species) search += `&species=${selected.species}`;
-  if (selected.text) search += `&text=${selected.text}`;
+  if (selected.country?.value) searchParam.append('country', selected.country.value);
+  if (selected.species) searchParam.append('species', selected.species);
+  if (selected.text) searchParam.append('text', selected.text);
 
-  const query = `/api/pets?${search}`;
+  const query = `/api/pets?${searchParam}`;
   const { data: pets, error } = useSWR(query, fetcher);
 
   const renderErrorPage = () => {
