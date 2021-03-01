@@ -52,7 +52,7 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
 
     return (
         <div className={styles.navbar__user} onClick={() => setOpen(true)}>
-            <img src="https://i.pravatar.cc/150" alt="Avatar" />
+            <img src={`${user.photo?.url || 'https://i.pravatar.cc/150'}`} alt="Avatar" />
             <h5>{user.name}</h5>
             &nbsp;
             <FiChevronDown />
@@ -61,7 +61,7 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
                     <button
                         className={styles.menu_button}
                         disabled={isLoggingOut}
-                        onClick={() => router.prefetch('/owner/me')}
+                        onClick={() => router.push('/owner/me')}
                     >
                         <FiUser />
                         <span>My Profile</span>

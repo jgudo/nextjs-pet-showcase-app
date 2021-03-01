@@ -28,7 +28,11 @@ const UserSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name is required.'],
+        minlength: [4, 'Minimum length of "name" should be 4 character.'],
         maxlength: 40
+    },
+    photo: {
+        type: Object
     }
 }, {
     timestamps: true,

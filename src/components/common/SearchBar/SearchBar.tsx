@@ -40,7 +40,7 @@ const SearchBar = () => {
                 type="text"
                 value={text}
             />
-            {selected.text && (
+            {text && (
                 <FiX
                     className={styles.search_clear}
                     onClick={handleClear}

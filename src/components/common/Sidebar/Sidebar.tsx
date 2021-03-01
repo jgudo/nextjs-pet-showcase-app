@@ -30,6 +30,7 @@ const Sidebar = () => {
                 </button>
             </div>
             <br />
+            <br />
             <span className="text-subtle text-xs">Country</span>
             <CountryDropDown
                 selected={filter.selected.country}

@@ -1,7 +1,8 @@
 .card {
     width: 100%;
-    height: 320px;
+    height: 350px;
     position: relative;
+    color: #fff;
 }
 
 .card_content {
@@ -85,6 +86,7 @@
 
 .pet_name {
     margin-top: 15px;
+    color: var(--text-color);
 }
 
 .label {
@@ -95,7 +97,6 @@
 .value {
     margin-top: 3px;
     font-size: 16px;
-    color: #fff;
 }
 
 .country_badge {

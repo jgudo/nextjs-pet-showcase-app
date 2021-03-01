@@ -1,9 +1,10 @@
+import { deletePet } from '@/lib/api'
 import fetcher from '@/lib/fetcher'
 import { IPet } from '@/types/types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC, useState } from 'react'
-import { AiOutlineDelete } from 'react-icons/ai'
+import { AiOutlineDelete, AiOutlineLoading } from 'react-icons/ai'
 import { FiEdit3 } from 'react-icons/fi'
 import useSWR from 'swr'
 
@@ -12,6 +13,7 @@ const PetPage: FC = () => {
   const { id } = router.query
   const { data: petData, error } = useSWR<{ data: IPet }>(id ? `/api/pets/${id}` : null, fetcher);
   const pet = petData?.data;
+  const [isDeleting, setDeleting] = useState(false);
   const [message, setMessage] = useState('');
   const [activeImage, setActiveImage] = useState(pet?.image || null);
 
@@ -22,13 +24,15 @@ const PetPage: FC = () => {
     const petID = router.query.id
 
     try {
-      await fetch(`/api/pets/${petID}`, {
-        method: 'Delete',
-        credentials: 'include'
-      })
+      setDeleting(true);
+
+      await deletePet(petID as string);
+
+      setDeleting(false);
       router.push('/')
     } catch (error) {
-      setMessage('Failed to delete the pet.')
+      setMessage(error);
+      setDeleting(false);
     }
   }
 
@@ -96,15 +100,22 @@ const PetPage: FC = () => {
         {pet.isOwnPet && (
           <div className="btn-container">
             <Link href="/pet/[id]/edit" as={`/pet/${pet._id}/edit`}>
-              <button className="btn button--icon">
+              <button
+                className="btn button--icon"
+                disabled={isDeleting}
+              >
                 <FiEdit3 />
                 &nbsp;
                 Edit
               </button>
             </Link>
             &nbsp;
-            <button className="btn button--danger button--icon" onClick={handleDelete}>
-              <AiOutlineDelete />
+            <button
+              className="btn button--danger button--icon"
+              disabled={isDeleting}
+              onClick={handleDelete}
+            >
+              {isDeleting ? <AiOutlineLoading className="spin" /> : <AiOutlineDelete />}
               &nbsp;
               Delete
             </button>
@@ -150,7 +161,7 @@ const PetPage: FC = () => {
           }
 
           .image-item {
-            width: 100px;
+            width: 100%;
             height: 100px;
             opacity: .8;
           }
