@@ -1,3 +1,8 @@
+.button {
+    @extend button;
+    text-decoration: none;
+}
+
 .button--block {
     width: 100%;
     display: block;
@@ -26,6 +31,7 @@
 .button--social {
     padding: 15px;
     border-radius: 25px;
+    text-align: center;
 
     svg {
         position: absolute;
@@ -37,9 +43,11 @@
 }
 
 .button--fb {
+    color: #fff;
     background: var(--facebook-bg);
 
     &:hover {
+        color: #fff;
         background: var(--facebook-bg-hovered);
     }
 }
@@ -51,6 +59,7 @@
     
     &:hover {
         background: var(--google-bg-hovered);
+        color: var(--text-color);
     } 
 }
 

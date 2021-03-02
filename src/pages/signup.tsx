@@ -1,4 +1,5 @@
-import { CustomInputField, FacebookIcon, GoogleIcon } from '@/components/common';
+import { CustomInputField } from '@/components/common';
+import { SocialLogin } from '@/components/shared';
 import { useCurrentUser } from '@/hooks/useUser';
 import { IError } from '@/types/types';
 import { Field, Form, Formik } from 'formik';
@@ -36,7 +37,7 @@ const SignUp = () => {
 
     const onSubmit = async (field: IFormState) => {
         setLoading(true);
-        const req = await fetch('/api/signup', {
+        const req = await fetch('/api/auth/signup', {
             method: 'POST',
             body: JSON.stringify({ //explicitly set fields to avoid unnecessary data to be sent to server
                 email: field.email,
@@ -120,20 +121,7 @@ const SignUp = () => {
                             )}
                         </Formik>
                         <span className="social-divider">OR</span>
-                        <div className="social-button">
-                            <button
-                                className="button--social button--block button--google"
-                            >
-                                <GoogleIcon />
-                                Sign Up with Google
-                            </button>
-                            <button
-                                className="button--social button--block button--fb"
-                            >
-                                <FacebookIcon />
-                                Sign Up with Facebook
-                            </button>
-                        </div>
+                        <SocialLogin />
                     </div>
                 </div>
             </div>

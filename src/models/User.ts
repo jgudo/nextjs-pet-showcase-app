@@ -31,6 +31,11 @@ const UserSchema = new Schema({
         minlength: [4, 'Minimum length of "name" should be 4 character.'],
         maxlength: 40
     },
+    provider: {
+        type: String,
+        default: 'password'
+    },
+    provider_id: String,
     photo: {
         type: Object
     }

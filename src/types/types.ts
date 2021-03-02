@@ -27,6 +27,7 @@ export interface IUser {
     name: string;
     email: string;
     password: string;
+    provider: string;
     photo: Record<string, any>;
     isOwnProfile?: boolean;
 }

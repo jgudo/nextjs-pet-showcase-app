@@ -1,6 +1,5 @@
 import { CustomInputField } from "@/components/common";
-import FacebookIcon from "@/components/common/Icons/FacebookIcon";
-import GoogleIcon from "@/components/common/Icons/GoogleIcon";
+import { SocialLogin } from "@/components/shared";
 import { useCurrentUser } from "@/hooks/useUser";
 import { Field, Form, Formik } from "formik";
 import Link from "next/link";
@@ -109,20 +108,7 @@ const Login = () => {
                             )}
                         </Formik>
                         <span className="social-divider">OR</span>
-                        <div className="social-button">
-                            <button
-                                className="button--block button--google button--social"
-                            >
-                                <GoogleIcon />
-                                Continue with Google
-                            </button>
-                            <button
-                                className="button--block button--fb button--social"
-                            >
-                                <FacebookIcon />
-                                Continue with Facebook
-                            </button>
-                        </div>
+                        <SocialLogin forLogin={true} />
                     </div>
                 </div>
             </div>
