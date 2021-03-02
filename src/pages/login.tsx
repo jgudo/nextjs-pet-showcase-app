@@ -56,7 +56,9 @@ const Login = () => {
         <div className="auth auth_login">
             <div className="auth_wrapper">
                 <div className="auth_brand">
-                    <img src="/logo.png" alt="" />
+                    <Link href="/">
+                        <img src="/logo.png" alt="" />
+                    </Link>
                     <h1 className="tagline">
                         Make your <span className="strike">pet</span> <span className="bold">best friend</span>
                         <br />
@@ -65,6 +67,11 @@ const Login = () => {
                 </div>
                 <div className="auth_formWrapper">
                     <div className="auth_form">
+                        <div className="auth_form-logo">
+                            <Link href="/">
+                                <img src="/logo.png" alt="" />
+                            </Link>
+                        </div>
                         <h1 className="form_title">Login</h1>
                         <p className="form_subtitle">
                             New user? &nbsp;

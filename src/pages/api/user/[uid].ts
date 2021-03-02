@@ -20,7 +20,7 @@ handler
     .get(async (req, res) => {
         const { uid } = req.query;
 
-        if ((uid === 'me' && req.user) || uid === req.user._id.toString()) {
+        if ((uid === 'me' && req.user) || uid === req.user?._id.toString()) {
             const me = { user: { ...req.user.toJSON(), isOwnProfile: true } };
 
             return res.status(200).json(me);

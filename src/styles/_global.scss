@@ -14,6 +14,12 @@
     --google-bg-hovered: #f1f1f1;
     --error: #f84a4a;
     --success: #0aa004;
+
+    --mobile: 30rem;
+    --tablet: 50rem;
+    --laptop: 64rem;
+    --desktop: 95rem;
+    --l-desktop: 102rem;
 }
 
 $primary: #3895D3;
@@ -41,6 +47,10 @@ body {
     font-size: 15px;
     font-weight: 500;
     background: #f9f9f9;
+
+    @include mobile {
+      font-size: 14px;
+    }
 }
 
 h1,

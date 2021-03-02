@@ -9,3 +9,9 @@
     grid-template-columns: repeat(auto-fit, 250px);
     grid-gap: 20px;
 }
+
+@media screen and (max-width: 50rem) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

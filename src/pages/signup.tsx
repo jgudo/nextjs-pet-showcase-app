@@ -73,6 +73,11 @@ const SignUp = () => {
                         {(error && error.status !== 'validation-error') && (
                             <h4 className="auth-error-message">{error.message}</h4>
                         )}
+                        <div className="auth_form-logo">
+                            <Link href="/">
+                                <img src="/logo.png" alt="" />
+                            </Link>
+                        </div>
                         <h1 className="form_title">Sign Up</h1>
                         <p className="form_subtitle">
                             Already have an account? &nbsp;

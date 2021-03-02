@@ -52,6 +52,12 @@ const Index: FC = () => {
         .search-text {
           margin-bottom: 20px;
         }
+
+        @media screen and (max-width: 50rem) {
+          .content {
+            padding: 20px;
+          }
+        }
       `}
       </style>
     </div>
