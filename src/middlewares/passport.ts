@@ -81,7 +81,9 @@ passport.use(
         {
             clientID: process.env.FACEBOOK_CLIENT_ID,
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-            callbackURL: `/api/auth/callback/facebook`,
+            // unfortunately, setting absolute url for callback url, vercel set is as non-https
+            // so I have to set the base URL indicating the https protocol. 
+            callbackURL: `${process.env.BASE_URL}/api/auth/callback/facebook`,
             profileFields: ['id', 'profileUrl', 'email', 'displayName', 'name', 'picture.type(large)']
         },
         async (accessToken, refreshToken, profile, done) => {
@@ -128,7 +130,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: `/api/auth/callback/google`,
+            callbackURL: `${process.env.BASE_URL}/api/auth/callback/google`,
             passReqToCallback: true
         },
         async (request, accessToken, refreshToken, profile, done) => {
