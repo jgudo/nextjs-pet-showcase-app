@@ -6,7 +6,7 @@ import nextConnect from "next-connect";
 const handlerOptions = { onNoMatch, onError: errorMiddleware };
 const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
 
-const url = process.env.VERCEL_URL || 'http://localhost:3000';
+const url = process.env.BASE_URL || 'http://localhost:3000';
 
 console.log(url)
 handler
