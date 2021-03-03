@@ -11,16 +11,16 @@ const InputField: FC<IProps> = ({
   label,
   ...props
 }) => (
-  <div className="input-fieldset">
+  <div className="flex flex-col">
     {touched[field.name] && errors[field.name] ? (
-      <span className="label--error">{errors[field.name]}</span>
+      <span className="text-red-500 text-xs">{errors[field.name]}</span>
     ) : (
-        <label className="label" htmlFor={field.name}>{label}</label>
+        <label htmlFor={field.name}>{label}</label>
       )}
     <input
       type="text"
       id={field.name}
-      className={touched[field.name] && errors[field.name] && 'input--error'} {...field} {...props}
+      className={`${touched[field.name] && errors[field.name] && '!border-red-500'}`} {...field} {...props}
     />
   </div>
 );

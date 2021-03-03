@@ -58,31 +58,45 @@ const SignUp = () => {
     };
 
     return (
-        <div className="auth auth_signup">
-            <div className="auth_wrapper">
-                <div className="auth_brand">
-                    <img src="/logo.png" alt="" />
-                    <h1 className="tagline">
-                        Make your <span className="strike">pet</span> <span className="bold">best friend</span>
+        <div
+            className="w-full min-h-screen relative flex justify-center items-center !bg-no-repeat !bg-cover overlay before:bg-black"
+            style={{ background: 'url("/pet_cat_bg.jpg")' }}
+        >
+            <div className="absolute w-full h-full top-0 left-0 bg-black bg-opacity-20" />
+            <div className="w-full h-full relative p-5 flex z-10">
+                <div className="hidden laptop:block w-full p-12">
+                    <Link href="/">
+                        <img
+                            alt="Logo"
+                            className="w-24 h-24 object-contain"
+                            src="/logo.png"
+                        />
+                    </Link>
+                    <h1 className="text-white">
+                        Make your <span className="line-through font-normal">pet</span> <span className="font-bold">best friend</span>
                         <br />
                         be known to the world.
                     </h1>
                 </div>
-                <div className="auth_formWrapper">
-                    <div className="auth_form">
-                        {(error && error.status !== 'validation-error') && (
-                            <h4 className="auth-error-message">{error.message}</h4>
-                        )}
-                        <div className="auth_form-logo">
+                <div className="w-full h-full">
+                    <div className="auth_form w-full laptop:w-3/4 h-full bg-white rounded-lg py-8 px-5 laptop:px-12 relative overflow-hidden">
+                        <div className="mt-4 laptop:mt-0 laptop:hidden">
                             <Link href="/">
-                                <img src="/logo.png" alt="" />
+                                <img
+                                    alt="Logo"
+                                    className="w-12 h-12"
+                                    src="/logo.png"
+                                />
                             </Link>
                         </div>
-                        <h1 className="form_title">Sign Up</h1>
-                        <p className="form_subtitle">
+                        <h1 className="text-gray-800 mb-2">Sign Up</h1>
+                        <p className="text-gray-600 mb-4">
                             Already have an account? &nbsp;
                             <Link href="/login">Login</Link>
                         </p>
+                        {error && (
+                            <h4 className="text-red-500 bg-red-100 text-center p-2">{error}</h4>
+                        )}
                         <Formik
                             initialValues={{
                                 email: '',
@@ -94,29 +108,29 @@ const SignUp = () => {
                             onSubmit={onSubmit}
                         >
                             {({ errors, touched }) => (
-                                <Form>
+                                <Form className="space-y-4">
                                     <Field
                                         disabled={isLoading}
                                         name="name"
-                                        label="Name"
+                                        label="* Name"
                                         component={CustomInputField}
                                     />
                                     <Field
                                         disabled={isLoading}
                                         name="email"
-                                        label="Email"
+                                        label="* Email"
                                         type="email"
                                         component={CustomInputField}
                                     />
                                     <Field
                                         disabled={isLoading}
                                         name="password"
-                                        label="Password"
+                                        label="* Password"
                                         type="password"
                                         component={CustomInputField}
                                     />
-                                    <div className="auth_button">
-                                        <button disabled={isLoading} type="submit">
+                                    <div className="flex justify-end">
+                                        <button className="flex items-center" disabled={isLoading} type="submit">
                                             {isLoading && <AiOutlineLoading className="spin" />}
                                             &nbsp;
                                             Continue

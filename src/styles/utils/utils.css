@@ -1,0 +1,39 @@
+.social-divider {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #a1a1a1;
+    font-size: 12px;
+    margin: 20px 0;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        width: 45%;
+        height: 1px;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        background: #e6e6e6;
+    }
+
+    &:before {
+        left: 0;
+    }
+
+    &:after {
+        right: 0;
+    }
+}
+
+.spin {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

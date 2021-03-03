@@ -2,7 +2,6 @@ import { useFilter } from '@/provider/FilterProvider';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FiSearch, FiX } from 'react-icons/fi';
-import styles from './SearchBar.module.scss';
 
 const SearchBar = () => {
     const [text, setText] = useState('');
@@ -30,10 +29,10 @@ const SearchBar = () => {
     }
 
     return (
-        <div className={styles.search_container}>
-            <FiSearch className={styles.search_icon} />
+        <div className="relative">
+            <FiSearch className="absolute top-0 bottom-0 left-1 my-auto text-gray-400" />
             <input
-                className={styles.search_input}
+                className="!py-4 !px-6"
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Search for pet..."
@@ -42,7 +41,7 @@ const SearchBar = () => {
             />
             {text && (
                 <FiX
-                    className={styles.search_clear}
+                    className="text-gray-500 hover:text-gray-700 absolute top-0 bottom-0 right-0 my-auto"
                     onClick={handleClear}
                     title="Clear Text"
                 />
