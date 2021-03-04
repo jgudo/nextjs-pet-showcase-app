@@ -1,12 +1,8 @@
 
 /* purgecss start ignore */
 @tailwind base;
-
 @tailwind components;
-/* purgecss end ignore */
 @tailwind utilities;
-
-/* purgecss start ignore */
 
 :root {
   --facebook-bg: #039be5;
@@ -122,3 +118,4 @@ body {
     background: #f9f9f9;
 
 }
+/* purgecss end ignore */
