@@ -3,10 +3,13 @@ const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: [
-    './src/pages/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}'
-  ],
+  purge: {
+    layers: ['components', 'utilities'],
+    content: [
+      './src/pages/**/*.{js,ts,jsx,tsx}',
+      './src/components/**/*.{js,ts,jsx,tsx}'
+    ]
+  },
   darkMode: false,
   theme: {
     screens: {
