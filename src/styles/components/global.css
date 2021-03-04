@@ -78,11 +78,11 @@
   textarea {
     @apply 
       px-4
-      py-1
+      py-2
       outline-none
       text-sm
       font-medium
-      bg-transparent
+      bg-white
       border-solid
       border-b 
       border-gray-200;

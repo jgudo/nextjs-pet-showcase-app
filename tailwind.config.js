@@ -48,6 +48,8 @@ module.exports = {
   },
   variants: {
     backgroundSize: ['important', 'responsive'],
+    backgroundColor: ['important', 'responsive'],
+    fontSize: ['important'],
     backgroundRepeat: ['important', 'responsive'],
     backgroundPosition: ['important', 'responsive'],
     borderColor: ['important', 'focus', 'hover', 'dark'],
@@ -114,10 +116,13 @@ module.exports = {
         },
       }
 
-      addUtilities(newUtilities, ['group-hover'])
+      addUtilities(newUtilities, ['group-hover', 'responsive'])
     }),
     plugin(({ addUtilities }) => {
       const newUtilities = {
+        '.flex-basis-100': {
+          flexBasis: '100%'
+        },
         '.flex-basis-70': {
           flexBasis: '70%'
         },
@@ -144,7 +149,7 @@ module.exports = {
         }
       }
 
-      addUtilities(newUtilities)
+      addUtilities(newUtilities, ['responsive'])
     }),
     plugin(({ addUtilities }) => {
       const newUtilities = {

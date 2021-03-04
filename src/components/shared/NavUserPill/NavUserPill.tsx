@@ -55,17 +55,17 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
             onClick={() => setOpen(true)}
         >
             <img
-                alt="Avatar"
                 className="w-9 h-9 rounded-full object-cover mr-3 bg-gray-300"
+                alt="Avatar"
                 src={`${user.photo?.url || 'https://i.pravatar.cc/150'}`}
             />
-            <h5>{user.name}</h5>
+            <h5 className="hidden laptop:inline-block">{user.name}</h5>
             &nbsp;
             <FiChevronDown />
             {isOpen && (
                 <div className="w-40 absolute right-0 top-11 bg-white rounded-lg shadow-lg overflow-hidden">
                     <button
-                        className="button bg-none w-full text-gray-800 rounded-none flex justify-between bg-white hover:text-white"
+                        className="bg-none w-full text-gray-800 rounded-none flex justify-between bg-white hover:text-white hover:bg-primary-600"
                         disabled={isLoggingOut}
                         onClick={() => router.push('/owner/me')}
                     >
@@ -73,7 +73,7 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
                         <span>My Profile</span>
                     </button>
                     <button
-                        className="button bg-none w-full text-gray-800 rounded-none flex justify-between bg-white hover:text-white"
+                        className="bg-none w-full text-gray-800 rounded-none flex justify-between bg-white hover:text-white hover:bg-primary-600"
                         disabled={isLoggingOut}
                         onClick={handleLogOut}
                     >

@@ -1,4 +1,4 @@
-import { Sidebar } from '@/components/common';
+import { Filters } from '@/components/common';
 import { NoPetFound, PetGrid, SomethingWentWrong } from '@/components/shared';
 import fetcher from '@/lib/fetcher';
 import { useFilter } from '@/provider/FilterProvider';
@@ -21,9 +21,9 @@ const Index: FC = () => {
   }
 
   return (
-    <div className="flex items-start my-20 mx-0 py-5 px-5 laptop:px-12">
-      <Sidebar />
-      <div className="w-full">
+    <div className="min-h-screen laptop:flex  laptop:items-start my-20 mx-0 py-5 px-5 laptop:px-12">
+      <Filters />
+      <div className="w-full h-full mt-8 laptop:mt-0">
         {(selected.text && !error && pets) && (
           <h2 className="mb-5">
             Search result for: <span className="text-primary">{selected.text}</span>
@@ -32,7 +32,7 @@ const Index: FC = () => {
         {error
           ? renderErrorPage()
           : !pets
-            ? <h1>Loading...</h1>
+            ? <h2>Loading...</h2>
             : <PetGrid pets={pets.data} />
         }
       </div>

@@ -17,7 +17,7 @@ const EditPet = () => {
   if (!pet.data.isOwnPet && typeof window !== 'undefined') router.push('/');
 
   return (
-    <div className="p-12 my-20">
+    <div className="p-4 laptop:px-20 my-20">
       <PetForm
         formId="edit-pet-form"
         petForm={pet.data}

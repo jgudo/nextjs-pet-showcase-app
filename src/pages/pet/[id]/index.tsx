@@ -37,10 +37,10 @@ const PetPage: FC = () => {
   }
 
   return (
-    <div className="py-8 w-3/4 mx-auto px-12 mt-20">
-      <div className="flex items-start">
+    <div className="py-8 w-full laptop:w-3/4 mx-auto px-4 laptop:px-12 mt-12 laptop:mt-20">
+      <div className="flex flex-col laptop:flex-row items-start">
         {/* ------ IMAGES ------------ */}
-        <div className="flex-basis-40 w-full h-120 overflow-hidden sticky top-20 flex flex-col">
+        <div className="laptop:flex-basis-40 w-full h-80 laptop:h-120 overflow-hidden laptop:sticky laptop:top-20 flex flex-col">
           <div
             className="w-full h-full !bg-cover rounded-lg shadow-lg !bg-no-repeat !bg-center"
             style={{ background: `#f1f1f1 url(${activeImage?.url || pet.image?.url})` }}
@@ -61,7 +61,7 @@ const PetPage: FC = () => {
           </div>
         </div>
         {/* ------------ DETAILS ---------- */}
-        <div className="h-full flex-basis-60 p-12  ml-8 space-y-4">
+        <div className="h-full flex-basis-60 py-4 laptop:p-12  laptop:ml-8 space-y-4">
           <div>
             <h2>Hello!</h2>
             <h1>I'm <span className="text-primary-500">{pet.name}</span></h1>

@@ -60,9 +60,9 @@ const ProfileCard: FC<IProps> = ({ user }) => {
     }
 
     return (
-        <div className="min-w-300px text-center flex items-center flex-col bg-primary-500 rounded-lg text-white p-5 shadow-lg">
+        <div className="min-w-300px text-center flex items-center flex-col bg-primary-500 laptop:rounded-lg text-white p-5 shadow-lg">
             <div
-                className="w-52 h-52 !bg-cover !bg-no-repeat border-4 border-solid border-primary-500 shadow-solid relative rounded-full"
+                className="w-20 h-20 laptop:w-52 laptop:h-52 !bg-cover !bg-no-repeat border-4 border-solid border-primary-500 shadow-solid relative rounded-full"
                 style={{
                     background: `#f1f1f1 url(${photo.url || user.photo?.url || 'https://i.pravatar.cc/150'})`
                 }}
@@ -83,41 +83,43 @@ const ProfileCard: FC<IProps> = ({ user }) => {
                 )}
             </div>
             <br />
-            {isEditMode ? (
-                <input
-                    accept="image/*"
-                    className="text-center font-medium text-white !border-accent-400"
-                    onChange={handleNameChange}
-                    placeholder="Name"
-                    required
-                    disabled={isLoading}
-                    type="text"
-                    value={name}
-                />
-            ) : (
-                    <h2>{user.name}</h2>
+            <div>
+                {isEditMode ? (
+                    <input
+                        accept="image/*"
+                        className="text-center font-medium !text-xl !bg-transparent text-white !border-accent-400"
+                        onChange={handleNameChange}
+                        placeholder="Name"
+                        required
+                        disabled={isLoading}
+                        type="text"
+                        value={name}
+                    />
+                ) : (
+                        <h2>{user.name}</h2>
+                    )}
+                <p className="text-xs mb-4 laptop:my-4">{user.email}</p>
+                {isEditMode && (
+                    <div className="flex space-x-2">
+                        <button
+                            disabled={isLoading}
+                            onClick={handleCancelEdit}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            className="button-accent"
+                            disabled={isLoading}
+                            onClick={handleSubmitChanges}
+                        >
+                            Save Changes
+                        </button>
+                    </div>
                 )}
-            <p className="text-xs my-4">{user.email}</p>
-            {isEditMode && (
-                <div className="flex space-x-2">
-                    <button
-                        disabled={isLoading}
-                        onClick={handleCancelEdit}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="button-accent"
-                        disabled={isLoading}
-                        onClick={handleSubmitChanges}
-                    >
-                        Save Changes
-                    </button>
-                </div>
-            )}
-            {!isEditMode && user.isOwnProfile && (
-                <button onClick={handleEditToggle}>Edit Details</button>
-            )}
+                {!isEditMode && user.isOwnProfile && (
+                    <button onClick={handleEditToggle}>Edit Details</button>
+                )}
+            </div>
         </div>
     )
 };

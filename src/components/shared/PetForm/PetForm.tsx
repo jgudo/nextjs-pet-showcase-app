@@ -149,7 +149,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
     <div>
       <div>
         {error && <span className="p-2 text-red-500 bg-red-100 block">{error}</span>}
-        <h1 className="text-gray-800">{title}</h1>
+        <h1 className="text-gray-800 text-2xl laptop:text-6xl">{title}</h1>
       </div>
       <p className="text-gray-500 flex items-center">
         <FiInfo /> &nbsp;
@@ -163,100 +163,102 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form id={formId} className="flex">
-            <div className="flex-basis-30">
-              <PetImageSelector
-                setImageFiles={setImageFiles}
-                imageFiles={imageFiles}
-                isSubmitting={isSubmitting}
-              />
-            </div>
-            <div className="pl-12 space-y-4 flex-basis-70">
-              <div className="w-full grid grid-cols-2 gap-4">
-                <Field disabled={isSubmitting} name="name" component={CustomInputField} label="* Pet Name" />
-                <Field disabled={isSubmitting} name="breed" component={CustomInputField} label="Breed" />
+          <Form id={formId}>
+            <div className="flex flex-col laptop:flex-row">
+              <div className="laptop:flex-basis-30 order-2 laptop:order-1">
+                <PetImageSelector
+                  setImageFiles={setImageFiles}
+                  imageFiles={imageFiles}
+                  isSubmitting={isSubmitting}
+                />
               </div>
-              <div className="w-full grid grid-cols-2 gap-4">
-                <Field disabled={isSubmitting} name="species" component={CustomInputField} label="* Species" />
-                <Field disabled={isSubmitting} type="number" name="age" component={CustomInputField} label="Age" />
-              </div>
-              <div className="w-full grid grid-cols-2 gap-4 items-center">
-                {/* --- CUSTOM CHECKBOX */}
-                <div>
-                  <label htmlFor="poddy_trained" className="inline-flex items-center mt-3 cursor-pointer">
-                    <Field
-                      className="form-checkbox h-4 w-4"
-                      disabled={isSubmitting}
-                      type="checkbox"
-                      id="poddy_trained"
-                      name="poddy_trained"
-                    />
-                    <span className="ml-2 text-gray-700">Poddy Trained</span>
-                  </label>
+              <div className="laptop:pl-12 space-y-4 laptop:flex-basis-70 order-1 laptop:order-2">
+                <div className="w-full laptop:grid laptop:grid-cols-2 laptop:gap-4 space-y-4 laptop:space-y-0">
+                  <Field disabled={isSubmitting} name="name" component={CustomInputField} label="* Pet Name" />
+                  <Field disabled={isSubmitting} name="breed" component={CustomInputField} label="Breed" />
                 </div>
-                <Field>
-                  {({ form, meta }) => (
-                    <div>
-                      <label className="label" htmlFor="country">Country</label>
-                      <CountryDropDown
-                        selected={form.values.country}
-                        defaultValue={form.values.country}
+                <div className="w-full laptop:grid laptop:grid-cols-2 laptop:gap-4 space-y-4 laptop:space-y-0">
+                  <Field disabled={isSubmitting} name="species" component={CustomInputField} label="* Species" />
+                  <Field disabled={isSubmitting} type="number" name="age" component={CustomInputField} label="Age" />
+                </div>
+                <div className="w-full laptop:grid laptop:grid-cols-2 laptop:gap-4 space-y-4 laptop:space-y-0 items-center">
+                  {/* --- CUSTOM CHECKBOX */}
+                  <div>
+                    <label htmlFor="poddy_trained" className="inline-flex items-center mt-3 cursor-pointer">
+                      <Field
+                        className="form-checkbox h-4 w-4"
                         disabled={isSubmitting}
-                        onChange={(val) => form.setValues(((vals: IFormState) => ({ ...vals, country: val })))}
+                        type="checkbox"
+                        id="poddy_trained"
+                        name="poddy_trained"
                       />
-                    </div>
-                  )}
-                </Field>
-              </div>
-              <Field
-                disabled={isSubmitting}
-                name="description"
-                component={CustomTextArea}
-                label="Short description about your pet"
-              />
-              <CustomMultiSelect
-                defaultValues={toObjectArray(petForm.likes)}
-                name="likes"
-                iid="likes"
-                options={toObjectArray(petForm.likes)}
-                disabled={isSubmitting}
-                placeholder=""
-                label="Likes"
-              />
-              <CustomMultiSelect
-                defaultValues={toObjectArray(petForm.dislikes)}
-                name="dislikes"
-                options={toObjectArray(petForm.dislikes)}
-                iid="dislikes"
-                disabled={isSubmitting}
-                placeholder=""
-                label="Dislikes"
-              />
-              <CustomMultiSelect
-                defaultValues={toObjectArray(petForm.diet)}
-                name="Diet"
-                iid="diet"
-                disabled={isSubmitting}
-                options={toObjectArray(petForm.diet)}
-                placeholder=""
-                label="Diet"
-              />
-              <div>
-                {isSuccess && !forNewPet && (
-                  <span className="text-accent-1-600 p-2 bg-accent-1-200 flex items-center mb-4">
-                    <FiCheck /> Pet details updated successfully!
-                  </span>
-                )}
-                <button
-                  className="flex items-center"
+                      <span className="ml-2 text-gray-700">Poddy Trained</span>
+                    </label>
+                  </div>
+                  <Field>
+                    {({ form, meta }) => (
+                      <div>
+                        <label className="label" htmlFor="country">Country</label>
+                        <CountryDropDown
+                          selected={form.values.country}
+                          defaultValue={form.values.country}
+                          disabled={isSubmitting}
+                          onChange={(val) => form.setValues(((vals: IFormState) => ({ ...vals, country: val })))}
+                        />
+                      </div>
+                    )}
+                  </Field>
+                </div>
+                <Field
                   disabled={isSubmitting}
-                  type="submit"
-                >
-                  {isSubmitting ? <AiOutlineLoading className="spin" /> : <FiCheck />}
+                  name="description"
+                  component={CustomTextArea}
+                  label="Short description about your pet"
+                />
+                <CustomMultiSelect
+                  defaultValues={toObjectArray(petForm.likes)}
+                  name="likes"
+                  iid="likes"
+                  options={toObjectArray(petForm.likes)}
+                  disabled={isSubmitting}
+                  placeholder=""
+                  label="Likes"
+                />
+                <CustomMultiSelect
+                  defaultValues={toObjectArray(petForm.dislikes)}
+                  name="dislikes"
+                  options={toObjectArray(petForm.dislikes)}
+                  iid="dislikes"
+                  disabled={isSubmitting}
+                  placeholder=""
+                  label="Dislikes"
+                />
+                <CustomMultiSelect
+                  defaultValues={toObjectArray(petForm.diet)}
+                  name="Diet"
+                  iid="diet"
+                  disabled={isSubmitting}
+                  options={toObjectArray(petForm.diet)}
+                  placeholder=""
+                  label="Diet"
+                />
+              </div>
+            </div>
+            <div className="order-3 mt-8 flex justify-end items-center flex-col laptop:flex-row laptop:space-x-2 space-y-2">
+              {isSuccess && !forNewPet && (
+                <span className="text-accent-1-600 p-2 bg-accent-1-200 w-full laptop:w-auto flex items-center">
+                  <FiCheck /> Pet details updated successfully!
+                </span>
+              )}
+              <button
+                className="flex w-full laptop:w-auto items-center justify-center"
+                disabled={isSubmitting}
+                type="submit"
+              >
+                {isSubmitting ? <AiOutlineLoading className="spin" /> : <FiCheck />}
                   &nbsp;
                   {isSubmitting ? 'Submitting...' : 'Submit'}
-                </button>
-              </div>
+              </button>
             </div>
           </Form>
         )}

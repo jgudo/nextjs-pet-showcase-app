@@ -21,7 +21,7 @@ const NewPet = () => {
   if (!user && typeof window !== 'undefined') Router.push('/login');
 
   return (
-    <div className="px-20 my-28">
+    <div className="p-4 laptop:px-20 my-20">
       <Head>
         <title>Submit your Pet | PawShow</title>
       </Head>

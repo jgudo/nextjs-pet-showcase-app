@@ -1,3 +1,4 @@
+export { default as AddNewButton } from './AddNewButton';
 export { default as NoPetFound } from './Messages/NoPetFound';
 export { default as PageNotFound } from './Messages/PageNotFound';
 export { default as SomethingWentWrong } from './Messages/SomethingWentWrong';

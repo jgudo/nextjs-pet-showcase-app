@@ -1,4 +1,4 @@
-import { PetGrid, SomethingWentWrong } from "@/components/shared";
+import { AddNewButton, PetGrid, SomethingWentWrong } from "@/components/shared";
 import PageNotFound from "@/components/shared/Messages/PageNotFound";
 import ProfileCard from "@/components/shared/ProfileCard";
 import { useUser } from "@/hooks/useUser";
@@ -24,15 +24,18 @@ const Owner = () => {
     }
 
     return (
-        <div className="w-full py-8 px-20 mt-20 flex items-start">
-            <div className="flex-basis-30 sticky top-20">
+        <div className="w-full py-8 mt-10 flex items-start flex-col laptop:mt-20 laptop:px-20 laptop:flex-row">
+            <div className="flex-basis-100 w-full laptop:flex-basis-30 laptop:sticky laptop:top-20 ">
                 <ProfileCard user={user} />
             </div>
-            <div className="flex-basis-70 ml-8">
+            <div className="flex-basis-100 w-full laptop:flex-basis-70 p-4 laptop:p-0 laptop:ml-8">
                 {!error && (
-                    <h1 className="mb-10">
-                        {user.isOwnProfile ? 'My Pets' : `${user.name}'s Pets`}
-                    </h1>
+                    <div className="w-full flex items-center justify-between mb-10">
+                        <h1 className="text-2xl laptop:text-4xl">
+                            {user.isOwnProfile ? 'My Pets' : `${user.name}'s Pets`}
+                        </h1>
+                        {user.isOwnProfile && <AddNewButton />}
+                    </div>
                 )}
                 {error
                     ? renderErrorPage()
