@@ -65,7 +65,7 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
             {isOpen && (
                 <div className="w-40 absolute right-0 top-11 bg-white rounded-lg shadow-lg overflow-hidden">
                     <button
-                        className="bg-none w-full text-gray-800 rounded-none flex justify-between bg-white hover:text-white"
+                        className="button bg-none w-full text-gray-800 rounded-none flex justify-between bg-white hover:text-white"
                         disabled={isLoggingOut}
                         onClick={() => router.push('/owner/me')}
                     >
@@ -73,7 +73,7 @@ const NavUserPill: FC<IProps> = ({ user, mutate }) => {
                         <span>My Profile</span>
                     </button>
                     <button
-                        className="bg-none w-full text-gray-800 rounded-none flex justify-between bg-white hover:text-white"
+                        className="button bg-none w-full text-gray-800 rounded-none flex justify-between bg-white hover:text-white"
                         disabled={isLoggingOut}
                         onClick={handleLogOut}
                     >

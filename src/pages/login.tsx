@@ -75,7 +75,7 @@ const Login = () => {
                 </div>
                 <div className="w-full h-full">
                     <div className="auth_form w-full laptop:w-3/4 h-full bg-white rounded-lg py-8 px-5 laptop:px-12 relative overflow-hidden">
-                        <div className="mt-4 laptop:mt-0 laptop:hidden">
+                        <div className="mb-4 laptop:hidden">
                             <Link href="/">
                                 <img
                                     alt="Logo"

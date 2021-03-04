@@ -97,6 +97,10 @@
     }
   }
 
+  textarea {
+    resize: none;
+  }
+
 }
 
 html {

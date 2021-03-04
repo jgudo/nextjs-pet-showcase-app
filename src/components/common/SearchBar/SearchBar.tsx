@@ -32,7 +32,7 @@ const SearchBar = () => {
         <div className="relative">
             <FiSearch className="absolute top-0 bottom-0 left-1 my-auto text-gray-400" />
             <input
-                className="!py-4 !px-6"
+                className="!py-4 !px-6 w-60"
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Search for pet..."

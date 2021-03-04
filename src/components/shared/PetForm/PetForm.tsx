@@ -1,4 +1,4 @@
-import { CountryDropDown, CustomInputField, CustomMultiSelect } from '@/components/common';
+import { CountryDropDown, CustomInputField, CustomMultiSelect, CustomTextArea } from '@/components/common';
 import { addPet, updatePet } from '@/lib/api';
 import { IImageFile, IPet } from '@/types/types';
 import { Field, Form, Formik } from 'formik';
@@ -33,6 +33,7 @@ const PetFormSchema = Yup.object().shape({
   age: Yup.number(),
   breed: Yup.string(),
   image: Yup.object(),
+  description: Yup.string(),
   images: Yup.array(Yup.object()),
   poddy_trained: Yup.boolean(),
   diet: Yup.array(Yup.string()),
@@ -70,6 +71,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
     poddy_trained: petForm.poddy_trained,
     diet: petForm.diet,
     likes: petForm.likes,
+    description: petForm?.description || '',
     dislikes: petForm.dislikes,
   }
 
@@ -206,6 +208,12 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                   )}
                 </Field>
               </div>
+              <Field
+                disabled={isSubmitting}
+                name="description"
+                component={CustomTextArea}
+                label="Short description about your pet"
+              />
               <CustomMultiSelect
                 defaultValues={toObjectArray(petForm.likes)}
                 name="likes"

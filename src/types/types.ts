@@ -15,6 +15,7 @@ export interface IPet {
     poddy_trained: boolean;
     diet: string[];
     image_url: string;
+    description: string;
     image: Record<string, any>;
     images: Record<string, any>[];
     likes: string[];

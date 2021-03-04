@@ -37,90 +37,125 @@ const PetPage: FC = () => {
   }
 
   return (
-    <div className="py-8 px-12 mt-20 flex items-start">
-      {/* ------ IMAGES ------------ */}
-      <div className="flex-basis-40 w-full h-120 bg-gray-300 rounded-lg shadow-lg overflow-hidden sticky top-20 flex flex-col">
-        <div
-          className="w-full h-full !bg-cover !bg-no-repeat !bg-center"
-          style={{ background: `#f1f1f1 url(${activeImage?.url || pet.image?.url})` }}
-        />
-        {pet.images?.length > 0 && (
-          <div className="grid grid-cols-4 bg-gray-400 h-24">
-            {[pet.image, ...pet.images].map(image => (
-              <div
-                className={`w-full opacity-80 h-full hover:cursor-pointer !bg-cover !bg-no-repeat !bg-center ${activeImage?.public_id === image.public_id && 'opacity-100 border-2 border-solid border-accent-400'}`}
-                key={image.public_id}
-                onClick={() => setActiveImage(image)}
-                style={{ background: `#f1f1f1 url(${image.url})` }}
-              />
-            ))}
+    <div className="py-8 w-3/4 mx-auto px-12 mt-20">
+      <div className="flex items-start">
+        {/* ------ IMAGES ------------ */}
+        <div className="flex-basis-40 w-full h-120 overflow-hidden sticky top-20 flex flex-col">
+          <div
+            className="w-full h-full !bg-cover rounded-lg shadow-lg !bg-no-repeat !bg-center"
+            style={{ background: `#f1f1f1 url(${activeImage?.url || pet.image?.url})` }}
+          />
+          <div className="mt-4">
+            {pet.images?.length > 0 && (
+              <div className="grid grid-cols-4 gap-2 h-24">
+                {[pet.image, ...pet.images].map(image => (
+                  <div
+                    className={`w-full opacity-80 h-full rounded-lg shadow-lg hover:cursor-pointer !bg-cover !bg-no-repeat !bg-center ${activeImage?.public_id === image.public_id && 'opacity-100 border-2 border-solid border-accent-400'}`}
+                    key={image.public_id}
+                    onClick={() => setActiveImage(image)}
+                    style={{ background: `#f1f1f1 url(${image.url})` }}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      {/* ------------ DETAILS ---------- */}
-      <div className="h-full flex-basis-60 p-12 rounded-lg shadow-lg bg-white ml-8 space-y-4">
-        <div>
-          <span className="text-xs text-gray-500">Name</span>
-          <h1 className="pet-name">{pet.name}</h1>
         </div>
-        <div>
-          <span className="text-xs text-gray-500">From</span>
-          {pet.country && (
-            <div className="flex items-center">
-              <img
-                alt={pet.country.label}
-                className="w-10"
-                src={`https://www.countryflags.io/${pet.country?.value}/flat/64.png`}
-              />
-            &nbsp;
-              <h4>{pet.country.label}</h4>
+        {/* ------------ DETAILS ---------- */}
+        <div className="h-full flex-basis-60 p-12  ml-8 space-y-4">
+          <div>
+            <h2>Hello!</h2>
+            <h1>I'm <span className="text-primary-500">{pet.name}</span></h1>
+          </div>
+          {pet.description && (
+            <div>
+              <p className="text-gray-600">{pet.description}</p>
             </div>
           )}
-        </div>
-        <div>
-          <span className="text-gray-500 text-xs">Owner</span>
-          <h4>{pet.owner?.name}</h4>
-        </div>
-        <div>
-          <span className="text-gray-500 text-xs">Likes</span>
-          <ul>
-            {pet.likes.map((data, index) => (
-              <li key={index}>{data} </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <span className="text-gray-500 text-xs">Dislikes</span>
-          <ul>
-            {pet.dislikes.map((data, index) => (
-              <li key={index}>{data} </li>
-            ))}
-          </ul>
-        </div>
-        {pet.isOwnPet && (
-          <div className="flex">
-            <Link href="/pet/[id]/edit" as={`/pet/${pet._id}/edit`}>
-              <button
-                className="flex items-center"
-                disabled={isDeleting}
-              >
-                <FiEdit3 />
+          <div>
+            <span className="text-xs text-gray-500">Species</span>
+            <h5 className="pet-name">{pet.species}</h5>
+          </div>
+          <div>
+            <span className="text-xs text-gray-500">From</span>
+            {pet.country && (
+              <div className="flex items-center space-x-2">
+                <div
+                  className="w-10 h-10 rounded-full !bg-no-repeat !bg-center shadow-lg !bg-size-flag"
+                  style={{ background: `#f1f1f1 url(${`https://www.countryflags.io/${pet.country?.value}/shiny/64.png`})` }}
+                  title={pet.country?.label || ""}
+                />
+                &nbsp;
+                <h4>{pet.country.label}</h4>
+              </div>
+            )}
+          </div>
+          <div>
+            <span className="text-gray-500 text-xs">Owner</span>
+            <div className="flex items-center space-x-2">
+              <div
+                className="w-10 h-10 rounded-full !bg-cover !bg-no-repeat !bg-center shadow-lg"
+                style={{ background: `#f1f1f1 url(${pet.owner.photo?.url || 'https://i.pravatar.cc/150'})` }}
+                title={pet.country?.label || ""}
+              />
+              <Link href={`/owner/${pet.owner._id}`}>
+                <a className="font-bold">{pet.owner?.name}</a>
+              </Link>
+            </div>
+          </div>
+          {(pet.likes && pet.likes?.length !== 0) && (
+            <div>
+              <span className="text-gray-500 text-xs">Likes</span>
+              <ul>
+                {pet.likes.map((data, index) => (
+                  <li key={index}>{data} </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {(pet.dislikes && pet.dislikes?.length !== 0) && (
+            <div>
+              <span className="text-gray-500 text-xs">Dislikes</span>
+              <ul>
+                {pet.dislikes.map((data, index) => (
+                  <li key={index}>{data} </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {(pet.diet && pet.diet?.length !== 0) && (
+            <div>
+              <span className="text-gray-500 text-xs">Diet</span>
+              <ul>
+                {pet.diet.map((data, index) => (
+                  <li key={index}>{data} </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {pet.isOwnPet && (
+            <div className="flex space-x-4 mt-8">
+              <Link href="/pet/[id]/edit" as={`/pet/${pet._id}/edit`}>
+                <button
+                  className="flex items-center"
+                  disabled={isDeleting}
+                >
+                  <FiEdit3 />
                 &nbsp;
                 Edit
               </button>
-            </Link>
-            &nbsp;
-            <button
-              className="flex items-center bg-red-500 text-white hover:bg-red-600"
-              disabled={isDeleting}
-              onClick={handleDelete}
-            >
-              {isDeleting ? <AiOutlineLoading className="spin" /> : <AiOutlineDelete />}
-              &nbsp;
-              Delete
+              </Link>
+              <button
+                className="flex items-center bg-red-500 text-white hover:bg-red-600"
+                disabled={isDeleting}
+                onClick={handleDelete}
+              >
+                {isDeleting ? <AiOutlineLoading className="spin" /> : <AiOutlineDelete />}
+                &nbsp;
+                Delete
             </button>
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
       {message && <p>{message}</p>}
     </div>

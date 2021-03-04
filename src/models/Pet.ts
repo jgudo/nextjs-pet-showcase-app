@@ -35,6 +35,7 @@ const PetSchema = new Schema({
   breed: {
     type: String
   },
+  description: String,
   age: {
     type: Number,
   },

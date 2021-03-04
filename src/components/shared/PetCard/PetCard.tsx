@@ -44,19 +44,19 @@ const PetCard: FC<IProps> = ({ pet }) => {
                     <div className="relative z-10 h-full flex flex-col justify-between flex-wrap">
                         <div className="flex flex-col space-y-2">
                             <div>
-                                <span className="text-gray-400 text-xs">Species</span>
+                                <span className="text-gray-300 text-xs">Species</span>
                                 <p className="text-sm">{pet.species}</p>
                             </div>
                             <div>
-                                <span className="text-gray-400 text-xs">Age</span>
+                                <span className="text-gray-300 text-xs">Age</span>
                                 <p className="text-sm">{displayAge(pet.age)}</p>
                             </div>
                             <div>
-                                <span className="text-gray-400 text-xs">From</span>
+                                <span className="text-gray-300 text-xs">From</span>
                                 <p className="text-sm">{pet.country?.label}</p>
                             </div>
                             <div>
-                                <span className="text-gray-400 text-xs">Owner</span>
+                                <span className="text-gray-300 text-xs">Owner</span>
                                 <p
                                     className="text-sm text-accent-400 underline cursor-pointer"
                                     onClick={() => router.push(`/owner/${pet.owner?._id}`)}
