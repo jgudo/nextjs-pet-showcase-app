@@ -21,11 +21,11 @@ const Index: FC = () => {
   }
 
   return (
-    <div className="content">
+    <div className="flex items-start my-20 mx-0 py-5 px-5 laptop:px-12">
       <Sidebar />
-      <div className="grid-container">
+      <div className="w-full">
         {(selected.text && !error && pets) && (
-          <h2 className="search-text">
+          <h2 className="mb-5">
             Search result for: <span className="text-primary">{selected.text}</span>
           </h2>
         )}
@@ -36,30 +36,6 @@ const Index: FC = () => {
             : <PetGrid pets={pets.data} />
         }
       </div>
-
-      <style jsx>
-        {`
-        .content {
-          display: flex;
-          margin: 80px 0;
-          padding: 20px 50px;
-        }
-
-        .grid-container {
-          width: 100%;
-        }
-
-        .search-text {
-          margin-bottom: 20px;
-        }
-
-        @media screen and (max-width: 50rem) {
-          .content {
-            padding: 20px;
-          }
-        }
-      `}
-      </style>
     </div>
   )
 }

@@ -24,13 +24,13 @@ const Owner = () => {
     }
 
     return (
-        <div className="container">
-            <div className="card-container">
+        <div className="w-full py-8 px-20 mt-20 flex items-start">
+            <div className="flex-basis-30 sticky top-20">
                 <ProfileCard user={user} />
             </div>
-            <div className="grid-container">
+            <div className="flex-basis-70 ml-8">
                 {!error && (
-                    <h1 className="title">
+                    <h1 className="mb-10">
                         {user.isOwnProfile ? 'My Pets' : `${user.name}'s Pets`}
                     </h1>
                 )}
@@ -41,32 +41,6 @@ const Owner = () => {
                         : <PetGrid pets={pets.data} />
                 }
             </div>
-            <style jsx>
-                {`
-                    .container {
-                        width: 100%;
-                        padding: 30px 50px;
-                        margin-top: 80px;
-                        display: flex;
-                        align-items: flex-start;
-                    }
-
-                    .grid-container {
-                        width: 100%;
-                        margin-left: 30px;
-                    }
-
-                    .card-container {
-                        width: 300px;
-                        position: sticky;
-                        top: 80px;
-                    }
-
-                    .title {
-                        margin-bottom: 40px;
-                    }
-                `}
-            </style>
         </div>
     )
 };

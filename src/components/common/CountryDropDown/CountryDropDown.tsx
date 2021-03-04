@@ -3,7 +3,6 @@ import Select, { components } from 'react-select';
 import countryList from 'react-select-country-list';
 import { Option } from "react-select/src/filters";
 import { SelectComponentsProps } from "react-select/src/Select";
-import styles from './CountryDropDown.module.scss';
 
 // Flags Preview
 const Control: FC<SelectComponentsProps> = ({ children, ...props }) => {
@@ -13,8 +12,8 @@ const Control: FC<SelectComponentsProps> = ({ children, ...props }) => {
         <components.Control {...props as any}>
             {countryCode && (
                 <img
+                    className="w-10 h-10 mx-2 flex-shrink-0"
                     src={`https://www.countryflags.io/${countryCode}/flat/64.png`}
-                    style={{ marginRight: 0, marginLeft: '2px' }}
                 />
             )}
             {children}
@@ -44,7 +43,7 @@ const CountryDropDown: FC<IProps> = (props) => {
     const options = useMemo(() => [...countryList().getData()], []);
 
     return (
-        <div className={styles.select_country}>
+        <div className="flex items-center">
             <Select
                 {...rest}
                 defaultValue={defaultValue || def}
@@ -56,6 +55,12 @@ const CountryDropDown: FC<IProps> = (props) => {
                 placeholder={placeholder || "Select Country"}
                 onChange={onChange}
                 value={selected || def}
+                styles={{
+                    container: (provided) => ({
+                        ...provided,
+                        width: '100%'
+                    })
+                }}
             />
         </div>
     );

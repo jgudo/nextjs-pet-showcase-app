@@ -4,7 +4,6 @@ import { FiPlus } from "react-icons/fi";
 import { Option } from "react-select/src/filters";
 import { CountryDropDown } from "..";
 import SpeciesDropDown from "../SpeciesDropDown";
-import styles from './Sidebar.module.scss';
 
 const capitalize = (str: string) => str[0].toUpperCase().concat(str.slice(1));
 
@@ -23,9 +22,9 @@ const Sidebar = () => {
     }
 
     return (
-        <aside className={styles.sidebar}>
-            <div className={styles.share}>
-                <button className="button--icon" onClick={() => router.push('/new')}>
+        <aside className="min-w-300px sticky top-20 mr-12 pt-5">
+            <div className="w-full flex justify-center">
+                <button className="flex items-center" onClick={() => router.push('/new')}>
                     <FiPlus /> &nbsp;Share my Pet
                 </button>
             </div>
@@ -48,7 +47,12 @@ const Sidebar = () => {
             />
             <br />
             {Object.values(filter.selected).some(val => Boolean(val)) && (
-                <span className="link text-primary" onClick={resetFilter}>Reset Filters</span>
+                <span
+                    className="font-medium text-base text-primary-500 underline hover:cursor-pointer"
+                    onClick={resetFilter}
+                >
+                    Reset Filters
+                </span>
             )}
         </aside>
     );

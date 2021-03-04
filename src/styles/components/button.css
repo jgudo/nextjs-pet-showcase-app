@@ -1,0 +1,34 @@
+.button {
+    @extend button;
+    text-decoration: none;
+}
+
+.button-accent {
+    @extend button;
+    @apply 
+        bg-accent-400
+        text-gray-800
+        flex
+        items-center;
+
+    &:hover {
+        @apply 
+        bg-accent-300 
+        text-gray-800;
+    }
+}
+
+.button-accent-1 {
+    @extend button;
+    @apply 
+        bg-accent-1-400
+        text-gray-800
+        flex
+        items-center;
+
+    &:hover {
+        @apply 
+        bg-accent-1-300
+        text-gray-800
+    }
+}

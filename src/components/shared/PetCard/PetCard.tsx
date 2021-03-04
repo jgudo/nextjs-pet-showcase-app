@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from "next/router";
 import { FC } from "react";
 import { FiEdit3, FiEye } from "react-icons/fi";
-import styles from './PetCard.module.scss';
 
 interface IProps {
     pet: IPet
@@ -23,48 +22,59 @@ const PetCard: FC<IProps> = ({ pet }) => {
     const router = useRouter();
 
     return (
-        <div className={styles.card}>
-            <div className={styles.card_content}>
+        <div className="w-full h-94 relative text-white">
+            <div className="w-full h-90% relative group">
                 {pet.country && (
                     <div
-                        className={styles.country_badge}
+                        className="w-10 h-10 rounded-full !bg-no-repeat !bg-center absolute -top-3 -right-3 z-10 shadow-lg !bg-size-flag"
                         style={{ background: `#f1f1f1 url(${`https://www.countryflags.io/${pet.country?.value}/shiny/64.png`})` }}
                         title={pet.country?.label || ""}
                     />
                 )}
-                <div className={styles.card_front}>
+                {/* ------ FRONT CARD ----- */}
+                <div className="transform transition-transform duration-500 ease-in-out w-full h-full rotate-y-0 group-hover:rotate-y-180 p-2 backface-hidden !bg-no-repeat !bg-cover !bg-center absolute top-0 left-0 rounded-lg overflow-hidden shadow-md">
                     <img
-                        className={styles.card_image}
+                        className="w-full h-full object-cover absolute top-0 right-0"
                         src={pet.image_url || pet.image.url}
                     />
                 </div>
-                <div className={styles.card_back} style={{ background: `url(${pet.images[0]?.url || pet.image?.url})` }}>
-                    <div className={styles.card_back_content}>
-                        <div className={styles.card_info}>
-                            <span className={styles.label}>Species</span>
-                            <p className={styles.value}>{pet.species}</p>
-                            <span className={styles.label}>Age</span>
-                            <p className={styles.value}>{displayAge(pet.age)}</p>
-                            <span className={styles.label}>From</span>
-                            <p className={styles.value}>{pet.country?.label}</p>
-                            <span className={styles.label}>Owner</span>
-                            <p
-                                className={`${styles.value} text-accent link`}
-                                onClick={() => router.push(`/owner/${pet.owner?._id}`)}
-                            >
-                                {pet.owner?.name}
-                            </p>
+                {/* ------ BACK CARD ----- */}
+                <div className="transform transition-transform duration-500 ease-in-out w-full h-full rotate-y-180 group-hover:rotate-y-0 p-2 backface-hidden !bg-no-repeat !bg-cover !bg-center absolute top-0 left-0 rounded-lg overflow-hidden shadow-md" style={{ background: `url(${pet.images[0]?.url || pet.image?.url})` }}>
+                    <div className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-60" />
+                    <div className="relative z-10 h-full flex flex-col justify-between flex-wrap">
+                        <div className="flex flex-col space-y-2">
+                            <div>
+                                <span className="text-gray-400 text-xs">Species</span>
+                                <p className="text-sm">{pet.species}</p>
+                            </div>
+                            <div>
+                                <span className="text-gray-400 text-xs">Age</span>
+                                <p className="text-sm">{displayAge(pet.age)}</p>
+                            </div>
+                            <div>
+                                <span className="text-gray-400 text-xs">From</span>
+                                <p className="text-sm">{pet.country?.label}</p>
+                            </div>
+                            <div>
+                                <span className="text-gray-400 text-xs">Owner</span>
+                                <p
+                                    className="text-sm text-accent-400 underline cursor-pointer"
+                                    onClick={() => router.push(`/owner/${pet.owner?._id}`)}
+                                >
+                                    {pet.owner?.name}
+                                </p>
+                            </div>
                         </div>
-                        <div className={styles.card_actions}>
+                        <div className="flex justify-evenly self-end w-full">
                             {pet.isOwnPet && (
                                 <Link href="/pet/[id]/edit" as={`/pet/${pet._id}/edit`}>
-                                    <a className="button--link button--accent">
+                                    <a className="button-accent">
                                         <FiEdit3 /> &nbsp; Edit
                                 </a>
                                 </Link>
                             )}
                             <Link href="/pet/[id]" as={`/pet/${pet._id}`}>
-                                <a className="button--link button--icon button--accent-1">
+                                <a className="button-accent-1">
                                     <FiEye /> &nbsp; More Details
                                 </a>
                             </Link>
@@ -72,7 +82,7 @@ const PetCard: FC<IProps> = ({ pet }) => {
                     </div>
                 </div>
             </div>
-            <h3 className={styles.pet_name}>{pet.name}</h3>
+            <h4 className="mt-1 text-gray-800">{pet.name}</h4>
         </div>
     );
 };

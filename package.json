@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "add": "^2.0.6",
+    "autoprefixer": "^10.2.4",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.25.0",
     "connect-mongo": "^3.2.0",
@@ -25,6 +26,7 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-local": "^1.0.0",
+    "postcss": "^8.2.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-file-drop": "^3.1.2",
@@ -32,6 +34,7 @@
     "react-select": "^4.1.0",
     "react-select-country-list": "^2.2.3",
     "swr": "^0.4.2",
+    "tailwindcss": "^2.0.3",
     "yup": "^0.32.9"
   },
   "license": "MIT",
@@ -47,6 +50,9 @@
     "@types/passport-local": "^1.0.33",
     "@types/react": "^17.0.2",
     "@types/react-select": "^4.0.13",
+    "postcss-extend": "^1.0.5",
+    "postcss-import": "^14.0.0",
+    "postcss-nested": "^5.0.4",
     "sass": "^1.32.8",
     "typescript": "^4.1.5"
   }

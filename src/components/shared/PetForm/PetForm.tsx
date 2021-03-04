@@ -9,7 +9,6 @@ import { FiCheck, FiInfo } from 'react-icons/fi';
 import { mutate } from 'swr';
 import * as Yup from 'yup';
 import PetImageSelector from '../PetImageSelector';
-import styles from './PetForm.module.scss';
 
 interface IFormState {
   name: string;
@@ -147,10 +146,10 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
   return (
     <div>
       <div>
-        {error && <span className="msg--error">{error}</span>}
-        <h1>{title}</h1>
+        {error && <span className="p-2 text-red-500 bg-red-100 block">{error}</span>}
+        <h1 className="text-gray-800">{title}</h1>
       </div>
-      <p className="text-subtle">
+      <p className="text-gray-500 flex items-center">
         <FiInfo /> &nbsp;
         Labels with <strong style={{ color: 'var(--primary)' }}>*</strong> are required.
       </p>
@@ -162,35 +161,40 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form id={formId} className={styles.form}>
-            <div className={styles.images}>
+          <Form id={formId} className="flex">
+            <div className="flex-basis-30">
               <PetImageSelector
                 setImageFiles={setImageFiles}
                 imageFiles={imageFiles}
                 isSubmitting={isSubmitting}
               />
             </div>
-            <div className={styles.form_fields}>
-              <div className={styles.flex_field}>
+            <div className="pl-12 space-y-4 flex-basis-70">
+              <div className="w-full grid grid-cols-2 gap-4">
                 <Field disabled={isSubmitting} name="name" component={CustomInputField} label="* Pet Name" />
                 <Field disabled={isSubmitting} name="breed" component={CustomInputField} label="Breed" />
               </div>
-              <div className={styles.flex_field}>
+              <div className="w-full grid grid-cols-2 gap-4">
                 <Field disabled={isSubmitting} name="species" component={CustomInputField} label="* Species" />
                 <Field disabled={isSubmitting} type="number" name="age" component={CustomInputField} label="Age" />
               </div>
-              <div className={`${styles.flex_field} ${styles.checkbox_container}`}>
+              <div className="w-full grid grid-cols-2 gap-4 items-center">
                 {/* --- CUSTOM CHECKBOX */}
-                <div className={styles.checkbox_wrapper}>
-                  <label className={styles.checkbox}>
-                    Poddy Trained
-                  <Field disabled={isSubmitting} type="checkbox" id="poddy_trained" name="poddy_trained" />
-                    <span className={styles.checkmark}></span>
+                <div>
+                  <label htmlFor="poddy_trained" className="inline-flex items-center mt-3 cursor-pointer">
+                    <Field
+                      className="form-checkbox h-4 w-4"
+                      disabled={isSubmitting}
+                      type="checkbox"
+                      id="poddy_trained"
+                      name="poddy_trained"
+                    />
+                    <span className="ml-2 text-gray-700">Poddy Trained</span>
                   </label>
                 </div>
                 <Field>
                   {({ form, meta }) => (
-                    <div className="input-fieldset">
+                    <div>
                       <label className="label" htmlFor="country">Country</label>
                       <CountryDropDown
                         selected={form.values.country}
@@ -231,12 +235,12 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
               />
               <div>
                 {isSuccess && !forNewPet && (
-                  <span className="msg--success mb-4">
+                  <span className="text-accent-1-600 p-2 bg-accent-1-200 flex items-center mb-4">
                     <FiCheck /> Pet details updated successfully!
                   </span>
                 )}
                 <button
-                  className="btn button--icon"
+                  className="flex items-center"
                   disabled={isSubmitting}
                   type="submit"
                 >

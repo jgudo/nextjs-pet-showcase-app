@@ -17,22 +17,13 @@ const EditPet = () => {
   if (!pet.data.isOwnPet && typeof window !== 'undefined') router.push('/');
 
   return (
-    <div className="edit-pet">
+    <div className="p-12 my-20">
       <PetForm
         formId="edit-pet-form"
         petForm={pet.data}
         forNewPet={false}
         title="Edit Pet details"
       />
-
-      <style jsx>
-        {`
-          .edit-pet {
-            padding: 50px;
-            margin-top: 80px;
-          }
-        `}
-      </style>
     </div>
   )
 }

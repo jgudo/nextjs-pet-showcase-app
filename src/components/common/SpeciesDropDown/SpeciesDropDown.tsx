@@ -1,7 +1,6 @@
 import { FC } from "react";
 import Select from 'react-select';
 import { Option } from "react-select/src/filters";
-import styles from './SpeciesDropDown.module.scss';
 
 interface IProps {
     onChange: (val: Option) => void;
@@ -24,7 +23,7 @@ const SpeciesDropDown: FC<IProps> = (props) => {
     const def = { label: 'All Species', value: "" }
 
     return (
-        <div className={styles.select_species}>
+        <div className="flex items-center flex-wrap">
             <Select
                 {...rest}
                 defaultValue={defaultValue || def}
@@ -34,6 +33,12 @@ const SpeciesDropDown: FC<IProps> = (props) => {
                 value={selected || def}
                 placeholder={placeholder || "Select Species"}
                 onChange={onChange}
+                styles={{
+                    container: (provided) => ({
+                        ...provided,
+                        width: '100%'
+                    })
+                }}
             />
         </div>
     );

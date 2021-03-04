@@ -37,18 +37,18 @@ const PetPage: FC = () => {
   }
 
   return (
-    <div className="view">
+    <div className="py-8 px-12 mt-20 flex items-start">
       {/* ------ IMAGES ------------ */}
-      <div className="images">
+      <div className="flex-basis-40 w-full h-120 bg-gray-300 rounded-lg shadow-lg overflow-hidden sticky top-20 flex flex-col">
         <div
-          className="image-background"
+          className="w-full h-full !bg-cover !bg-no-repeat !bg-center"
           style={{ background: `#f1f1f1 url(${activeImage?.url || pet.image?.url})` }}
         />
         {pet.images?.length > 0 && (
-          <div className="image-list">
+          <div className="grid grid-cols-4 bg-gray-400 h-24">
             {[pet.image, ...pet.images].map(image => (
               <div
-                className={`image-item image-background ${activeImage?.public_id === image.public_id && 'image-active'}`}
+                className={`w-full opacity-80 h-full hover:cursor-pointer !bg-cover !bg-no-repeat !bg-center ${activeImage?.public_id === image.public_id && 'opacity-100 border-2 border-solid border-accent-400'}`}
                 key={image.public_id}
                 onClick={() => setActiveImage(image)}
                 style={{ background: `#f1f1f1 url(${image.url})` }}
@@ -58,18 +58,18 @@ const PetPage: FC = () => {
         )}
       </div>
       {/* ------------ DETAILS ---------- */}
-      <div className="details">
-        <div className="details-wrapper">
-          <span className="text-subtle text-xs">Name</span>
+      <div className="h-full flex-basis-60 p-12 rounded-lg shadow-lg bg-white ml-8 space-y-4">
+        <div>
+          <span className="text-xs text-gray-500">Name</span>
           <h1 className="pet-name">{pet.name}</h1>
         </div>
-        <div className="details-wrapper">
-          <span className="text-subtle text-xs">From</span>
+        <div>
+          <span className="text-xs text-gray-500">From</span>
           {pet.country && (
-            <div className="country">
+            <div className="flex items-center">
               <img
                 alt={pet.country.label}
-                className="country-badge"
+                className="w-10"
                 src={`https://www.countryflags.io/${pet.country?.value}/flat/64.png`}
               />
             &nbsp;
@@ -77,20 +77,20 @@ const PetPage: FC = () => {
             </div>
           )}
         </div>
-        <div className="details-wrapper">
-          <span className="text-subtle text-xs">Owner</span>
+        <div>
+          <span className="text-gray-500 text-xs">Owner</span>
           <h4>{pet.owner?.name}</h4>
         </div>
-        <div className="details-wrapper">
-          <span className="text-subtle text-xs">Likes</span>
+        <div>
+          <span className="text-gray-500 text-xs">Likes</span>
           <ul>
             {pet.likes.map((data, index) => (
               <li key={index}>{data} </li>
             ))}
           </ul>
         </div>
-        <div className="details-wrapper">
-          <span className="text-subtle text-xs">Dislikes</span>
+        <div>
+          <span className="text-gray-500 text-xs">Dislikes</span>
           <ul>
             {pet.dislikes.map((data, index) => (
               <li key={index}>{data} </li>
@@ -98,10 +98,10 @@ const PetPage: FC = () => {
           </ul>
         </div>
         {pet.isOwnPet && (
-          <div className="btn-container">
+          <div className="flex">
             <Link href="/pet/[id]/edit" as={`/pet/${pet._id}/edit`}>
               <button
-                className="btn button--icon"
+                className="flex items-center"
                 disabled={isDeleting}
               >
                 <FiEdit3 />
@@ -111,7 +111,7 @@ const PetPage: FC = () => {
             </Link>
             &nbsp;
             <button
-              className="btn button--danger button--icon"
+              className="flex items-center bg-red-500 text-white hover:bg-red-600"
               disabled={isDeleting}
               onClick={handleDelete}
             >
@@ -123,88 +123,6 @@ const PetPage: FC = () => {
         )}
       </div>
       {message && <p>{message}</p>}
-      <style jsx>
-        {`
-          .view {
-            padding: 30px 50px;
-            margin-top: 80px;
-            display: flex;
-            align-items: flex-start;
-          }
-
-          .images {
-            flex-basis: 40%;
-            width: 100%;
-            height: 500px;
-            background: #f5f5f5;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0, .05);
-            overflow: hidden;
-            position: sticky;
-            top: 80px;
-            display: flex;
-            flex-direction: column;
-          }
-
-          .image-background {
-            width: 100%;
-            height: 100%;
-            background-size: cover !important;
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-          }
-
-          .image-list {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            background: #cacaca;
-          }
-
-          .image-item {
-            width: 100%;
-            height: 100px;
-            opacity: .8;
-          }
-
-          .image-item:hover {
-            cursor: pointer;
-            opacity: 1;
-            border: 1px solid var(--accent);
-          }
-
-          .image-active {
-            opacity: 1;
-            border: 1px solid var(--accent);
-          }
-
-          .details {
-            height: 100%;
-            flex-basis: 60%;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0, .05);
-            background: #fff;
-            margin-left: 30px;
-          }
-
-          .details-wrapper {
-            margin-bottom: 10px;
-          }
-
-          .country {
-            display: flex;
-            align-items: center;
-          }
-
-          .country-badge {
-            width: 40px;
-          }   
-
-          .btn-container {
-            display: flex;
-          }
-        `}
-      </style>
     </div>
   )
 }

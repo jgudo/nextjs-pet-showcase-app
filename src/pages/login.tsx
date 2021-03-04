@@ -53,32 +53,44 @@ const Login = () => {
     }
 
     return (
-        <div className="auth auth_login">
-            <div className="auth_wrapper">
-                <div className="auth_brand">
+        <div
+            className="w-full min-h-screen relative flex justify-center items-center !bg-no-repeat !bg-cover overlay before:bg-black"
+            style={{ background: 'url("/pet_bg.jpg")' }}
+        >
+            <div className="absolute w-full h-full top-0 left-0 bg-black bg-opacity-20" />
+            <div className="w-full h-full relative p-5 flex z-10">
+                <div className="laptop:block hidden  w-full p-12">
                     <Link href="/">
-                        <img src="/logo.png" alt="" />
+                        <img
+                            alt="Logo"
+                            className="w-24 h-24 object-contain"
+                            src="/logo.png"
+                        />
                     </Link>
-                    <h1 className="tagline">
-                        Make your <span className="strike">pet</span> <span className="bold">best friend</span>
+                    <h1 className="text-white">
+                        Make your <span className="line-through font-normal">pet</span> <span className="font-bold">best friend</span>
                         <br />
                         be known to the world.
                     </h1>
                 </div>
-                <div className="auth_formWrapper">
-                    <div className="auth_form">
-                        <div className="auth_form-logo">
+                <div className="w-full h-full">
+                    <div className="auth_form w-full laptop:w-3/4 h-full bg-white rounded-lg py-8 px-5 laptop:px-12 relative overflow-hidden">
+                        <div className="mt-4 laptop:mt-0 laptop:hidden">
                             <Link href="/">
-                                <img src="/logo.png" alt="" />
+                                <img
+                                    alt="Logo"
+                                    className="w-12 h-12"
+                                    src="/logo.png"
+                                />
                             </Link>
                         </div>
-                        <h1 className="form_title">Login</h1>
-                        <p className="form_subtitle">
+                        <h1 className="text-gray-800 mb-2">Login</h1>
+                        <p className="text-gray-600 mb-4">
                             New user? &nbsp;
                             <Link href="/signup">Create an account</Link>
                         </p>
                         {error && (
-                            <h4 style={{ marginBottom: '10px' }} className="msg--error">{error}</h4>
+                            <h4 className="text-red-500 bg-red-100 text-center p-2">{error}</h4>
                         )}
                         <Formik
                             initialValues={{
@@ -90,10 +102,11 @@ const Login = () => {
                             onSubmit={onSubmit}
                         >
                             {() => (
-                                <Form>
+                                <Form className="space-y-4">
                                     <Field
                                         disabled={isLoading}
                                         name="email"
+                                        type="email"
                                         label="Email"
                                         component={CustomInputField}
                                     />
@@ -104,8 +117,8 @@ const Login = () => {
                                         component={CustomInputField}
                                         label="Password"
                                     />
-                                    <div className="auth_button">
-                                        <button disabled={isLoading} type="submit">
+                                    <div className="flex justify-end">
+                                        <button className="flex items-center" disabled={isLoading} type="submit">
                                             {isLoading && <AiOutlineLoading className="spin" />}
                                             &nbsp;
                                             Continue

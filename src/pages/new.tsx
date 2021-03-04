@@ -21,7 +21,7 @@ const NewPet = () => {
   if (!user && typeof window !== 'undefined') Router.push('/login');
 
   return (
-    <div className="content">
+    <div className="px-20 my-28">
       <Head>
         <title>Submit your Pet | PawShow</title>
       </Head>
@@ -31,14 +31,6 @@ const NewPet = () => {
         title="Submit your pet"
         forNewPet={true}
       />
-      <style jsx>
-        {`
-          .content {
-            padding: 0 80px;
-            margin-top: 100px;
-          }
-        `}
-      </style>
     </div>
   )
 }

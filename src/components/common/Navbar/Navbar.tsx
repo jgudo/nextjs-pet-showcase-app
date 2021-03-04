@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import SearchBar from '../SearchBar';
-import styles from './Navbar.module.scss';
 
 const Navbar: FC = () => {
     const hiddenTo = ['/login', '/signup'];
@@ -12,12 +11,12 @@ const Navbar: FC = () => {
     const { user, mutate } = useCurrentUser();
 
     return hiddenTo.includes(router.pathname) ? null : (
-        <nav className={styles.navbar}>
-            <ul className={styles.navbar__menu}>
-                <li className={styles.navbar__menu_item}>
+        <nav className="w-full h-16 bg-white fixed top-0 left-0 z-50 flex px-10 justify-between items-center shadow-sm">
+            <ul className="flex items-center">
+                <li className="py-3 px-4">
                     <Link href="/">
                         <img
-                            className={styles.navbar__logo}
+                            className="w-14 h-14 object-contain"
                             id="title"
                             src="/logo.png"
                             alt="pet care logo"
@@ -28,21 +27,23 @@ const Navbar: FC = () => {
                     <SearchBar />
                 </li>
             </ul>
-            <ul className={styles.navbar__menu}>
-                <li className={styles.navbar__menu_item}>
-                    <Link href="/"><a>Explore</a></Link>
+            <ul className="flex items-center">
+                <li className="py-3 px-4">
+                    <Link href="/">
+                        <a className="font-bold no-underline">Explore</a>
+                    </Link>
                 </li>
                 {user ? (
-                    <li className={styles.navbar__menu_item}>
+                    <li className="py-3 px-4">
                         <NavUserPill user={user} mutate={mutate} />
                     </li>
                 ) : (
                         <>
-                            <li className={styles.navbar__menu_item}>
-                                <Link href="/login"><a>Login</a></Link>
+                            <li className="py-3 px-4">
+                                <Link href="/login"><a className="font-bold no-underline">Login</a></Link>
                             </li>
-                            <li className={styles.navbar__menu_item}>
-                                <Link href="/signup"><a className="button--link button--accent">Sign Up</a></Link>
+                            <li className="py-3 px-4">
+                                <Link href="/signup"><a className="button-accent">Sign Up</a></Link>
                             </li>
                         </>
                     )}
