@@ -1,9 +1,12 @@
 const colors = require('tailwindcss/colors')
 const plugin = require('tailwindcss/plugin');
-const { boxShadow } = require('tailwindcss/defaultTheme');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: [
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}'
+  ],
   darkMode: false,
   theme: {
     screens: {
@@ -13,7 +16,7 @@ module.exports = {
       desktop: '1280px',
     },
     fontFamily: {
-      sans: ['Gilroy', 'Helvetica', 'Arial', 'sans-serif'],
+      sans: ['Gilroy', ...defaultTheme.fontFamily.sans],
     },
     colors: {
       transparent: 'transparent',
@@ -29,7 +32,7 @@ module.exports = {
       'fb-hover': 'var(--facebook-bg-hovered)',
     },
     boxShadow: {
-      ...boxShadow,
+      ...defaultTheme.boxShadow,
       solid: `0 0 0 5px ${colors.yellow[400]}`
     },
     extend: {
