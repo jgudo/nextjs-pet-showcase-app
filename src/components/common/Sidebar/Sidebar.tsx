@@ -47,7 +47,12 @@ const Sidebar = () => {
             />
             <br />
             {Object.values(filter.selected).some(val => Boolean(val)) && (
-                <span className="link text-primary" onClick={resetFilter}>Reset Filters</span>
+                <span
+                    className="font-medium text-base text-primary-500 underline hover:cursor-pointer"
+                    onClick={resetFilter}
+                >
+                    Reset Filters
+                </span>
             )}
         </aside>
     );

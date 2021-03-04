@@ -3,7 +3,6 @@ import { IUser } from '@/types/types';
 import { FC, useState } from 'react';
 import { FiCamera } from 'react-icons/fi';
 import { mutate } from 'swr';
-import styles from './ProfileCard.module.scss';
 
 interface IProps {
     user: IUser;
@@ -61,13 +60,16 @@ const ProfileCard: FC<IProps> = ({ user }) => {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.avatar} style={{
-                background: `#f1f1f1 url(${photo.url || user.photo?.url || 'https://i.pravatar.cc/150'})`
-            }}>
+        <div className="min-w-300px text-center flex items-center flex-col bg-primary-500 rounded-lg text-white p-5 shadow-lg">
+            <div
+                className="w-52 h-52 !bg-cover !bg-no-repeat border-4 border-solid border-primary-500 shadow-solid relative rounded-full"
+                style={{
+                    background: `#f1f1f1 url(${photo.url || user.photo?.url || 'https://i.pravatar.cc/150'})`
+                }}
+            >
                 {isEditMode && (
-                    <div className={styles.photo_overlay}>
-                        <label className={styles.change_photo} htmlFor="photo">
+                    <div className="w-full h-full absolute top-0 left-0 rounded-full bg-black bg-opacity-40 flex items-center justify-center overflow-hidden hover:cursor-pointer">
+                        <label className="w-full h-full text-white flex flex-col text-center justify-center items-center hover:opacity-80 hover:cursor-pointer" htmlFor="photo">
                             <FiCamera /> Change Photo
                     </label>
                         <input
@@ -84,7 +86,7 @@ const ProfileCard: FC<IProps> = ({ user }) => {
             {isEditMode ? (
                 <input
                     accept="image/*"
-                    className={styles.input}
+                    className="text-center font-medium text-white !border-accent-400"
                     onChange={handleNameChange}
                     placeholder="Name"
                     required
@@ -95,9 +97,9 @@ const ProfileCard: FC<IProps> = ({ user }) => {
             ) : (
                     <h2>{user.name}</h2>
                 )}
-            <p className="text-xs">{user.email}</p>
+            <p className="text-xs my-4">{user.email}</p>
             {isEditMode && (
-                <div>
+                <div className="flex space-x-2">
                     <button
                         disabled={isLoading}
                         onClick={handleCancelEdit}
@@ -105,7 +107,7 @@ const ProfileCard: FC<IProps> = ({ user }) => {
                         Cancel
                     </button>
                     <button
-                        className="button--accent"
+                        className="button-accent"
                         disabled={isLoading}
                         onClick={handleSubmitChanges}
                     >

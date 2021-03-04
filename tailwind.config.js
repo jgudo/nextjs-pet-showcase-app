@@ -1,5 +1,6 @@
 const colors = require('tailwindcss/colors')
 const plugin = require('tailwindcss/plugin');
+const { boxShadow } = require('tailwindcss/defaultTheme');
 
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
@@ -27,9 +28,14 @@ module.exports = {
       fb: 'var(--facebook-bg)',
       'fb-hover': 'var(--facebook-bg-hovered)',
     },
+    boxShadow: {
+      ...boxShadow,
+      solid: `0 0 0 5px ${colors.yellow[400]}`
+    },
     extend: {
       height: {
         '94': '20rem',
+        '120': '32rem',
         '90%': '90%'
       },
       minWidth: {
@@ -42,8 +48,10 @@ module.exports = {
     backgroundRepeat: ['important', 'responsive'],
     backgroundPosition: ['important', 'responsive'],
     borderColor: ['important', 'focus', 'hover', 'dark'],
-    border: ['focus'],
+    border: ['focus', 'important'],
+    display: ['responsive', 'hover'],
     transform: ['hover'],
+    outline: ['focus'],
     cursor: ['hover'],
     padding: ['important', 'responsive'],
     extend: {
@@ -110,11 +118,26 @@ module.exports = {
         '.flex-basis-70': {
           flexBasis: '70%'
         },
+        '.flex-basis-60': {
+          flexBasis: '60%'
+        },
+        '.flex-basis-40': {
+          flexBasis: '40%'
+        },
         '.flex-basis-30': {
           flexBasis: '30%'
         },
         '.backface-hidden': {
           backfaceVisibility: 'hidden'
+        },
+        '.grid-cols-fit': {
+          gridTemplateColumns: 'repeat(auto-fit, 250px)'
+        },
+        '.grid-cols-minmax-fit': {
+          gridTemplateColumns: 'repeat(auto-fit, minmax(50%, 1fr))'
+        },
+        '.grid-rows-minmax-fit': {
+          gridTemplateRows: 'repeat(auto-fit, minmax(50%, 1fr))'
         }
       }
 

@@ -146,7 +146,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
   return (
     <div>
       <div>
-        {error && <span className="p-2 text-red-500 bg-red-200 font-bold">{error}</span>}
+        {error && <span className="p-2 text-red-500 bg-red-100 block">{error}</span>}
         <h1 className="text-gray-800">{title}</h1>
       </div>
       <p className="text-gray-500 flex items-center">
@@ -170,15 +170,15 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
               />
             </div>
             <div className="pl-12 space-y-4 flex-basis-70">
-              <div className="w-full grid grid-cols-2">
+              <div className="w-full grid grid-cols-2 gap-4">
                 <Field disabled={isSubmitting} name="name" component={CustomInputField} label="* Pet Name" />
                 <Field disabled={isSubmitting} name="breed" component={CustomInputField} label="Breed" />
               </div>
-              <div className="w-full grid grid-cols-2">
+              <div className="w-full grid grid-cols-2 gap-4">
                 <Field disabled={isSubmitting} name="species" component={CustomInputField} label="* Species" />
                 <Field disabled={isSubmitting} type="number" name="age" component={CustomInputField} label="Age" />
               </div>
-              <div className="w-full grid grid-cols-2 items-center">
+              <div className="w-full grid grid-cols-2 gap-4 items-center">
                 {/* --- CUSTOM CHECKBOX */}
                 <div>
                   <label htmlFor="poddy_trained" className="inline-flex items-center mt-3 cursor-pointer">
@@ -235,7 +235,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
               />
               <div>
                 {isSuccess && !forNewPet && (
-                  <span className="text-accent-1-600 bg-accent-1-200 flex items-center mb-4">
+                  <span className="text-accent-1-600 p-2 bg-accent-1-200 flex items-center mb-4">
                     <FiCheck /> Pet details updated successfully!
                   </span>
                 )}

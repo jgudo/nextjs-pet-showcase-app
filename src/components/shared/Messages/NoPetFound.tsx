@@ -5,46 +5,33 @@ const NoPetFound: FC<{ appliedFilters: IFilterState['selected'] }> = ({ appliedF
     const { country, species, text } = appliedFilters;
 
     return (
-        <div className="container">
+        <div className="w-full px-5 flex justify-center items-center flex-col text-center">
             <h1>No Pet Found.</h1>
-            <p className="text-subtle">
+            <p className="text-gray-500">
                 Make sure to apply necessary filter or use specific keyword.
             </p>
             <br />
             <br />
             {(country?.value || species || text) && (
                 <div>
-                    Filters you used:
+                    <span className="text-gray-500 mb-4 block">Filters you used:</span>
                     {country?.value && (
-                        <p className="text-subtle">
-                            Country: <span className="text-primary text-bold">{country.label}</span>
+                        <p className="text-gray-400">
+                            Country: <span className="text-accent-500 font-bold">{country.label}</span>
                         </p>
                     )}
                     {species && (
-                        <p className="text-subtle">
-                            Species: <span className="text-primary text-bold">{species}</span>
+                        <p className="text-gray-400">
+                            Species: <span className="text-accent-500 font-bold">{species}</span>
                         </p>
                     )}
                     {text && (
-                        <p className="text-subtle">
-                            Keyword: <span className="text-primary text-bold">{text}</span>
+                        <p className="text-gray-400">
+                            Keyword: <span className="text-accent-500 font-bold">{text}</span>
                         </p>
                     )}
                 </div>
             )}
-            <style jsx>
-                {`
-                    .container {
-                        width: 100%;
-                        padding: 20px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        text-align: center;
-                        flex-direction: column;
-                    }
-                `}
-            </style>
         </div>
     );
 }

@@ -46,18 +46,19 @@
       font-bold
       transition-all
       relative;
+      
+      &:hover {
+        @apply bg-primary-600 cursor-pointer;
+      }
+      
+      &:focus {
+        @apply outline-none;
+        outline: none !important;
+      }
 
-    &:hover {
-      @apply bg-primary-600 cursor-pointer;
-    }
-
-    &:disabled {
-      @apply opacity-60 cursor-default;
-    }
-
-    &:focus {
-      @apply outline-none;
-    }
+      &:disabled {
+        @apply opacity-60 cursor-default;
+      }
   }
 
   label {

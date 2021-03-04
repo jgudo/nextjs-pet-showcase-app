@@ -82,7 +82,7 @@ const PetCard: FC<IProps> = ({ pet }) => {
                     </div>
                 </div>
             </div>
-            <h3 className="mt-4 text-gray-800">{pet.name}</h3>
+            <h4 className="mt-1 text-gray-800">{pet.name}</h4>
         </div>
     );
 };

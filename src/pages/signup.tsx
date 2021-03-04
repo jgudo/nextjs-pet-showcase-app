@@ -48,9 +48,9 @@ const SignUp = () => {
         });
 
         if (!req.ok) {
-            const err = await req.json();
-            console.log(err);
-            return setError(err);
+            const { message } = await req.json();
+            setLoading(false);
+            return setError(message);
         }
 
         setLoading(false);

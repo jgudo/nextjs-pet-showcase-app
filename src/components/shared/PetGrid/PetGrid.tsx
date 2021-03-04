@@ -1,12 +1,11 @@
 import { IPet } from "@/types/types";
 import { FC } from "react";
 import PetCard from "../PetCard";
-import styles from './PetGrid.module.scss';
 
 const PetGrid: FC<{ pets: IPet[] }> = ({ pets }) => {
     return (
-        <div className={styles.container}>
-            <div className={styles.grid}>
+        <div className="w-full">
+            <div className="w-full grid gap-5 grid-cols-fit">
                 {pets.map((pet: IPet) => (
                     <PetCard key={pet._id} pet={pet} />
                 ))}

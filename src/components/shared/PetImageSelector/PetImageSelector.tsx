@@ -3,7 +3,6 @@ import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react
 import { FileDrop } from "react-file-drop";
 import { FaStar } from "react-icons/fa";
 import { FiStar, FiX } from "react-icons/fi";
-import styles from './PetImageSelector.module.scss';
 
 interface IProps {
     imageFiles: IImageFile[];
@@ -114,17 +113,20 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
     return (
         <div>
             {error ? (
-                <span className="label--error text-xs block">{error}</span>
+                <span className="text-xs text-red-500">{error}</span>
             ) : (
-                    <span className="text-subtle text-xs block">* Image(s)</span>
+                    <span className="text-xs text-gray-500">* Image(s)</span>
                 )}
             <br />
-            <div className={styles.wrapper} ref={imageContainerRef}>
+            <div
+                className="w-full h-80 bg-gray-100 border-2 border-dashed border-gray-300 relative mt-2"
+                ref={imageContainerRef}
+            >
                 {imageFiles.length === 0 && (
                     <img
                         src="/paw_placeholder.jpg"
                         alt="placeholder"
-                        className={styles.placeholder}
+                        className="w-full h-full absolute top-0 left-0 object-cover"
                     />
                 )}
                 <FileDrop
@@ -132,9 +134,9 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
                 >
                     {imageFiles.length === 0 && (
                         <>
-                            <span className="text-subtle">Drop images here (4)</span>
-                            <i className="text-subtle text-xs">or</i>
-                            <label htmlFor="images" className={styles.button_manual}>Choose Manually</label>
+                            <span className="text-gray-500">Drop images here (4)</span>
+                            <i className="text-gray-500 text-xs">or</i>
+                            <label htmlFor="images" className="bg-gray-200 border border-solid border-gray-300 py-1 px-3 rounded-full text-sm cursor-pointer hover:bg-gray-300 text-gray-700">Choose Manually</label>
                             <input
                                 id="images"
                                 hidden
@@ -147,26 +149,24 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
                         </>
                     )}
                     {imageFiles.length > 0 && (
-                        <div className={styles.image_grid}>
+                        <div className="w-full h-full absolute top-0 left-0 grid grid-cols-minmax-fit grid-rows-minmax-fit">
                             {imageFiles.map(image => (
-                                <div className={styles.image_grid_item} key={image.id}>
+                                <div
+                                    className="relative border border-dashed border-gray-300 h-full group"
+                                    key={image.id}
+                                >
+                                    <div className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50 hidden group-hover:block" />
                                     <button
-                                        className={`${styles.button_action} ${styles.button_star}`}
+                                        className={`absolute bg-white text-gray-700 p-0 w-6 h-6 border border-solid border-gray-400 rounded-full flex items-center justify-center z-10 shadow-lg top-1 left-1 hover:bg-accent-300 hover:text-gray-800 ${image.isThumbnail && 'bg-accent-300 text-gray-800 w-7 h-7'}`}
                                         disabled={isSubmitting}
                                         onClick={() => handleSetThumbnail(image.id)}
-                                        style={{
-                                            background: `${image.isThumbnail ? '#f3c234' : '#f1f1f1'}`,
-                                            color: `${image.isThumbnail ? '#000' : '797878'}`,
-                                            width: `${image.isThumbnail ? '30px' : '25px'}`,
-                                            height: `${image.isThumbnail ? '30px' : '25px'}`,
-                                        }}
                                         title="Set as Thumbnail"
                                         type="button"
                                     >
                                         {image.isThumbnail ? <FaStar /> : <FiStar />}
                                     </button>
                                     <button
-                                        className={`${styles.button_action} ${styles.button_remove}`}
+                                        className="absolute bg-white text-gray-700 p-0 w-6 h-6 border border-solid border-gray-400 rounded-full flex items-center justify-center z-10 shadow-lg top-1 right-1 hover:bg-red-500 hover:text-white"
                                         disabled={isSubmitting}
                                         onClick={() => handleRemoveSelected(image.id)}
                                         title="Remove"
@@ -174,7 +174,7 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
                                     >
                                         <FiX />
                                     </button>
-                                    <img src={image.url} className={styles.grid_image} />
+                                    <img src={image.url} className="w-full h-full object-contain" />
                                 </div>
                             ))}
                         </div>
@@ -182,10 +182,10 @@ const PetImageSelector: FC<IProps> = ({ imageFiles, isSubmitting, setImageFiles 
                 </FileDrop>
             </div>
             {imageFiles.length > 0 && imageFiles.length < 4 && (
-                <div className={styles.choose_container}>
-                    <span className="text-subtle text-xs">You can Drag and Drop your images above</span>
+                <div className="mt-2 flex flex-col justify-center items-center">
+                    <span className="text-gray-500 text-xs">You can Drag and Drop your images above</span>
                     <br />
-                    <label htmlFor="images" className={styles.button_manual}>
+                    <label htmlFor="images" className="bg-gray-200 border border-solid border-gray-300 py-1 px-3 rounded-full text-sm cursor-pointer hover:bg-gray-300 text-gray-700">
                         Choose More Images ({4 - imageFiles.length})
                     </label>
                     <input
