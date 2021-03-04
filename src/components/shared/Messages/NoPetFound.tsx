@@ -6,7 +6,7 @@ const NoPetFound: FC<{ appliedFilters: IFilterState['selected'] }> = ({ appliedF
 
     return (
         <div className="w-full px-5 flex justify-center items-center flex-col text-center">
-            <h1>No Pet Found.</h1>
+            <h1 className="text-xl laptop:text-4xl">No Pet Found.</h1>
             <p className="text-gray-500">
                 Make sure to apply necessary filter or use specific keyword.
             </p>

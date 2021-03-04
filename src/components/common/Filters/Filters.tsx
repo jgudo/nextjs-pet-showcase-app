@@ -52,7 +52,7 @@ const Sidebar = () => {
             <br />
             {Object.values(filter.selected).some(val => Boolean(val) && !isSmallScreen) && (
                 <span
-                    className="font-medium text-primary-500 underline hover:cursor-pointer"
+                    className="font-bold text-red-500 underline hover:cursor-pointer"
                     onClick={resetFilter}
                 >
                     Reset Filters
@@ -69,7 +69,7 @@ const Sidebar = () => {
                     </div>
                     {Object.values(filter.selected).some(val => Boolean(val)) && (
                         <span
-                            className="font-medium text-primary-500 underline hover:cursor-pointer"
+                            className="font-bold text-red-500 hover:cursor-pointer"
                             onClick={resetFilter}
                         >
                             Reset Filters

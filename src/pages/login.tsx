@@ -59,11 +59,11 @@ const Login = () => {
         >
             <div className="absolute w-full h-full top-0 left-0 bg-black bg-opacity-20" />
             <div className="w-full h-full relative p-5 flex z-10">
-                <div className="laptop:block hidden  w-full p-12">
+                <div className="laptop:block hidden  w-full p-12 cursor-pointer">
                     <Link href="/">
                         <img
                             alt="Logo"
-                            className="w-24 h-24 object-contain"
+                            className="w-28 object-contain mb-8"
                             src="/logo.png"
                         />
                     </Link>
@@ -79,7 +79,7 @@ const Login = () => {
                             <Link href="/">
                                 <img
                                     alt="Logo"
-                                    className="w-12 h-12"
+                                    className="w-12 object-contain"
                                     src="/logo.png"
                                 />
                             </Link>

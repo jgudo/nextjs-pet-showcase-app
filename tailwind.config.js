@@ -51,8 +51,8 @@ module.exports = {
   },
   variants: {
     backgroundSize: ['important', 'responsive'],
-    backgroundColor: ['important', 'responsive'],
-    fontSize: ['important'],
+    backgroundColor: ['important', 'hover', 'responsive'],
+    fontSize: ['important', 'responsive'],
     backgroundRepeat: ['important', 'responsive'],
     backgroundPosition: ['important', 'responsive'],
     borderColor: ['important', 'focus', 'hover', 'dark'],

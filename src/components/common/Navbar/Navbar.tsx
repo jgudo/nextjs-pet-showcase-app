@@ -13,10 +13,10 @@ const Navbar: FC = () => {
     return hiddenTo.includes(router.pathname) ? null : (
         <nav className="w-full h-14 laptop:h-16 bg-white fixed top-0 left-0 z-50 flex px-4 laptop:px-10 justify-between items-center shadow-sm border-b border-solid border-gray-100">
             <ul className="flex items-center space-x-4">
-                <li>
+                <li className="cursor-pointer">
                     <Link href="/">
                         <img
-                            className="w-10 h-10 laptop:w-14 laptop:h-14 object-contain"
+                            className="w-14  laptop:w-16 object-contain"
                             id="title"
                             src="/logo.png"
                             alt="pet care logo"

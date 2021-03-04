@@ -47,7 +47,7 @@ const PetPage: FC = () => {
           />
           <div className="mt-4">
             {pet.images?.length > 0 && (
-              <div className="grid grid-cols-4 gap-2 h-24">
+              <div className="grid grid-cols-4 gap-2 h-20 laptop:h-24">
                 {[pet.image, ...pet.images].map(image => (
                   <div
                     className={`w-full opacity-80 h-full rounded-lg shadow-lg hover:cursor-pointer !bg-cover !bg-no-repeat !bg-center ${activeImage?.public_id === image.public_id && 'opacity-100 border-2 border-solid border-accent-400'}`}
