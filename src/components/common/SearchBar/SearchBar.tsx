@@ -36,9 +36,11 @@ const SearchBar = () => {
                 <>
                     <FiSearch className="absolute top-0 bottom-0 left-1 my-auto text-gray-400" />
                     <input
+                        aria-label="Search"
                         className="!py-4 !px-6 laptop:w-60"
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
+                        id="search"
                         placeholder="Search for pet..."
                         type="text"
                         value={text}
@@ -67,9 +69,11 @@ const SearchBar = () => {
                     <div className="flex items-center relative w-full">
                         <FiSearch className="absolute top-0 bottom-0 left-0 my-auto text-gray-400" />
                         <input
+                            aria-label="Search"
                             className="!py-4 !px-6 w-full h-full"
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
+                            id="search"
                             placeholder="Search for pet..."
                             type="text"
                             value={text}

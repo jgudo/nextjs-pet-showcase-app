@@ -7,7 +7,7 @@ const Layout: FC = ({ children }) => {
     return (
         <>
             <Head>
-                <title>PawShow | Show your pet to the world.</title>
+                <title>PawShow - Show your pet to the world with PawShow</title>
             </Head>
             <Navbar />
             <main className={styles.main}>

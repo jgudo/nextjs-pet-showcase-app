@@ -34,21 +34,25 @@ const Sidebar = () => {
                     <AddNewButton />
                 </div>
             )}
-            <span className="text-subtle text-xs">Country</span>
-            <CountryDropDown
-                selected={filter.selected.country}
-                onChange={handleCountryChange}
-                defaultOptions={filter.filters.countries}
-                defaultValue={filter.selected.country}
-            />
+            <label className="text-sm" htmlFor="country">
+                <span className="text-subtle text-xs">Country</span>
+                <CountryDropDown
+                    selected={filter.selected.country}
+                    onChange={handleCountryChange}
+                    defaultOptions={filter.filters.countries}
+                    defaultValue={filter.selected.country}
+                />
+            </label>
             <br />
-            <span className="text-subtle text-xs">Species</span>
-            <SpeciesDropDown
-                onChange={handleSpeciesChange}
-                defaultValue={filter.selected.species ? labelize(filter.selected.species) : null}
-                options={filter.filters.species.map(item => labelize(item))}
-                selected={filter.selected.species ? labelize(filter.selected.species) : null}
-            />
+            <label className="text-sm" htmlFor="species">
+                <span className="text-subtle text-xs">Species</span>
+                <SpeciesDropDown
+                    onChange={handleSpeciesChange}
+                    defaultValue={filter.selected.species ? labelize(filter.selected.species) : null}
+                    options={filter.filters.species.map(item => labelize(item))}
+                    selected={filter.selected.species ? labelize(filter.selected.species) : null}
+                />
+            </label>
             <br />
             {Object.values(filter.selected).some(val => Boolean(val) && !isSmallScreen) && (
                 <span

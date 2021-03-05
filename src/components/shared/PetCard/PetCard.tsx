@@ -1,4 +1,5 @@
 import { IPet } from "@/types/types";
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from "next/router";
 import { FC } from "react";
@@ -36,9 +37,12 @@ const PetCard: FC<IProps> = ({ pet }) => {
                 )}
                 {/* ------ FRONT CARD ----- */}
                 <div className="transform transition-transform duration-500 ease-in-out w-full h-full rotate-y-0 laptop:group-hover:rotate-y-180 p-2 backface-hidden !bg-no-repeat !bg-cover !bg-center absolute top-0 left-0 rounded-lg overflow-hidden shadow-md">
-                    <img
+                    <Image
+                        alt={`${pet.name}'s photo`}
                         className="w-full h-full object-cover absolute top-0 right-0"
-                        src={pet.image_url || pet.image.url}
+                        src={pet.image.url}
+                        layout="fill"
+                        loading="lazy"
                     />
                 </div>
                 {/* ------ BACK CARD ----- */}

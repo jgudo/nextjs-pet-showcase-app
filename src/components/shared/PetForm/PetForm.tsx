@@ -149,7 +149,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
     <div>
       <div>
         {error && <span className="p-2 text-red-500 bg-red-100 block">{error}</span>}
-        <h1 className="text-gray-800 text-2xl laptop:text-6xl">{title}</h1>
+        <h1 className="text-gray-800 text-2xl laptop:text-4xl">{title}</h1>
       </div>
       <p className="text-gray-500 flex items-center">
         <FiInfo /> &nbsp;
