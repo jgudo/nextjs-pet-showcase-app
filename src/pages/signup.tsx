@@ -70,6 +70,8 @@ const SignUp = () => {
                             alt="Logo"
                             className="w-28 object-contain mb-8"
                             src="/logo.png"
+                            width={100}
+                            height={80}
                         />
                     </Link>
                     <h1 className="text-white">
@@ -86,6 +88,8 @@ const SignUp = () => {
                                     alt="Logo"
                                     className="w-12 object-contain"
                                     src="/logo.png"
+                                    width={100}
+                                    height={80}
                                 />
                             </Link>
                         </div>

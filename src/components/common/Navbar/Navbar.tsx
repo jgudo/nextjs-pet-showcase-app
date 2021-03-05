@@ -20,6 +20,8 @@ const Navbar: FC = () => {
                             id="title"
                             src="/logo.png"
                             alt="pet care logo"
+                            width={100}
+                            height={80}
                         />
                     </Link>
                 </li>
