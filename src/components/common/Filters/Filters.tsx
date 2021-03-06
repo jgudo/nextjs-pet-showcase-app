@@ -34,8 +34,8 @@ const Sidebar = () => {
                     <AddNewButton />
                 </div>
             )}
-            <label className="text-sm" htmlFor="country">
-                <span className="text-subtle text-xs">Country</span>
+            <label className="text-sm text-gray-700" htmlFor="country">
+                <span className="text-gray-500 text-xs">Country</span>
                 <CountryDropDown
                     selected={filter.selected.country}
                     onChange={handleCountryChange}
@@ -44,8 +44,8 @@ const Sidebar = () => {
                 />
             </label>
             <br />
-            <label className="text-sm" htmlFor="species">
-                <span className="text-subtle text-xs">Species</span>
+            <label className="text-sm text-gray-700" htmlFor="species">
+                <span className="text-gray-500 text-xs">Species</span>
                 <SpeciesDropDown
                     onChange={handleSpeciesChange}
                     defaultValue={filter.selected.species ? labelize(filter.selected.species) : null}

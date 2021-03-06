@@ -18,7 +18,7 @@ const PetPage: FC = () => {
   const [activeImage, setActiveImage] = useState(pet?.image || null);
 
   if (error) return <h1>Failed to load</h1>
-  if (!petData) return <h1>Loading...</h1>
+  if (!petData) return <h1 className="mt-20">Loading...</h1>
 
   const handleDelete = async () => {
     const petID = router.query.id
