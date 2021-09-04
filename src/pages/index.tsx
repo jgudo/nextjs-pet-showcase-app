@@ -1,4 +1,4 @@
-import { Filters } from '@/components/common';
+import { Filters, Footer } from '@/components/common';
 import { NoPetFound, PetGrid, SomethingWentWrong } from '@/components/shared';
 import fetcher from '@/lib/fetcher';
 import { useFilter } from '@/provider/FilterProvider';
@@ -32,9 +32,10 @@ const Index: FC = () => {
         {error
           ? renderErrorPage()
           : !pets
-            ? <h2>Loading...</h2>
-            : <PetGrid pets={pets.data} />
+            ? <PetGrid isLoading={true} pets={[]} />
+            : <PetGrid isLoading={false} pets={pets.data} />
         }
+        <Footer />
       </div>
     </div>
   )

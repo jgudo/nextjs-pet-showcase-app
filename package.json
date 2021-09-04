@@ -32,6 +32,7 @@
     "react-dom": "^16.13.1",
     "react-file-drop": "^3.1.2",
     "react-icons": "^4.2.0",
+    "react-loading-skeleton": "^2.2.0",
     "react-select": "^4.1.0",
     "react-select-country-list": "^2.2.3",
     "swr": "^0.4.2",
