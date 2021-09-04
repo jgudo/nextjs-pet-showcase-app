@@ -41,8 +41,7 @@ handler
     ensureAuth,
     async (req, res, next) => {
       const promise = new Promise((resolve, reject) => {
-        const form = new IncomingForm();
-        form.multiples = true;
+        const form = new IncomingForm({ multiples: true });
 
         form.parse(req, (err, fields, files) => {
           if (err) reject(err);

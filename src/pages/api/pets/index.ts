@@ -50,8 +50,7 @@ handler
     ensureAuth,
     async (req, res, next) => {
       const promise = new Promise((resolve, reject) => {
-        const form = new IncomingForm();
-        form.multiples = true;
+        const form = new IncomingForm({ multiples: true });
 
         form.onPart = function (part) {
           if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
