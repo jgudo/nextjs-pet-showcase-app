@@ -4,23 +4,22 @@ import { connection } from 'mongoose';
 
 const MongoStore = connectMongo(session);
 
-const sessionMiddleware = (req: any, res: any, next: any) => {
-    const mongoStore = new MongoStore({
-        mongooseConnection: connection,
-        collection: 'session',
-    });
-    return session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-        store: mongoStore,
-        cookie: {
-            expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-            secure: false, // HELP! setting true in production is not setting cookie
-            sameSite: 'strict',
-            httpOnly: process.env.NODE_ENV === "production"
-        }
-    })(req, res, next);
-}
+const mongoStore = new MongoStore({
+    mongooseConnection: connection,
+    collection: 'session',
+});
 
-export default sessionMiddleware;
+const sessionInstance = session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: mongoStore,
+    cookie: {
+        expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+        secure: false, // HELP! setting true in production is not setting cookie
+        sameSite: 'strict',
+        httpOnly: process.env.NODE_ENV === "production"
+    }
+});
+
+export default sessionInstance;

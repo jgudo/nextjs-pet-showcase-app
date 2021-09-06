@@ -1,8 +1,11 @@
 import dbConnect from '@/utils/dbConnect';
 import nextConnect from 'next-connect';
+import path from 'path';
 import { ErrorHandler } from './errorMiddleware';
 import passport from './passport';
 import session from './session';
+
+console.log('PATH RESOLVE', path.join());
 
 const middlewares = nextConnect();
 middlewares

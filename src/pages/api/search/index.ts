@@ -7,6 +7,12 @@ import nextConnect from "next-connect";
 const handlerOptions = { onNoMatch, onError: errorMiddleware }
 const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
 
+export const config = {
+    api: {
+        externalResolver: true,
+    },
+}
+
 handler
     .use(middlewares)
     .get(async (req, res, next) => {

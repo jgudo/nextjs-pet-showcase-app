@@ -11,7 +11,8 @@ const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
 
 export const config = {
   api: {
-    bodyParser: false
+    bodyParser: false,
+    externalResolver: true,
   }
 }
 

@@ -17,6 +17,7 @@ passport.deserializeUser((id, done) => {
             console.log('ERR', err)
             return done(err);
         }
+        console.log('DESERIALIZE', user);
         done(null, user);
     });
 });
@@ -88,13 +89,16 @@ passport.use(
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
+                console.log('HEYYYYY')
                 const fbProfile = profile._json;
                 console.log(fbProfile)
                 const user = await User.findOne({ provider_id: fbProfile.id });
 
                 if (user) {
+                    console.log('FB USER FOUND ', user);
                     return done(null, user);
                 } else {
+                    console.log('NO FB USER ');
                     const randomString = Math.random().toString(36).substring(2);
                     const photo = fbProfile.picture ? { public_id: fbProfile.id, url: fbProfile.picture.data.url } : null;
 
@@ -107,14 +111,15 @@ passport.use(
                         provider: 'facebook',
                     });
 
-                    newUser.save(function (err) {
-                        if (err) {
-                            done(null, false, err);  // handle errors!
-                        } else {
+                    newUser
+                        .save()
+                        .then(() => {
                             console.log('SUCCESSFULL CREATED', newUser);
                             done(null, newUser);
-                        }
-                    });
+                        })
+                        .catch((err) => {
+                            done(null, false, err);  // handle errors!
+                        })
                 }
             } catch (err) {
                 console.log(err);

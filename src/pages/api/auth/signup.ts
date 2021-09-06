@@ -1,11 +1,16 @@
-import middlewares, { ErrorHandler, errorMiddleware, onNoMatch } from '@/middlewares/index';
-import passport from "@/middlewares/passport";
+import middlewares, { ErrorHandler, errorMiddleware, onNoMatch, passport } from '@/middlewares/index';
 import { NextApiRequestExt } from '@/types/types';
 import { NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
 const handlerOptions = { onNoMatch, onError: errorMiddleware };
 const handler = nextConnect<NextApiRequestExt, NextApiResponse>(handlerOptions);
+
+export const config = {
+    api: {
+        externalResolver: true,
+    },
+}
 
 handler
     .use(middlewares)

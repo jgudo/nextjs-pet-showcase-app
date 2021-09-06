@@ -5,7 +5,7 @@ const PageNotFound = () => {
     const router = useRouter();
 
     return (
-        <div className="container">
+        <div className="px-0 laptop:px-14 min-h-screen">
             <h1>Ooops. You seemed lost.</h1>
             <p>The page you're trying to load doesn't exist.</p>
             <br />
@@ -14,7 +14,7 @@ const PageNotFound = () => {
                 onClick={() => router.push('/')}
             >
                 <FiArrowLeft /> &nbsp; Back to Home
-                </button>
+            </button>
             <style jsx>
                 {`
                 .container {

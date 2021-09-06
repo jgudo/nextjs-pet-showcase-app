@@ -83,7 +83,7 @@
       bg-white
       border-solid
       border-b 
-      border-gray-200;
+      border-gray-300;
 
     &:focus {
       @apply border-b border-primary-500;
@@ -116,6 +116,6 @@ body {
   margin: 0;
   @apply text-sm text-gray-800;
   font-weight: 500;
-  background: #f9f9f9;
+  background: #f8f8f8;
 }
 /* purgecss end ignore */
