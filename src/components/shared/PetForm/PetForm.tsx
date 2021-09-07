@@ -221,7 +221,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                   iid="likes"
                   options={toObjectArray(petForm.likes)}
                   disabled={isSubmitting}
-                  placeholder=""
+                  placeholder="Select/Create likes"
                   label="Likes"
                 />
                 <CustomMultiSelect
@@ -230,7 +230,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                   options={toObjectArray(petForm.dislikes)}
                   iid="dislikes"
                   disabled={isSubmitting}
-                  placeholder=""
+                  placeholder="Select/Create dislikes"
                   label="Dislikes"
                 />
                 <CustomMultiSelect
@@ -239,7 +239,7 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                   iid="diet"
                   disabled={isSubmitting}
                   options={toObjectArray(petForm.diet)}
-                  placeholder=""
+                  placeholder="Select/Create diet"
                   label="Diet"
                 />
               </div>
@@ -256,8 +256,8 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                 type="submit"
               >
                 {isSubmitting ? <AiOutlineLoading className="spin" /> : <FiCheck />}
-                  &nbsp;
-                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                &nbsp;
+                {isSubmitting ? 'Submitting...' : 'Submit'}
               </button>
             </div>
           </Form>

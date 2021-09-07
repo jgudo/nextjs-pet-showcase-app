@@ -28,7 +28,7 @@ const NewPet = () => {
       <PetForm
         formId="add-pet-form"
         petForm={petForm}
-        title="Submit your pet"
+        title="Share your pet"
         forNewPet={true}
       />
     </div>

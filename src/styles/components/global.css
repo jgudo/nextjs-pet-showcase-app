@@ -80,10 +80,10 @@
       outline-none
       text-sm
       font-medium
-      bg-white
       border-solid
+      bg-transparent
       border-b 
-      border-gray-300;
+      border-gray-400;
 
     &:focus {
       @apply border-b border-primary-500;

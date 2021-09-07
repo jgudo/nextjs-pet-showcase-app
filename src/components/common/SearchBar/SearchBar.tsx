@@ -77,7 +77,7 @@ const SearchBar = () => {
                         <FiSearch className="absolute top-0 bottom-0 left-0 my-auto text-gray-400" />
                         <input
                             aria-label="Search"
-                            className="!py-4 !px-6 w-full h-full"
+                            className="!py-4 !px-6 w-full h-full border-gray-300"
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
                             id="search"
