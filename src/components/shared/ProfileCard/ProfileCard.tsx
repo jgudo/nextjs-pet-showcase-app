@@ -1,6 +1,6 @@
 import { updateUser } from '@/lib/api';
 import { IUser } from '@/types/types';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FiCamera } from 'react-icons/fi';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { mutate } from 'swr';
@@ -14,6 +14,10 @@ const ProfileCard: FC<IProps> = ({ user }) => {
     const [name, setName] = useState(user?.name || '');
     const [isLoading, setLoading] = useState(false);
     const [photo, setPhoto] = useState({ file: null, url: '' });
+
+    useEffect(() => {
+        setName(user?.name || '');
+    }, [user]);
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
