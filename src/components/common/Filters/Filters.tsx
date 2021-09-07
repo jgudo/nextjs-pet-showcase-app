@@ -1,6 +1,6 @@
 import { AddNewButton } from "@/components/shared";
+import { useMediaQuery } from '@/hooks';
 import { useFilter } from "@/provider/FilterProvider";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { Option } from "react-select/src/filters";
@@ -14,8 +14,7 @@ const labelize = (str: string) => ({ label: capitalize(str), value: str.toLowerC
 const Sidebar = () => {
     const { filter, changeFilter, resetFilter } = useFilter();
     const [isVisibleFilter, setVisibleFilter] = useState(false);
-    const router = useRouter();
-    const isSmallScreen = typeof window !== 'undefined' && window.screen.width <= 1024;
+    const isSmallScreen = useMediaQuery(1024);
 
     const handleCountryChange = (val: Option) => {
         changeFilter('country', val);

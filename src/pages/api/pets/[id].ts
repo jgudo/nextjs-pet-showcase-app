@@ -97,7 +97,9 @@ handler
     ensureAuth,
     async (req, res, next) => {
       try {
+        console.log(req.query.id)
         const pet = await Pet.findById(req.query.id);
+
 
         if (!pet) return next(new ErrorHandler(404, 'Pet not found'));
 

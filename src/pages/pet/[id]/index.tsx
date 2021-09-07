@@ -1,11 +1,12 @@
 import { Footer } from '@/components/common'
-import { deletePet } from '@/lib/api'
+import DeletePetModal from '@/components/common/Modal/DeletePetModal'
+import { useModal } from '@/hooks'
 import fetcher from '@/lib/fetcher'
 import { IPet } from '@/types/types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC, useState } from 'react'
-import { AiOutlineDelete, AiOutlineLoading } from 'react-icons/ai'
+import { AiOutlineDelete } from 'react-icons/ai'
 import { FiEdit3 } from 'react-icons/fi'
 import Skeleton from 'react-loading-skeleton'
 import useSWR from 'swr'
@@ -15,27 +16,10 @@ const PetPage: FC = () => {
   const { id } = router.query
   const { data: petData, error } = useSWR<{ data: IPet }>(id ? `/api/pets/${id}` : null, fetcher);
   const pet = petData?.data;
-  const [isDeleting, setDeleting] = useState(false);
-  const [message, setMessage] = useState('');
   const [activeImage, setActiveImage] = useState(pet?.image || null);
+  const deleteModal = useModal();
 
   if (error) return <h1>Failed to load</h1>
-
-  const handleDelete = async () => {
-    const petID = router.query.id
-
-    try {
-      setDeleting(true);
-
-      await deletePet(petID as string);
-
-      setDeleting(false);
-      router.push('/')
-    } catch (error) {
-      setMessage(error);
-      setDeleting(false);
-    }
-  }
 
   return (
     <div className="py-8 w-full laptop:w-3/4 mx-auto px-4 laptop:px-12 mt-12 laptop:mt-20">
@@ -151,7 +135,7 @@ const PetPage: FC = () => {
                   <Link href="/pet/[id]/edit" as={`/pet/${pet._id}/edit`}>
                     <button
                       className="flex items-center"
-                      disabled={isDeleting}
+                      disabled={false}
                     >
                       <FiEdit3 />
                       &nbsp;
@@ -160,10 +144,9 @@ const PetPage: FC = () => {
                   </Link>
                   <button
                     className="flex items-center bg-red-500 text-white hover:bg-red-600"
-                    disabled={isDeleting}
-                    onClick={handleDelete}
+                    onClick={deleteModal.openModal}
                   >
-                    {isDeleting ? <AiOutlineLoading className="spin" /> : <AiOutlineDelete />}
+                    <AiOutlineDelete />
                     &nbsp;
                     Delete
                   </button>
@@ -173,8 +156,13 @@ const PetPage: FC = () => {
           )}
         </div>
       </div>
-      {message && <p>{message}</p>}
       <Footer />
+      <DeletePetModal
+        isOpen={deleteModal.isOpen}
+        closeModal={deleteModal.closeModal}
+        openModal={deleteModal.openModal}
+        petID={router.query.id as string}
+      />
     </div>
   )
 }

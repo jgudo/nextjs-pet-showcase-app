@@ -1,34 +1,61 @@
 .button {
-    @extend button;
-    text-decoration: none;
+  @extend button;
+  @apply outline-none focus:outline-none;
+  text-decoration: none;
 }
 
 .button-accent {
-    @extend button;
-    @apply 
-        bg-accent-400
+  @extend button;
+  @apply bg-accent-400
         text-gray-800
         flex
         items-center;
 
-    &:hover {
-        @apply 
-        bg-accent-300 
+  &:hover {
+    @apply bg-accent-300 
         text-gray-800;
-    }
+  }
+}
+
+.button-icon {
+  @apply flex items-center  space-x-3;
 }
 
 .button-accent-1 {
-    @extend button;
-    @apply 
-        bg-accent-1-400
+  @extend button;
+  @apply bg-accent-1-400
         text-gray-800
         flex
         items-center;
 
-    &:hover {
-        @apply 
-        bg-accent-1-300
-        text-gray-800
-    }
+  &:hover {
+    @apply bg-accent-1-300
+        text-gray-800;
+  }
+}
+
+.button-danger {
+  @extend button;
+  @apply bg-red-600
+        text-white
+        flex
+        items-center;
+
+  &:hover {
+    @apply bg-red-800
+        text-white;
+  }
+}
+
+.button-muted {
+  @extend button;
+  @apply bg-gray-300
+        text-gray-700
+        flex
+        items-center;
+
+  &:hover {
+    @apply bg-gray-400
+        text-gray-700;
+  }
 }

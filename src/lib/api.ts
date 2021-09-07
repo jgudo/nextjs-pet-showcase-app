@@ -81,7 +81,7 @@ export const updateUser = (id: string, form: FormData) => {
 export const deletePet = (id: string) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const res: Response = await fetch(`/api/user/${id}`, {
+            const res: Response = await fetch(`/api/pets/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             })

@@ -3,6 +3,7 @@ import FilterProvider from '@/provider/FilterProvider';
 import '@/styles/app.css';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-responsive-modal/styles.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
