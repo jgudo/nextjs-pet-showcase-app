@@ -1,6 +1,7 @@
+import { useMediaQuery } from '@/hooks';
 import { useFilter } from '@/provider/FilterProvider';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FiChevronLeft, FiSearch, FiX } from 'react-icons/fi';
 
 const SearchBar = () => {
@@ -8,7 +9,8 @@ const SearchBar = () => {
     const [isOpen, setOpen] = useState(false);
     const { filter: { selected }, changeFilter } = useFilter();
     const router = useRouter();
-    const isSmallScreen = typeof window !== 'undefined' && window.screen.width <= 1024
+    const searchInputRef = useRef<HTMLInputElement | null>(null);
+    const isSmallScreen = useMediaQuery(1024);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = e.target.value;
@@ -28,6 +30,11 @@ const SearchBar = () => {
     const handleClear = () => {
         changeFilter('text', '');
         setText('');
+    }
+
+    const openSearchBar = () => {
+        setOpen(true);
+        searchInputRef?.current?.focus();
     }
 
     return (
@@ -56,8 +63,8 @@ const SearchBar = () => {
             )}
             {isSmallScreen && (
                 <FiSearch
-                    className="text-xl mr-4"
-                    onClick={() => setOpen(true)}
+                    className="text-1xl mr-4"
+                    onClick={openSearchBar}
                 />
             )}
             {(isSmallScreen && isOpen) && (
@@ -76,6 +83,7 @@ const SearchBar = () => {
                             id="search"
                             placeholder="Search for pet..."
                             type="text"
+                            ref={searchInputRef}
                             value={text}
                         />
                         {text && (
