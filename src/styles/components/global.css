@@ -81,13 +81,7 @@
       text-sm
       font-medium
       border-solid
-      bg-transparent
-      border-b 
-      border-gray-400;
-
-    &:focus {
-      @apply border-b border-primary-500;
-    }
+      bg-transparent;
 
     &:disabled,
     &:read-only {
@@ -95,8 +89,18 @@
     }
   }
 
+  input {
+    @apply border-b 
+    border-gray-400;
+
+    &:focus {
+      @apply border-b border-primary-500;
+    }
+  }
+
   textarea {
     resize: none;
+    @apply border border-gray-400;
   }
 }
 

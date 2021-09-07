@@ -213,7 +213,9 @@ const PetForm: FC<IProps> = ({ formId, petForm, forNewPet = true, title }) => {
                   disabled={isSubmitting}
                   name="description"
                   component={CustomTextArea}
+                  rows={7}
                   label="Short description about your pet"
+                  placeholder="Pet description"
                 />
                 <CustomMultiSelect
                   defaultValues={toObjectArray(petForm.likes)}
